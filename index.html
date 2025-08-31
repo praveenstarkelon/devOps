@@ -16,8 +16,7 @@
 
     .marquee {
       width: 100%;
-      overflow: hidden;
-      box-sizing: border-box;
+      overflow-x: hidden; /* sirf x axis hide karega, dropdown ke liye space milega */
       margin: 20px 0;
       position: relative;
     }
@@ -53,19 +52,21 @@
     .dropdown {
       display: none;
       position: absolute;
-      top: 30px;
+      top: 35px;
       left: 0;
       background: #112240;
       padding: 10px;
       border-radius: 8px;
       text-align: left;
+      min-width: 180px;
+      z-index: 1000; /* upar dikhne ke liye */
     }
 
     .dropdown a {
       display: block;
       color: #64ffda;
       font-size: 18px;
-      padding: 5px 10px;
+      padding: 6px 10px;
       text-decoration: none;
       white-space: nowrap;
     }
