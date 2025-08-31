@@ -20,16 +20,22 @@
       white-space: nowrap;
       box-sizing: border-box;
       margin: 20px 0;
+      position: relative;
+    }
+
+    .marquee-content {
+      display: inline-block;
+      padding-right: 100%; /* extra gap for smooth loop */
+      animation: marquee 15s linear infinite;
     }
 
     .marquee a {
       display: inline-block;
-      padding-left: 50px;
+      margin: 0 40px;
       color: #64ffda;
       font-size: 22px;
       font-weight: bold;
       text-decoration: none;
-      animation: marquee 12s linear infinite;
     }
 
     .marquee a:hover {
@@ -37,8 +43,8 @@
     }
 
     @keyframes marquee {
-      0%   { transform: translateX(100%); }
-      100% { transform: translateX(-100%); }
+      0%   { transform: translateX(0%); }
+      100% { transform: translateX(-50%); }
     }
 
     img {
@@ -52,13 +58,24 @@
   
   <!-- Moving Topics -->
   <div class="marquee">
-    <a href="cicd.html">🚀 CI/CD</a>
-    <a href="docker.html">🐳 Docker</a>
-    <a href="kubernetes.html">☸ Kubernetes</a>
-    <a href="terraform.html">🌍 Terraform</a>
-    <a href="aws.html">☁ AWS</a>
-    <a href="jenkins.html">⚙ Jenkins</a>
-    <a href="github.html">💻 GitHub Actions</a>
+    <div class="marquee-content">
+      <a href="cicd.html">🚀 CI/CD</a>
+      <a href="docker.html">🐳 Docker</a>
+      <a href="kubernetes.html">☸ Kubernetes</a>
+      <a href="terraform.html">🌍 Terraform</a>
+      <a href="aws.html">☁ AWS</a>
+      <a href="jenkins.html">⚙ Jenkins</a>
+      <a href="github.html">💻 GitHub Actions</a>
+
+      <!-- Duplicate for smooth loop -->
+      <a href="cicd.html">🚀 CI/CD</a>
+      <a href="docker.html">🐳 Docker</a>
+      <a href="kubernetes.html">☸ Kubernetes</a>
+      <a href="terraform.html">🌍 Terraform</a>
+      <a href="aws.html">☁ AWS</a>
+      <a href="jenkins.html">⚙ Jenkins</a>
+      <a href="github.html">💻 GitHub Actions</a>
+    </div>
   </div>
 
   <p>Ye meri image hai:</p>
