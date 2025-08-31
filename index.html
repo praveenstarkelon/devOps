@@ -16,9 +16,10 @@
 
     .marquee {
       width: 100%;
-      overflow-x: hidden; /* sirf x axis hide karega, dropdown ke liye space milega */
+      overflow-x: hidden;
       margin: 20px 0;
       position: relative;
+      white-space: nowrap;
     }
 
     .marquee-content {
@@ -41,25 +42,22 @@
       font-size: 22px;
       font-weight: bold;
       text-decoration: none;
-      white-space: nowrap;
     }
 
     .menu-item > a:hover {
       color: #ff9800;
     }
 
-    /* Dropdown */
+    /* Fixed dropdown (not moving with marquee) */
     .dropdown {
       display: none;
-      position: absolute;
-      top: 35px;
-      left: 0;
+      position: fixed;   /* FIXED instead of absolute */
       background: #112240;
       padding: 10px;
       border-radius: 8px;
       text-align: left;
       min-width: 180px;
-      z-index: 1000; /* upar dikhne ke liye */
+      z-index: 9999;
     }
 
     .dropdown a {
@@ -68,7 +66,6 @@
       font-size: 18px;
       padding: 6px 10px;
       text-decoration: none;
-      white-space: nowrap;
     }
 
     .dropdown a:hover {
@@ -98,7 +95,7 @@
   <div class="marquee">
     <div class="marquee-content">
       
-      <!-- CI/CD -->
+      <!-- Example: CI/CD -->
       <div class="menu-item">
         <a href="cicd.html">🚀 CI/CD</a>
         <div class="dropdown">
@@ -130,56 +127,6 @@
           <a href="helm.html">Helm Charts</a>
         </div>
       </div>
-
-      <!-- Terraform -->
-      <div class="menu-item">
-        <a href="terraform.html">🌍 Terraform</a>
-        <div class="dropdown">
-          <a href="terraform-install.html">Installation</a>
-          <a href="terraform-modules.html">Modules</a>
-          <a href="terraform-cloud.html">Terraform Cloud</a>
-        </div>
-      </div>
-
-      <!-- AWS -->
-      <div class="menu-item">
-        <a href="aws.html">☁ AWS</a>
-        <div class="dropdown">
-          <a href="ec2.html">EC2</a>
-          <a href="s3.html">S3</a>
-          <a href="rds.html">RDS</a>
-          <a href="lambda.html">Lambda</a>
-        </div>
-      </div>
-
-      <!-- Jenkins -->
-      <div class="menu-item">
-        <a href="jenkins.html">⚙ Jenkins</a>
-        <div class="dropdown">
-          <a href="pipelines.html">Pipelines</a>
-          <a href="plugins.html">Plugins</a>
-          <a href="jobs.html">Jobs</a>
-        </div>
-      </div>
-
-      <!-- GitHub Actions -->
-      <div class="menu-item">
-        <a href="github.html">💻 GitHub Actions</a>
-        <div class="dropdown">
-          <a href="workflows.html">Workflows</a>
-          <a href="runners.html">Runners</a>
-          <a href="marketplace.html">Marketplace</a>
-        </div>
-      </div>
-
-      <!-- Duplicate set for smooth loop -->
-      <div class="menu-item"><a href="cicd.html">🚀 CI/CD</a></div>
-      <div class="menu-item"><a href="docker.html">🐳 Docker</a></div>
-      <div class="menu-item"><a href="kubernetes.html">☸ Kubernetes</a></div>
-      <div class="menu-item"><a href="terraform.html">🌍 Terraform</a></div>
-      <div class="menu-item"><a href="aws.html">☁ AWS</a></div>
-      <div class="menu-item"><a href="jenkins.html">⚙ Jenkins</a></div>
-      <div class="menu-item"><a href="github.html">💻 GitHub Actions</a></div>
 
     </div>
   </div>
