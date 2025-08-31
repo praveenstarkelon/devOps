@@ -1,100 +1,127 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Website</title>
+  <title>DevOps Static Website</title>
   <style>
-    /* Reset + scroll fix */
-    html, body {
-      margin: 0;
-      padding: 0;
-      overflow-x: hidden;  /* removes horizontal scroll */
-      background-color: #001a33;
-      color: cyan;
+    body {
+      background-color: #0a192f;
+      color: #64ffda;
       font-family: Arial, sans-serif;
       text-align: center;
+      margin: 0;
+      padding: 0;
     }
 
-    h1 {
-      margin-top: 20px;
-    }
+    h1 { margin-top: 20px; }
 
-    /* Navbar */
-    .navbar-container {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 20px;
-      margin-top: 20px;
-    }
-
-    .menu-item {
+    .navbar-container{
+      width:100%;
+      overflow-x: hidden;
+      overflow-y: visible;
+      background:#0a192f;
+      padding:20px 0;
       position: relative;
+      z-index: 5;
     }
 
-    .menu-btn {
-      background: none;
-      border: none;
-      font-size: 18px;
-      color: cyan;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
+    .navbar{
+      display:flex;
+      list-style:none;
+      gap:40px;
+      margin:0;
+      padding:0;
+      white-space:nowrap;
+      animation: scroll 20s linear infinite;
+      will-change: transform;
     }
 
-    .menu-btn:hover {
-      color: orange;
+    .menu-item{
+      position:relative;
+      flex-shrink:0;
     }
 
-    /* Dropdown */
-    .dropdown {
-      display: none;
-      position: absolute;
-      top: 100%;
-      background-color: #0d1b2a;
-      padding: 10px;
-      border-radius: 6px;
-      min-width: 260px;
-      box-shadow: 0px 4px 8px rgba(0,0,0,0.5);
-
-      /* Column wise */
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
+    .menu-item > a{
+      color:#64ffda;
+      font-size:22px;
+      font-weight:bold;
+      text-decoration:none;
+      display:inline-block;
+      transition: transform .6s ease, color .3s ease;
     }
 
-    .dropdown a {
-      color: cyan;
-      text-decoration: none;
-      padding: 6px;
-      text-align: left;
-      border-radius: 4px;
+    .menu-item:hover > a{
+      transform: rotateY(360deg);
+      color:#ff9800;
     }
 
-    .dropdown a:hover {
-      background-color: #1b263b;
-      color: orange;
+    /* ===== Dropdown Common ===== */
+    .dropdown{
+      display:grid;
+      grid-template-columns: repeat(2,1fr);
+      gap:12px;
+      position:absolute;
+      top:100%;
+      left:0;
+      border-radius:12px;
+      padding:15px 20px;
+      min-width:280px;
+
+      opacity:0;
+      transform: translateY(14px);
+      pointer-events:none;
+      transition: opacity .25s ease, transform .25s ease;
+
+      box-shadow: 0 8px 24px rgba(0,0,0,.35);
+      z-index: 1000;
     }
 
-    /* Show dropdown on hover */
-    .menu-item:hover .dropdown {
-      display: flex;
+    .dropdown a{
+      font-size:18px;
+      text-decoration:none;
+      border-radius:8px;
+      text-align:left;
+      padding:8px 10px;
+      transition: background .3s, color .3s, box-shadow .3s;
+      display:flex;
+      align-items:center;
+      gap:8px;
     }
 
-    /* Special case: last item (GitHub Actions) → open towards left */
-    .menu-item:last-child .dropdown {
-      right: 0;
-      left: auto;
+    .dropdown a:hover{
+      color:#ff9800;
+      box-shadow:0 0 12px rgba(255,152,0,.6);
     }
 
-    /* Image style */
-    .image-container img {
-      margin-top: 20px;
-      width: 300px;
-      border-radius: 12px;
-      box-shadow: 0px 0px 20px cyan;
+    .menu-item:hover .dropdown{
+      opacity:1;
+      transform: translateY(0);
+      pointer-events:auto;
+    }
+
+    /* ===== Individual dropdown colors ===== */
+    .docker-dropdown { background:#0d3b66; }
+    .k8s-dropdown    { background:#3d2c8d; }
+    .terraform-dropdown { background:#264653; }
+    .aws-dropdown    { background:#8d2c2c; }
+    .jenkins-dropdown{ background:#2a4d14; }
+    .gh-dropdown     { background:#343a40; }
+
+    img{
+      margin-top:20px;
+      border-radius:10px;
+      max-width:300px;
+      box-shadow:0 0 15px rgba(100,255,218,.5);
+    }
+
+    @keyframes scroll{
+      from{ transform: translateX(100%); }
+      to  { transform: translateX(-100%); }
+    }
+
+    @media (max-width:600px){
+      .navbar{ gap:24px; }
+      .menu-item > a{ font-size:18px; }
+      .dropdown{ grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -102,60 +129,90 @@
   <h1>Welcome to My Website</h1>
 
   <div class="navbar-container">
-    <div class="menu-item">
-      <button class="menu-btn">☸ Kubernetes</button>
-      <div class="dropdown">
-        <a href="#">Basics</a>
-        <a href="#">Pods</a>
-        <a href="#">Services</a>
-        <a href="#">Volumes</a>
-        <a href="#">ConfigMaps</a>
-      </div>
-    </div>
+    <ul class="navbar">
 
-    <div class="menu-item">
-      <button class="menu-btn">🌍 Terraform</button>
-      <div class="dropdown">
-        <a href="#">Basics</a>
-        <a href="#">Providers</a>
-        <a href="#">Resources</a>
-        <a href="#">Modules</a>
-      </div>
-    </div>
+      <li class="menu-item">
+        <a href="docker.html">🐳 Docker</a>
+        <div class="dropdown docker-dropdown">
+          <a href="docker-basics.html">📘 Basics</a>
+          <a href="docker-images.html">🖼 Images</a>
+          <a href="docker-containers.html">📦 Containers</a>
+          <a href="docker-volumes.html">💾 Volumes</a>
+          <a href="docker-compose.html">⚙ Compose</a>
+          <a href="docker-swarm.html">🌐 Swarm</a>
+        </div>
+      </li>
 
-    <div class="menu-item">
-      <button class="menu-btn">☁ AWS</button>
-      <div class="dropdown">
-        <a href="#">EC2</a>
-        <a href="#">S3</a>
-        <a href="#">IAM</a>
-        <a href="#">VPC</a>
-      </div>
-    </div>
+      <li class="menu-item">
+        <a href="kubernetes.html">☸ Kubernetes</a>
+        <div class="dropdown k8s-dropdown">
+          <a href="pods.html">📦 Pods</a>
+          <a href="services.html">🔗 Services</a>
+          <a href="deployments.html">🚀 Deployments</a>
+          <a href="configmaps.html">🗂 ConfigMaps</a>
+          <a href="helm.html">⛵ Helm</a>
+        </div>
+      </li>
 
-    <div class="menu-item">
-      <button class="menu-btn">⚙ Jenkins</button>
-      <div class="dropdown">
-        <a href="#">Pipeline</a>
-        <a href="#">Freestyle</a>
-        <a href="#">Plugins</a>
-      </div>
-    </div>
+      <li class="menu-item">
+        <a href="terraform.html">🌍 Terraform</a>
+        <div class="dropdown terraform-dropdown">
+          <a href="basics.html">📘 Basics</a>
+          <a href="resources.html">📂 Resources</a>
+          <a href="outputs.html">📤 Outputs</a>
+          <a href="state.html">🗃 State Mgmt</a>
+          <a href="tf-cloud.html">☁ Terraform Cloud</a>
+        </div>
+      </li>
 
-    <div class="menu-item">
-      <button class="menu-btn">💻 GitHub Actions</button>
-      <div class="dropdown">
-        <a href="#">Workflows</a>
-        <a href="#">Runners</a>
-        <a href="#">Secrets</a>
-        <a href="#">Marketplace</a>
-      </div>
-    </div>
+      <li class="menu-item">
+        <a href="aws.html">☁ AWS</a>
+        <div class="dropdown aws-dropdown">
+          <a href="ec2.html">💻 EC2</a>
+          <a href="s3.html">🗄 S3</a>
+          <a href="rds.html">🛢 RDS</a>
+          <a href="vpc.html">🌐 VPC</a>
+          <a href="iam.html">🔑 IAM</a>
+          <a href="lambda.html">⚡ Lambda</a>
+        </div>
+      </li>
+
+      <li class="menu-item">
+        <a href="jenkins.html">⚙ Jenkins</a>
+        <div class="dropdown jenkins-dropdown">
+          <a href="pipelines.html">🔀 Pipelines</a>
+          <a href="agents.html">🤖 Agents</a>
+          <a href="plugins.html">🔌 Plugins</a>
+          <a href="jobs.html">📋 Jobs</a>
+        </div>
+      </li>
+
+      <li class="menu-item">
+        <a href="github.html">💻 GitHub Actions</a>
+        <div class="dropdown gh-dropdown">
+          <a href="workflows.html">⚙ Workflows</a>
+          <a href="runners.html">🏃 Runners</a>
+          <a href="secrets.html">🔒 Secrets</a>
+          <a href="marketplace.html">🛒 Marketplace</a>
+        </div>
+      </li>
+    </ul>
   </div>
 
   <p>Ye meri image hai:</p>
-  <div class="image-container">
-    <img src="your-image.png" alt="My Image">
-  </div>
+  <img src="images/photo.jpg" alt="My Photo">
+
+  <script>
+    const navbar = document.querySelector('.navbar');
+    const items = document.querySelectorAll('.menu-item');
+    items.forEach(item=>{
+      item.addEventListener('mouseenter', ()=>{
+        navbar.style.animationPlayState = 'paused';
+      });
+      item.addEventListener('mouseleave', ()=>{
+        navbar.style.animationPlayState = 'running';
+      });
+    });
+  </script>
 </body>
 </html>
