@@ -29,6 +29,8 @@
     .menu-item {
       position: relative;
       margin: 0 30px;
+      overflow: hidden;   /* marquee ke liye */
+      width: 150px;       /* fixed width taaki marquee visible ho */
     }
 
     .menu-item > a {
@@ -38,12 +40,19 @@
       text-decoration: none;
       white-space: nowrap;
       display: inline-block;
-      transition: transform 0.6s ease, color 0.3s ease;
+      padding: 5px 10px;
+      animation: marquee 5s linear infinite;
     }
 
-    /* Rotate effect on hover */
+    /* Marquee animation */
+    @keyframes marquee {
+      0%   { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+
+    /* Hover effect: marquee ruk jaye + color change */
     .menu-item:hover > a {
-      transform: rotateY(360deg);
+      animation-play-state: paused;
       color: #ff9800;
     }
 
