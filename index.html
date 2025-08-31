@@ -7,15 +7,14 @@
       background-color: #1E3A8A;
       color: white;
       font-family: Arial, sans-serif;
-      text-align: center;
       padding: 30px;
     }
     nav {
       margin: 20px 0;
       display: flex;
-      justify-content: center; /* center me rakhega */
-      gap: 15px; /* topics ke beech gap */
-      flex-wrap: wrap; /* mobile screen pe neeche shift ho jaye */
+      justify-content: flex-start; /* left side se start hoga */
+      gap: 15px; /* topics ke beech space */
+      flex-wrap: wrap; /* chhoti screen pe neeche aa jaye */
     }
     nav a {
       background: #2563EB;
@@ -28,12 +27,18 @@
     }
     nav a:hover {
       background: #60A5FA;
-      transform: scale(1.05); /* hover pe thoda zoom */
+      transform: scale(1.05);
     }
     img {
       border: 3px solid white;
       border-radius: 10px;
       margin-top: 20px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto; /* image center rahegi */
+    }
+    h1, p {
+      text-align: center;
     }
   </style>
 </head>
