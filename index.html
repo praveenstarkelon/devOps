@@ -1,61 +1,47 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>My DevOps Website</title>
+  <title>DevOps Static Website</title>
   <style>
     body {
-      background-color: #1E3A8A;
-      color: white;
+      background-color: #0a192f; /* DevOps feel - dark navy */
+      color: #64ffda;
       font-family: Arial, sans-serif;
-      padding: 30px;
-    }
-    nav {
-      margin: 20px 0;
-      display: flex;
-      justify-content: flex-start; /* left to right */
-      gap: 15px;
-      flex-wrap: wrap;
-    }
-    nav a {
-      background: #2563EB;
-      color: white;
-      text-decoration: none;
-      padding: 12px 25px;
-      border-radius: 8px;
-      font-weight: bold;
-      transition: all 0.3s ease; /* smooth hover */
-      display: inline-block;
-    }
-    nav a:hover {
-      background: #60A5FA; /* hover par color change */
-      transform: scale(1.1); /* hover par zoom thoda */
-      cursor: pointer; /* cursor hand ban jayega */
-    }
-    img {
-      border: 3px solid white;
-      border-radius: 10px;
-      margin-top: 20px;
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    h1, p {
       text-align: center;
+    }
+
+    h1 {
+      margin-top: 20px;
+    }
+
+    .marquee {
+      width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+      box-sizing: border-box;
+      margin-top: 50px;
+    }
+
+    .marquee span {
+      display: inline-block;
+      padding-left: 100%;
+      animation: marquee 12s linear infinite;
+      font-size: 24px;
+    }
+
+    @keyframes marquee {
+      0%   { transform: translateX(0%); }
+      100% { transform: translateX(-100%); }
     }
   </style>
 </head>
 <body>
-  <h1>Welcome to My DevOps Website</h1>
-  <p>Explore DevOps topics below:</p>
-
-  <nav>
-    <a href="cicd.html">CI/CD</a>
-    <a href="docker.html">Docker</a>
-    <a href="kubernetes.html">Kubernetes</a>
-    <a href="terraform.html">Terraform</a>
-    <a href="monitoring.html">Monitoring</a>
-  </nav>
-
+  <h1>Welcome to My Website</h1>
+  <p>Ye meri image hai:</p>
   <img src="images/photo.jpg" alt="My Photo" width="300">
+
+  <div class="marquee">
+    <span>🚀 DevOps | Kubernetes | Docker | Terraform | AWS | CI/CD | Jenkins | GitHub Actions 🚀</span>
+  </div>
 </body>
 </html>
