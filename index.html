@@ -23,18 +23,21 @@
     }
 
     .marquee-content {
-      display: flex; /* FIX: keep items in a row */
-      animation: marquee 40s linear infinite; /* slow */
+      display: flex;
+      animation: marquee 40s linear infinite;
     }
 
-    /* Pause on hover */
     .marquee-content:hover {
       animation-play-state: paused;
     }
 
-    .marquee a {
-      flex: 0 0 auto; /* prevent shrinking */
+    .menu-item {
+      position: relative;
+      flex: 0 0 auto;
       margin: 0 40px;
+    }
+
+    .menu-item > a {
       color: #64ffda;
       font-size: 22px;
       font-weight: bold;
@@ -42,8 +45,38 @@
       white-space: nowrap;
     }
 
-    .marquee a:hover {
+    .menu-item > a:hover {
       color: #ff9800;
+    }
+
+    /* Dropdown */
+    .dropdown {
+      display: none;
+      position: absolute;
+      top: 30px;
+      left: 0;
+      background: #112240;
+      padding: 10px;
+      border-radius: 8px;
+      text-align: left;
+    }
+
+    .dropdown a {
+      display: block;
+      color: #64ffda;
+      font-size: 18px;
+      padding: 5px 10px;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .dropdown a:hover {
+      background: #233554;
+      color: #ff9800;
+    }
+
+    .menu-item:hover .dropdown {
+      display: block;
     }
 
     @keyframes marquee {
@@ -63,22 +96,90 @@
   <!-- Moving Topics -->
   <div class="marquee">
     <div class="marquee-content">
-      <a href="cicd.html">🚀 CI/CD</a>
-      <a href="docker.html">🐳 Docker</a>
-      <a href="kubernetes.html">☸ Kubernetes</a>
-      <a href="terraform.html">🌍 Terraform</a>
-      <a href="aws.html">☁ AWS</a>
-      <a href="jenkins.html">⚙ Jenkins</a>
-      <a href="github.html">💻 GitHub Actions</a>
+      
+      <!-- CI/CD -->
+      <div class="menu-item">
+        <a href="cicd.html">🚀 CI/CD</a>
+        <div class="dropdown">
+          <a href="jenkins.html">Jenkins</a>
+          <a href="gitlab-ci.html">GitLab CI</a>
+          <a href="github-actions.html">GitHub Actions</a>
+          <a href="aws-code-deploy.html">AWS CodeDeploy</a>
+        </div>
+      </div>
+
+      <!-- Docker -->
+      <div class="menu-item">
+        <a href="docker.html">🐳 Docker</a>
+        <div class="dropdown">
+          <a href="docker-install.html">Installation</a>
+          <a href="docker-images.html">Images</a>
+          <a href="docker-containers.html">Containers</a>
+          <a href="docker-compose.html">Docker Compose</a>
+        </div>
+      </div>
+
+      <!-- Kubernetes -->
+      <div class="menu-item">
+        <a href="kubernetes.html">☸ Kubernetes</a>
+        <div class="dropdown">
+          <a href="pods.html">Pods</a>
+          <a href="services.html">Services</a>
+          <a href="deployments.html">Deployments</a>
+          <a href="helm.html">Helm Charts</a>
+        </div>
+      </div>
+
+      <!-- Terraform -->
+      <div class="menu-item">
+        <a href="terraform.html">🌍 Terraform</a>
+        <div class="dropdown">
+          <a href="terraform-install.html">Installation</a>
+          <a href="terraform-modules.html">Modules</a>
+          <a href="terraform-cloud.html">Terraform Cloud</a>
+        </div>
+      </div>
+
+      <!-- AWS -->
+      <div class="menu-item">
+        <a href="aws.html">☁ AWS</a>
+        <div class="dropdown">
+          <a href="ec2.html">EC2</a>
+          <a href="s3.html">S3</a>
+          <a href="rds.html">RDS</a>
+          <a href="lambda.html">Lambda</a>
+        </div>
+      </div>
+
+      <!-- Jenkins -->
+      <div class="menu-item">
+        <a href="jenkins.html">⚙ Jenkins</a>
+        <div class="dropdown">
+          <a href="pipelines.html">Pipelines</a>
+          <a href="plugins.html">Plugins</a>
+          <a href="jobs.html">Jobs</a>
+        </div>
+      </div>
+
+      <!-- GitHub Actions -->
+      <div class="menu-item">
+        <a href="github.html">💻 GitHub Actions</a>
+        <div class="dropdown">
+          <a href="workflows.html">Workflows</a>
+          <a href="runners.html">Runners</a>
+          <a href="marketplace.html">Marketplace</a>
+        </div>
+      </div>
 
       <!-- Duplicate set for smooth loop -->
-      <a href="cicd.html">🚀 CI/CD</a>
-      <a href="docker.html">🐳 Docker</a>
-      <a href="kubernetes.html">☸ Kubernetes</a>
-      <a href="terraform.html">🌍 Terraform</a>
-      <a href="aws.html">☁ AWS</a>
-      <a href="jenkins.html">⚙ Jenkins</a>
-      <a href="github.html">💻 GitHub Actions</a>
+      <div class="menu-item"><a href="cicd.html">🚀 CI/CD</a></div>
+      <div class="menu-item"><a href="docker.html">🐳 Docker</a></div>
+      <div class="menu-item"><a href="kubernetes.html">☸ Kubernetes</a></div>
+      <div class="menu-item"><a href="terraform.html">🌍 Terraform</a></div>
+      <div class="menu-item"><a href="aws.html">☁ AWS</a></div>
+      <div class="menu-item"><a href="jenkins.html">⚙ Jenkins</a></div>
+      <div class="menu-item"><a href="github.html">💻 GitHub Actions</a></div>
+
     </div>
   </div>
 
