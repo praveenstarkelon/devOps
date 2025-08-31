@@ -12,9 +12,9 @@
     nav {
       margin: 20px 0;
       display: flex;
-      justify-content: flex-start; /* left side se start hoga */
-      gap: 15px; /* topics ke beech space */
-      flex-wrap: wrap; /* chhoti screen pe neeche aa jaye */
+      justify-content: flex-start; /* left to right */
+      gap: 15px;
+      flex-wrap: wrap;
     }
     nav a {
       background: #2563EB;
@@ -22,12 +22,14 @@
       text-decoration: none;
       padding: 12px 25px;
       border-radius: 8px;
-      transition: 0.3s;
       font-weight: bold;
+      transition: all 0.3s ease; /* smooth hover */
+      display: inline-block;
     }
     nav a:hover {
-      background: #60A5FA;
-      transform: scale(1.05);
+      background: #60A5FA; /* hover par color change */
+      transform: scale(1.1); /* hover par zoom thoda */
+      cursor: pointer; /* cursor hand ban jayega */
     }
     img {
       border: 3px solid white;
@@ -35,7 +37,7 @@
       margin-top: 20px;
       display: block;
       margin-left: auto;
-      margin-right: auto; /* image center rahegi */
+      margin-right: auto;
     }
     h1, p {
       text-align: center;
