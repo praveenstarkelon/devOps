@@ -1,24 +1,50 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>My Static Website</title>
+  <title>My DevOps Website</title>
   <style>
     body {
-      background-color: #1E3A8A; /* Dark blue, DevOps theme */
-      color: white; /* Text ko readable banane ke liye */
+      background-color: #1E3A8A;
+      color: white;
       font-family: Arial, sans-serif;
       text-align: center;
-      padding: 50px;
+      padding: 30px;
+    }
+    nav {
+      margin: 20px 0;
+    }
+    nav a {
+      background: #2563EB;
+      color: white;
+      text-decoration: none;
+      padding: 10px 20px;
+      margin: 5px;
+      border-radius: 8px;
+      display: inline-block;
+      transition: 0.3s;
+    }
+    nav a:hover {
+      background: #60A5FA;
     }
     img {
-      border: 3px solid white; /* Image thoda highlight ho */
+      border: 3px solid white;
       border-radius: 10px;
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
-  <h1>Welcome to My Website</h1>
-  <p>Ye meri image hai:</p>
+  <h1>Welcome to My DevOps Website</h1>
+  <p>Explore DevOps topics below:</p>
+
+  <nav>
+    <a href="cicd.html">CI/CD</a>
+    <a href="docker.html">Docker</a>
+    <a href="kubernetes.html">Kubernetes</a>
+    <a href="terraform.html">Terraform</a>
+    <a href="monitoring.html">Monitoring</a>
+  </nav>
+
   <img src="images/photo.jpg" alt="My Photo" width="300">
 </body>
 </html>
