@@ -1,57 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Rotating Topics in Circle</title>
+  <title>DevOps Static Website</title>
   <style>
     body {
-      background-color: #0a192f; /* DevOps dark theme */
-      color: #fff;
-      font-family: Arial, sans-serif;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-    }
-
-    .circle {
-      position: relative;
-      width: 300px;
-      height: 300px;
-      border-radius: 50%;
-      animation: rotateCircle 15s linear infinite;
-    }
-
-    .circle span {
-      position: absolute;
-      transform-origin: 150px 150px;
-      font-size: 18px;
-      font-weight: bold;
+      background-color: #0a192f; /* Dark background */
       color: #64ffda;
+      font-family: Arial, sans-serif;
+      text-align: center;
     }
 
-    /* Circular rotation animation */
-    @keyframes rotateCircle {
-      from {
-        transform: rotate(0deg);
-      }
-      to {
-        transform: rotate(360deg);
-      }
+    h1 {
+      margin-top: 20px;
+    }
+
+    .marquee {
+      width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+      box-sizing: border-box;
+      margin: 20px 0;
+    }
+
+    .marquee a {
+      display: inline-block;
+      padding-left: 50px;
+      color: #64ffda;
+      font-size: 22px;
+      font-weight: bold;
+      text-decoration: none;
+      animation: marquee 12s linear infinite;
+    }
+
+    .marquee a:hover {
+      color: #ff9800; /* Hover color */
+    }
+
+    @keyframes marquee {
+      0%   { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+
+    img {
+      margin-top: 20px;
+      border-radius: 10px;
     }
   </style>
 </head>
 <body>
-  <div class="circle">
-    <span style="top:0; left:140px;">Docker</span>
-    <span style="top:40px; left:250px;">Kubernetes</span>
-    <span style="top:140px; left:280px;">Terraform</span>
-    <span style="top:240px; left:250px;">AWS</span>
-    <span style="top:280px; left:140px;">Linux</span>
-    <span style="top:240px; left:30px;">Jenkins</span>
-    <span style="top:140px; left:0;">GitHub</span>
-    <span style="top:40px; left:30px;">Helm</span>
+  <h1>Welcome to My Website</h1>
+  
+  <!-- Moving Topics -->
+  <div class="marquee">
+    <a href="cicd.html">🚀 CI/CD</a>
+    <a href="docker.html">🐳 Docker</a>
+    <a href="kubernetes.html">☸ Kubernetes</a>
+    <a href="terraform.html">🌍 Terraform</a>
+    <a href="aws.html">☁ AWS</a>
+    <a href="jenkins.html">⚙ Jenkins</a>
+    <a href="github.html">💻 GitHub Actions</a>
   </div>
+
+  <p>Ye meri image hai:</p>
+  <img src="images/photo.jpg" alt="My Photo" width="300">
 </body>
 </html>
