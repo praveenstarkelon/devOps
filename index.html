@@ -12,19 +12,23 @@
     }
     nav {
       margin: 20px 0;
+      display: flex;
+      justify-content: center; /* center me rakhega */
+      gap: 15px; /* topics ke beech gap */
+      flex-wrap: wrap; /* mobile screen pe neeche shift ho jaye */
     }
     nav a {
       background: #2563EB;
       color: white;
       text-decoration: none;
-      padding: 10px 20px;
-      margin: 5px;
+      padding: 12px 25px;
       border-radius: 8px;
-      display: inline-block;
       transition: 0.3s;
+      font-weight: bold;
     }
     nav a:hover {
       background: #60A5FA;
+      transform: scale(1.05); /* hover pe thoda zoom */
     }
     img {
       border: 3px solid white;
