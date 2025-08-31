@@ -30,6 +30,11 @@
     .navbar > div {
       position: relative;
       cursor: pointer;
+      transition: transform 0.3s ease; /* smooth rotation */
+    }
+
+    .navbar > div:hover {
+      transform: rotate(-5deg); /* thoda tilt on hover */
     }
 
     .navbar a {
@@ -37,7 +42,7 @@
       color: inherit;
     }
 
-    /* Dropdown menu */
+    /* Dropdown menu (hidden by default) */
     .dropdown {
       display: none;
       position: absolute;
@@ -46,9 +51,9 @@
       background: #112240;
       padding: 15px;
       border-radius: 8px;
-      min-width: 500px;              /* dropdown width */
+      min-width: 500px;
       display: grid;
-      grid-template-columns: repeat(2, 1fr); /* 2 columns */
+      grid-template-columns: repeat(2, 1fr);
       gap: 10px 30px;
       text-align: left;
       z-index: 9999;
@@ -67,16 +72,17 @@
       color: #ff9800;
     }
 
-    /* Show dropdown on hover */
+    /* Show dropdown only on hover */
     .navbar > div:hover .dropdown {
       display: grid;
     }
 
     /* Image style */
     img {
-      margin-top: 20px;
+      margin-top: 30px;
       border-radius: 12px;
-      max-width: 300px;
+      max-width: 350px;
+      box-shadow: 0px 0px 20px rgba(100,255,218,0.5);
     }
   </style>
 </head>
@@ -89,11 +95,8 @@
       <a href="#">Docker</a>
       <div class="dropdown">
         <a href="#">Basics</a>
-        <a href="#">Dockerfile</a>
         <a href="#">Images</a>
-        <a href="#">Containers</a>
         <a href="#">Volumes</a>
-        <a href="#">Networking</a>
       </div>
     </div>
 
@@ -101,11 +104,8 @@
       <a href="#">Kubernetes</a>
       <div class="dropdown">
         <a href="#">Pods</a>
-        <a href="#">ReplicaSets</a>
         <a href="#">Deployments</a>
-        <a href="#">Services</a>
         <a href="#">ConfigMaps</a>
-        <a href="#">Secrets</a>
         <a href="#">Helm</a>
       </div>
     </div>
@@ -114,13 +114,9 @@
       <a href="#">Terraform</a>
       <div class="dropdown">
         <a href="#">Basics</a>
-        <a href="#">Providers</a>
         <a href="#">Resources</a>
-        <a href="#">Variables</a>
         <a href="#">Outputs</a>
-        <a href="#">Modules</a>
         <a href="#">State Management</a>
-        <a href="#">Workspaces</a>
         <a href="#">Terraform Cloud</a>
       </div>
     </div>
@@ -129,11 +125,8 @@
       <a href="#">AWS</a>
       <div class="dropdown">
         <a href="#">EC2</a>
-        <a href="#">S3</a>
         <a href="#">VPC</a>
-        <a href="#">RDS</a>
         <a href="#">IAM</a>
-        <a href="#">CloudWatch</a>
       </div>
     </div>
 
@@ -141,10 +134,9 @@
       <a href="#">Jenkins</a>
       <div class="dropdown">
         <a href="#">Pipeline</a>
-        <a href="#">Plugins</a>
         <a href="#">Agents</a>
-        <a href="#">Declarative</a>
         <a href="#">Scripted</a>
+        <a href="#">Workspaces</a>
       </div>
     </div>
 
@@ -152,9 +144,7 @@
       <a href="#">GitHub Actions</a>
       <div class="dropdown">
         <a href="#">Workflows</a>
-        <a href="#">Runners</a>
         <a href="#">Secrets</a>
-        <a href="#">Marketplace</a>
       </div>
     </div>
 
