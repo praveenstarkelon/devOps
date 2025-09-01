@@ -16,7 +16,7 @@
       font-size: 56px;
       text-shadow: 2px 4px 12px #0ff;
     }
-    /* Horizontally animated scrolling navbar */
+    /* === NAVBAR SCROLL === */
     .navbar-container {
       width: 100vw;
       background: #0a192f;
@@ -33,7 +33,6 @@
       width: max-content;
       animation: scroll-navbar 20s linear infinite;
     }
-
     @keyframes scroll-navbar {
       0% { transform: translateX(100%);}
       100% {transform: translateX(-100%);}
@@ -61,8 +60,7 @@
       background: rgba(100,255,218,0.10);
       transform: scale(1.08) rotateY(360deg);
     }
-
-    /* Dropdown as a table */
+    /* === DROPDOWN TABLE === */
     .dropdown {
       display: none;
       position: absolute;
@@ -80,9 +78,7 @@
     .menu-item:hover .dropdown,
     .menu-item:focus-within .dropdown {
       display: block;
-      /* no animation for instant popup, adjust as desired */
     }
-
     .dropdown table {
       width: 100%;
       border-collapse: collapse;
@@ -105,8 +101,7 @@
       color: #ff9800;
       background: rgba(100,255,218,0.08);
     }
-
-    /* Responsive and scrollbar hiding for nav container */
+    /* === Responsive design === */
     @media (max-width: 700px) {
       .navbar {
         gap: 24px;
