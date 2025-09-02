@@ -1,5 +1,5 @@
 <!--
-Version: 1.3 - Navbar animation restored
+Version: 1.7 - Table subtopics always visible on hover, navbar smoothly scrolls L→R and pauses on hover
 -->
 <!DOCTYPE html>
 <html>
@@ -37,14 +37,20 @@ Version: 1.3 - Navbar animation restored
       width: max-content;
       animation: scroll-navbar 20s linear infinite;
       white-space: nowrap;
+      position: relative;
     }
     @keyframes scroll-navbar {
       0% { transform: translateX(100vw);}
       100% {transform: translateX(-100%);}
     }
+    .navbar-container:hover .navbar,
+    .navbar-container:focus-within .navbar {
+      animation-play-state: paused;
+    }
     .menu-item {
       position: relative;
       display: inline-block;
+      height: 100%;
     }
     .mainlink {
       color: #64ffda;
@@ -56,36 +62,38 @@ Version: 1.3 - Navbar animation restored
       background: none;
       border: none;
       cursor: pointer;
-      transition: color .2s, background .2s;
+      transition: color .2s, background .2s, transform .6s;
       outline: none;
+      white-space: nowrap;
     }
     .menu-item:hover .mainlink,
     .menu-item:focus .mainlink {
       color: #ff9800;
       background: rgba(100,255,218,0.10);
+      transform: rotateY(360deg);
     }
-    /* Pause animation on nav hover for usability */
-    .navbar-container:hover .navbar,
-    .navbar-container:focus-within .navbar {
-      animation-play-state: paused;
-    }
+    /* Dropdown as table - ensure always in front and readable */
     .dropdown {
       display: none;
       position: absolute;
       left: 50%;
-      transform: translateX(-50%);
       top: 120%;
+      transform: translateX(-50%);
       min-width: 220px;
       background: #16325c;
       padding: 14px 24px;
       border-radius: 14px;
-      box-shadow: 0 8px 48px rgba(0,0,0,0.33);
-      z-index: 99;
+      box-shadow: 0 8px 48px rgba(0,0,0,0.40);
+      z-index: 9999;
       text-align: left;
+      white-space: normal;
+      pointer-events: auto;
     }
     .menu-item:hover .dropdown,
     .menu-item:focus-within .dropdown {
       display: block;
+      opacity: 1;
+      pointer-events: auto;
     }
     .dropdown table {
       width: 100%;
@@ -107,7 +115,15 @@ Version: 1.3 - Navbar animation restored
     }
     .dropdown a:hover {
       color: #ff9800;
-      background: rgba(100,255,218,0.08);
+      background: rgba(100,255,218,0.12);
+    }
+    /* Prevent clipping of dropdown when navbar scrolls */
+    .navbar-container {
+      overflow: visible;
+    }
+    /* Ensure dropdown isn't clipped if user scrolls browser while open */
+    body {
+      overflow-x: auto;
     }
     @media (max-width: 700px) {
       .navbar {
@@ -205,11 +221,9 @@ Version: 1.3 - Navbar animation restored
       </li>
     </ul>
   </div>
-
   <p class="version-text">
-    Version: 1.3 - Navbar animation restored
+    Version: 1.7 - Table subtopics, smooth scroll pause, improved dropdown experience
   </p>
-
   <p>Ye meri image hai:</p>
   <img src="images/photo.jpg" alt="My Photo">
 </body>
