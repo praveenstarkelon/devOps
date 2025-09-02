@@ -1,3 +1,6 @@
+<!--
+Version: 1.8 - Dropdowns fully accessible by mouse, no scroll needed, smooth navbar pause
+-->
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,55 +22,44 @@
     .navbar-container {
       width: 100vw;
       background: #0a192f;
-      overflow-x: hidden; /* Hide horizontal overflow */
+      overflow-x: visible; /* Must NOT be hidden, otherwise dropdown clipped! */
       position: relative;
       padding: 32px 0 16px 0;
       z-index: 2;
     }
-    .nav-scroll-wrapper {
-      position: relative;
-      width: 100%;
-      overflow: hidden;
-      height: 72px; /* enough height for navbar */
-    }
-    .navbar, .navbar.dupe {
+    .navbar {
       display: flex;
+      align-items: center;
       gap: 64px;
       list-style: none;
       padding: 0;
       margin: 0;
-      white-space: nowrap;
+      width: max-content;
       animation: scroll-navbar 20s linear infinite;
-      user-select: none;
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 72px;
-      align-items: center;
-    }
-    .navbar.dupe {
-      left: 100%;
-    }
-    .navbar-container:hover .navbar, 
-    .navbar-container:hover .navbar.dupe,
-    .navbar-container:focus-within .navbar,
-    .navbar-container:focus-within .navbar.dupe {
-      animation-play-state: paused;
+      white-space: nowrap;
+      position: relative;
+      z-index: 10;
     }
     @keyframes scroll-navbar {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-100%); }
+      0% { transform: translateX(100vw);}
+      100% {transform: translateX(-100%);}
+    }
+    .navbar-container:hover .navbar,
+    .navbar-container:focus-within .navbar {
+      animation-play-state: paused;
     }
     .menu-item {
       position: relative;
       display: inline-block;
       vertical-align: top;
+      /* Avoid overflow issues */
     }
     .mainlink {
       color: #64ffda;
       font-size: 28px;
       font-weight: bold;
       padding: 10px 18px;
+      text-decoration: none;
       border-radius: 8px;
       background: none;
       border: none;
@@ -84,6 +76,7 @@
       background: rgba(100,255,218,0.10);
       transform: rotateY(360deg);
     }
+    /* Dropdown appears directly below mainlink, full hover area preserved */
     .dropdown {
       display: none;
       position: absolute;
@@ -92,17 +85,19 @@
       transform: translateX(-50%);
       min-width: 220px;
       background: #16325c;
-      padding: 16px 24px;
+      padding: 16px 24px 16px 24px;
       border-radius: 14px;
       box-shadow: 0 8px 48px rgba(0,0,0,0.40);
       z-index: 9000;
       text-align: left;
       white-space: normal;
+      pointer-events: auto;
     }
     .menu-item:hover .dropdown,
     .menu-item:focus-within .dropdown {
       display: block;
       opacity: 1;
+      pointer-events: auto;
     }
     .dropdown table {
       width: 100%;
@@ -129,9 +124,19 @@
       background: rgba(100,255,218,0.13);
     }
     @media (max-width: 700px) {
-      .navbar, .navbar.dupe { gap: 20px; animation-duration: 35s; }
-      .mainlink { font-size: 17px; padding: 6px 8px; }
-      .dropdown { font-size: 14px; min-width: 140px; padding: 8px 6px; }
+      .navbar {
+        gap: 20px;
+        animation-duration: 35s;
+      }
+      .mainlink {
+        font-size: 17px;
+        padding: 6px 8px;
+      }
+      .dropdown {
+        font-size: 14px;
+        min-width: 140px;
+        padding: 8px 6px;
+      }
     }
     img {
       margin-top: 20px;
@@ -150,134 +155,69 @@
 <body>
   <h1>Welcome to My Website</h1>
   <div class="navbar-container">
-    <div class="nav-scroll-wrapper" tabindex="0">
-      <ul class="navbar">
-        <li class="menu-item">
-          <button class="mainlink">🐳 Docker</button>
-          <div class="dropdown">
-            <table>
-              <tr><td><a href="#"><span>📘</span> Basics</a></td></tr>
-              <tr><td><a href="#"><span>🖼</span> Images</a></td></tr>
-              <tr><td><a href="#"><span>📦</span> Containers</a></td></tr>
-              <tr><td><a href="#"><span>💾</span> Volumes</a></td></tr>
-              <tr><td><a href="#"><span>⚙</span> Compose</a></td></tr>
-              <tr><td><a href="#"><span>🌐</span> Swarm</a></td></tr>
-            </table>
-          </div>
-        </li>
-        <li class="menu-item">
-          <button class="mainlink">☸ Kubernetes</button>
-          <div class="dropdown">
-            <table>
-              <tr><td><a href="#"><span>📦</span> Pods</a></td></tr>
-              <tr><td><a href="#"><span>🔗</span> Services</a></td></tr>
-              <tr><td><a href="#"><span>🚀</span> Deployments</a></td></tr>
-              <tr><td><a href="#"><span>🗂</span> ConfigMaps</a></td></tr>
-              <tr><td><a href="#"><span>⛵</span> Helm</a></td></tr>
-            </table>
-          </div>
-        </li>
-        <li class="menu-item">
-          <button class="mainlink">🌍 Terraform</button>
-          <div class="dropdown">
-            <table>
-              <tr><td><a href="#"><span>📘</span> Basics</a></td></tr>
-              <tr><td><a href="#"><span>📂</span> Resources</a></td></tr>
-              <tr><td><a href="#"><span>📤</span> Outputs</a></td></tr>
-              <tr><td><a href="#"><span>🗃</span> State Mgmt</a></td></tr>
-              <tr><td><a href="#"><span>☁</span> Terraform Cloud</a></td></tr>
-            </table>
-          </div>
-        </li>
-        <li class="menu-item">
-          <button class="mainlink">☁ AWS</button>
-          <div class="dropdown">
-            <table>
-              <tr><td><a href="#"><span>💻</span> EC2</a></td></tr>
-              <tr><td><a href="#"><span>🗄</span> S3</a></td></tr>
-              <tr><td><a href="#"><span>🛢</span> RDS</a></td></tr>
-              <tr><td><a href="#"><span>🌐</span> VPC</a></td></tr>
-              <tr><td><a href="#"><span>🔑</span> IAM</a></td></tr>
-              <tr><td><a href="#"><span>⚡</span> Lambda</a></td></tr>
-            </table>
-          </div>
-        </li>
-        <li class="menu-item">
-          <button class="mainlink">⚙ Jenkins</button>
-          <div class="dropdown">
-            <table>
-              <tr><td><a href="#"><span>🔀</span> Pipelines</a></td></tr>
-              <tr><td><a href="#"><span>🤖</span> Agents</a></td></tr>
-              <tr><td><a href="#"><span>🔌</span> Plugins</a></td></tr>
-              <tr><td><a href="#"><span>📋</span> Jobs</a></td></tr>
-            </table>
-          </div>
-        </li>
-      </ul>
-      <ul class="navbar dupe" aria-hidden="true">
-        <li class="menu-item">
-          <button class="mainlink">🐳 Docker</button>
-          <div class="dropdown">
-            <table>
-              <tr><td><a href="#"><span>📘</span> Basics</a></td></tr>
-              <tr><td><a href="#"><span>🖼</span> Images</a></td></tr>
-              <tr><td><a href="#"><span>📦</span> Containers</a></td></tr>
-              <tr><td><a href="#"><span>💾</span> Volumes</a></td></tr>
-              <tr><td><a href="#"><span>⚙</span> Compose</a></td></tr>
-              <tr><td><a href="#"><span>🌐</span> Swarm</a></td></tr>
-            </table>
-          </div>
-        </li>
-        <li class="menu-item">
-          <button class="mainlink">☸ Kubernetes</button>
-          <div class="dropdown">
-            <table>
-              <tr><td><a href="#"><span>📦</span> Pods</a></td></tr>
-              <tr><td><a href="#"><span>🔗</span> Services</a></td></tr>
-              <tr><td><a href="#"><span>🚀</span> Deployments</a></td></tr>
-              <tr><td><a href="#"><span>🗂</span> ConfigMaps</a></td></tr>
-              <tr><td><a href="#"><span>⛵</span> Helm</a></td></tr>
-            </table>
-          </div>
-        </li>
-        <li class="menu-item">
-          <button class="mainlink">🌍 Terraform</button>
-          <div class="dropdown">
-            <table>
-              <tr><td><a href="#"><span>📘</span> Basics</a></td></tr>
-              <tr><td><a href="#"><span>📂</span> Resources</a></td></tr>
-              <tr><td><a href="#"><span>📤</span> Outputs</a></td></tr>
-              <tr><td><a href="#"><span>🗃</span> State Mgmt</a></td></tr>
-              <tr><td><a href="#"><span>☁</span> Terraform Cloud</a></td></tr>
-            </table>
-          </div>
-        </li>
-        <li class="menu-item">
-          <button class="mainlink">☁ AWS</button>
-          <div class="dropdown">
-            <table>
-              <tr><td><a href="#"><span>💻</span> EC2</a></td></tr>
-              <tr><td><a href="#"><span>🗄</span> S3</a></td></tr>
-              <tr><td><a href="#"><span>🛢</span> RDS</a></td></tr>
-              <tr><td><a href="#"><span>🌐</span> VPC</a></td></tr>
-              <tr><td><a href="#"><span>🔑</span> IAM</a></td></tr>
-              <tr><td><a href="#"><span>⚡</span> Lambda</a></td></tr>
-            </table>
-          </div>
-        </li>
-        <li class="menu-item">
-          <button class="mainlink">⚙ Jenkins</button>
-          <div class="dropdown">
-            <table>
-              <tr><td><a href="#"><span>🔀</span> Pipelines</a></td></tr>
-              <tr><td><a href="#"><span>🤖</span> Agents</a></td></tr>
-              <tr><td><a href="#"><span>🔌</span> Plugins</a></td></tr>
-              <tr><td><a href="#"><span>📋</span> Jobs</a></td></tr>
-            </table>
-          </div>
-        </li>
-      </ul>
-    </div>
+    <ul class="navbar">
+      <li class="menu-item">
+        <button class="mainlink">🐳 Docker</button>
+        <div class="dropdown">
+          <table>
+            <tr><td><a href="#"><span>📘</span> Basics</a></td></tr>
+            <tr><td><a href="#"><span>🖼</span> Images</a></td></tr>
+            <tr><td><a href="#"><span>📦</span> Containers</a></td></tr>
+            <tr><td><a href="#"><span>💾</span> Volumes</a></td></tr>
+            <tr><td><a href="#"><span>⚙</span> Compose</a></td></tr>
+            <tr><td><a href="#"><span>🌐</span> Swarm</a></td></tr>
+          </table>
+        </div>
+      </li>
+      <li class="menu-item">
+        <button class="mainlink">☸ Kubernetes</button>
+        <div class="dropdown">
+          <table>
+            <tr><td><a href="#"><span>📦</span> Pods</a></td></tr>
+            <tr><td><a href="#"><span>🔗</span> Services</a></td></tr>
+            <tr><td><a href="#"><span>🚀</span> Deployments</a></td></tr>
+            <tr><td><a href="#"><span>🗂</span> ConfigMaps</a></td></tr>
+            <tr><td><a href="#"><span>⛵</span> Helm</a></td></tr>
+          </table>
+        </div>
+      </li>
+      <li class="menu-item">
+        <button class="mainlink">🌍 Terraform</button>
+        <div class="dropdown">
+          <table>
+            <tr><td><a href="#"><span>📘</span> Basics</a></td></tr>
+            <tr><td><a href="#"><span>📂</span> Resources</a></td></tr>
+            <tr><td><a href="#"><span>📤</span> Outputs</a></td></tr>
+            <tr><td><a href="#"><span>🗃</span> State Mgmt</a></td></tr>
+            <tr><td><a href="#"><span>☁</span> Terraform Cloud</a></td></tr>
+          </table>
+        </div>
+      </li>
+      <li class="menu-item">
+        <button class="mainlink">☁ AWS</button>
+        <div class="dropdown">
+          <table>
+            <tr><td><a href="#"><span>💻</span> EC2</a></td></tr>
+            <tr><td><a href="#"><span>🗄</span> S3</a></td></tr>
+            <tr><td><a href="#"><span>🛢</span> RDS</a></td></tr>
+            <tr><td><a href="#"><span>🌐</span> VPC</a></td></tr>
+            <tr><td><a href="#"><span>🔑</span> IAM</a></td></tr>
+            <tr><td><a href="#"><span>⚡</span> Lambda</a></td></tr>
+          </table>
+        </div>
+      </li>
+      <li class="menu-item">
+        <button class="mainlink">⚙ Jenkins</button>
+        <div class="dropdown">
+          <table>
+            <tr><td><a href="#"><span>🔀</span> Pipelines</a></td></tr>
+            <tr><td><a href="#"><span>🤖</span> Agents</a></td></tr>
+            <tr><td><a href="#"><span>🔌</span> Plugins</a></td></tr>
+            <tr><td><a href="#"><span>📋</span> Jobs</a></td></tr>
+          </table>
+        </div>
+      </li>
+    </ul>
   </div>
   <p class="version-text">
     Version: 1.8 - Dropdowns fully accessible by mouse, no scroll needed, smooth navbar pause
