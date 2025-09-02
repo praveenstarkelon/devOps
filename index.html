@@ -1,5 +1,5 @@
 <!--
-Version: 2.0 - Continuous carousel scrolling with working table dropdowns for all topics, clear section separators
+Version: 2.1 - Fixed: Dropdown tables appear for all topics, both navbars identical
 -->
 <!DOCTYPE html>
 <html>
@@ -19,14 +19,12 @@ Version: 2.0 - Continuous carousel scrolling with working table dropdowns for al
       font-size: 56px;
       text-shadow: 2px 4px 12px #0ff;
     }
-    /*==== SECTION SEPARATOR ====*/
     .separator {
       width: 80vw;
       margin: 32px auto;
       border-top: 2px solid #193a51;
       opacity: 0.50;
     }
-    /*==== NAVBAR CAROUSEL ====*/
     .navbar-container {
       width: 100vw;
       background: #0a192f;
@@ -41,8 +39,7 @@ Version: 2.0 - Continuous carousel scrolling with working table dropdowns for al
       position: relative;
       height: 70px;
     }
-    .navbar,
-    .navbar.dupe {
+    .navbar, .navbar.dupe {
       display: flex;
       align-items: center;
       gap: 64px;
@@ -102,7 +99,6 @@ Version: 2.0 - Continuous carousel scrolling with working table dropdowns for al
       background: rgba(100,255,218,0.10);
       transform: rotateY(360deg);
     }
-    /*==== DROPDOWN ====*/
     .dropdown {
       display: none;
       position: absolute;
@@ -174,6 +170,7 @@ Version: 2.0 - Continuous carousel scrolling with working table dropdowns for al
   <!-- ==================== NAVBAR SECTION ==================== -->
   <div class="navbar-container">
     <div class="nav-scroll-wrapper" tabindex="0">
+      <!-- MAIN NAVBAR -->
       <ul class="navbar">
         <li class="menu-item">
           <button class="mainlink">🐳 Docker</button>
@@ -237,7 +234,7 @@ Version: 2.0 - Continuous carousel scrolling with working table dropdowns for al
           </div>
         </li>
       </ul>
-      <!-- Duplicate navbar for seamless scroll, with same dropdowns! -->
+      <!-- DUPLICATE NAVBAR FOR CONTINUOUS SCROLLING -->
       <ul class="navbar dupe" aria-hidden="true">
         <li class="menu-item">
           <button class="mainlink">🐳 Docker</button>
@@ -304,7 +301,7 @@ Version: 2.0 - Continuous carousel scrolling with working table dropdowns for al
     </div>
   </div>
   <p class="version-text">
-    Version: 2.0 - Continuous carousel, working table dropdowns, section separators
+    Version: 2.1 - Fixed: Dropdowns always visible in seamless carousel scroll
   </p>
   <div class="separator"></div>
   <p>Ye meri image hai:</p>
