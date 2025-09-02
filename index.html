@@ -1,5 +1,5 @@
 <!--
-Version: 1.9 - Seamless continuous main-topic scrolling (carousel effect), visual section separators added
+Version: 2.0 - Continuous carousel scrolling with working table dropdowns for all topics, clear section separators
 -->
 <!DOCTYPE html>
 <html>
@@ -19,14 +19,14 @@ Version: 1.9 - Seamless continuous main-topic scrolling (carousel effect), visua
       font-size: 56px;
       text-shadow: 2px 4px 12px #0ff;
     }
-    /*============= SEPARATOR STYLE =============*/
+    /*==== SECTION SEPARATOR ====*/
     .separator {
       width: 80vw;
-      margin: 32px auto 32px auto;
+      margin: 32px auto;
       border-top: 2px solid #193a51;
       opacity: 0.50;
     }
-    /*============= NAVBAR CAROUSEL =============*/
+    /*==== NAVBAR CAROUSEL ====*/
     .navbar-container {
       width: 100vw;
       background: #0a192f;
@@ -102,7 +102,7 @@ Version: 1.9 - Seamless continuous main-topic scrolling (carousel effect), visua
       background: rgba(100,255,218,0.10);
       transform: rotateY(360deg);
     }
-    /* Dropdown appears directly below mainlink, full hover area preserved */
+    /*==== DROPDOWN ====*/
     .dropdown {
       display: none;
       position: absolute;
@@ -111,7 +111,7 @@ Version: 1.9 - Seamless continuous main-topic scrolling (carousel effect), visua
       transform: translateX(-50%);
       min-width: 220px;
       background: #16325c;
-      padding: 16px 24px 16px 24px;
+      padding: 16px 24px;
       border-radius: 14px;
       box-shadow: 0 8px 48px rgba(0,0,0,0.40);
       z-index: 9000;
@@ -237,39 +237,78 @@ Version: 1.9 - Seamless continuous main-topic scrolling (carousel effect), visua
           </div>
         </li>
       </ul>
-      <!-- Duplicate navbar for seamless scroll -->
+      <!-- Duplicate navbar for seamless scroll, with same dropdowns! -->
       <ul class="navbar dupe" aria-hidden="true">
         <li class="menu-item">
           <button class="mainlink">🐳 Docker</button>
-          <div class="dropdown"></div>
+          <div class="dropdown">
+            <table>
+              <tr><td><a href="#"><span>📘</span> Basics</a></td></tr>
+              <tr><td><a href="#"><span>🖼</span> Images</a></td></tr>
+              <tr><td><a href="#"><span>📦</span> Containers</a></td></tr>
+              <tr><td><a href="#"><span>💾</span> Volumes</a></td></tr>
+              <tr><td><a href="#"><span>⚙</span> Compose</a></td></tr>
+              <tr><td><a href="#"><span>🌐</span> Swarm</a></td></tr>
+            </table>
+          </div>
         </li>
         <li class="menu-item">
           <button class="mainlink">☸ Kubernetes</button>
-          <div class="dropdown"></div>
+          <div class="dropdown">
+            <table>
+              <tr><td><a href="#"><span>📦</span> Pods</a></td></tr>
+              <tr><td><a href="#"><span>🔗</span> Services</a></td></tr>
+              <tr><td><a href="#"><span>🚀</span> Deployments</a></td></tr>
+              <tr><td><a href="#"><span>🗂</span> ConfigMaps</a></td></tr>
+              <tr><td><a href="#"><span>⛵</span> Helm</a></td></tr>
+            </table>
+          </div>
         </li>
         <li class="menu-item">
           <button class="mainlink">🌍 Terraform</button>
-          <div class="dropdown"></div>
+          <div class="dropdown">
+            <table>
+              <tr><td><a href="#"><span>📘</span> Basics</a></td></tr>
+              <tr><td><a href="#"><span>📂</span> Resources</a></td></tr>
+              <tr><td><a href="#"><span>📤</span> Outputs</a></td></tr>
+              <tr><td><a href="#"><span>🗃</span> State Mgmt</a></td></tr>
+              <tr><td><a href="#"><span>☁</span> Terraform Cloud</a></td></tr>
+            </table>
+          </div>
         </li>
         <li class="menu-item">
           <button class="mainlink">☁ AWS</button>
-          <div class="dropdown"></div>
+          <div class="dropdown">
+            <table>
+              <tr><td><a href="#"><span>💻</span> EC2</a></td></tr>
+              <tr><td><a href="#"><span>🗄</span> S3</a></td></tr>
+              <tr><td><a href="#"><span>🛢</span> RDS</a></td></tr>
+              <tr><td><a href="#"><span>🌐</span> VPC</a></td></tr>
+              <tr><td><a href="#"><span>🔑</span> IAM</a></td></tr>
+              <tr><td><a href="#"><span>⚡</span> Lambda</a></td></tr>
+            </table>
+          </div>
         </li>
         <li class="menu-item">
           <button class="mainlink">⚙ Jenkins</button>
-          <div class="dropdown"></div>
+          <div class="dropdown">
+            <table>
+              <tr><td><a href="#"><span>🔀</span> Pipelines</a></td></tr>
+              <tr><td><a href="#"><span>🤖</span> Agents</a></td></tr>
+              <tr><td><a href="#"><span>🔌</span> Plugins</a></td></tr>
+              <tr><td><a href="#"><span>📋</span> Jobs</a></td></tr>
+            </table>
+          </div>
         </li>
       </ul>
     </div>
   </div>
   <p class="version-text">
-    Version: 1.9 - Seamless continuous scrolling and visual section separators
+    Version: 2.0 - Continuous carousel, working table dropdowns, section separators
   </p>
   <div class="separator"></div>
-  <!-- ==================== MAIN CONTENT SECTION ==================== -->
   <p>Ye meri image hai:</p>
   <img src="images/photo.jpg" alt="My Photo">
   <div class="separator"></div>
-  <!-- ==================== END ==================== -->
 </body>
 </html>
