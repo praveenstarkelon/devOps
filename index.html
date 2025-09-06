@@ -1,228 +1,87 @@
-<!--
-Version: 1.8 - Dropdowns fully accessible by mouse, no scroll needed, smooth navbar pause
--->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>DevOps Static Website</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevOps Topics</title>
   <style>
     body {
-      background-color: #0a192f;
+      background: #0a192f;
       color: #64ffda;
       font-family: Arial, sans-serif;
-      text-align: center;
       margin: 0;
       padding: 0;
+      overflow-x: hidden;
     }
     h1 {
-      margin-top: 20px;
-      font-size: 56px;
-      text-shadow: 2px 4px 12px #0ff;
-    }
-    .navbar-container {
-      width: 100vw;
-      background: #0a192f;
-      overflow-x: visible; /* Must NOT be hidden, otherwise dropdown clipped! */
-      position: relative;
-      padding: 32px 0 16px 0;
-      z-index: 2;
-    }
-    .navbar {
-      display: flex;
-      align-items: center;
-      gap: 64px;
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      width: max-content;
-      animation: scroll-navbar 20s linear infinite;
-      white-space: nowrap;
-      position: relative;
-      z-index: 10;
-    }
-    @keyframes scroll-navbar {
-      0% { transform: translateX(100vw);}
-      100% {transform: translateX(-100%);}
-    }
-    .navbar-container:hover .navbar,
-    .navbar-container:focus-within .navbar {
-      animation-play-state: paused;
-    }
-    .menu-item {
-      position: relative;
-      display: inline-block;
-      vertical-align: top;
-      /* Avoid overflow issues */
-    }
-    .mainlink {
+      text-align: center;
+      padding: 20px;
       color: #64ffda;
-      font-size: 28px;
-      font-weight: bold;
-      padding: 10px 18px;
-      text-decoration: none;
-      border-radius: 8px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      transition: color .2s, background .2s, transform .6s;
-      outline: none;
-      white-space: nowrap;
+      text-shadow: 2px 2px 10px #00f;
+    }
+    .circle-container {
       position: relative;
-      z-index: 20;
+      width: 600px;
+      height: 600px;
+      margin: 0 auto;
+      border-radius: 50%;
+      animation: rotate 30s linear infinite;
     }
-    .menu-item:hover .mainlink,
-    .menu-item:focus .mainlink {
-      color: #ff9800;
-      background: rgba(100,255,218,0.10);
-      transform: rotateY(360deg);
-    }
-    /* Dropdown appears directly below mainlink, full hover area preserved */
-    .dropdown {
-      display: none;
+    .circle-container a {
       position: absolute;
-      left: 50%;
-      top: 100%;
-      transform: translateX(-50%);
-      min-width: 220px;
-      background: #16325c;
-      padding: 16px 24px 16px 24px;
-      border-radius: 14px;
-      box-shadow: 0 8px 48px rgba(0,0,0,0.40);
-      z-index: 9000;
-      text-align: left;
-      white-space: normal;
-      pointer-events: auto;
-    }
-    .menu-item:hover .dropdown,
-    .menu-item:focus-within .dropdown {
-      display: block;
-      opacity: 1;
-      pointer-events: auto;
-    }
-    .dropdown table {
-      width: 100%;
-      border-collapse: collapse;
-      background: transparent;
-    }
-    .dropdown td {
-      padding: 13px 0;
-    }
-    .dropdown a {
-      font-size: 19px;
+      color: #64ffda;
       text-decoration: none;
-      display: flex;
-      align-items: center;
-      color: #49defc;
-      border-radius: 6px;
-      transition: background .2s, color .2s;
-      padding-left: 8px;
-      text-align: left;
-      gap: 8px;
-    }
-    .dropdown a:hover {
-      color: #ff9800;
-      background: rgba(100,255,218,0.13);
-    }
-    @media (max-width: 700px) {
-      .navbar {
-        gap: 20px;
-        animation-duration: 35s;
-      }
-      .mainlink {
-        font-size: 17px;
-        padding: 6px 8px;
-      }
-      .dropdown {
-        font-size: 14px;
-        min-width: 140px;
-        padding: 8px 6px;
-      }
-    }
-    img {
-      margin-top: 20px;
-      border-radius: 10px;
-      max-width: 310px;
-      box-shadow: 0 0 15px rgba(100,255,218,.5);
-    }
-    .version-text {
-      color:#64ffda;
       font-size: 18px;
-      margin-top: 10px;
       font-weight: bold;
+      transition: color 0.3s;
+    }
+    .circle-container a:hover {
+      color: #ff9800;
+    }
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
   </style>
 </head>
 <body>
-  <h1>Welcome to My Website</h1>
-  <div class="navbar-container">
-    <ul class="navbar">
-      <li class="menu-item">
-        <button class="mainlink">🐳 Docker</button>
-        <div class="dropdown">
-          <table>
-            <tr><td><a href="#"><span>📘</span> Basics</a></td></tr>
-            <tr><td><a href="#"><span>🖼</span> Images</a></td></tr>
-            <tr><td><a href="#"><span>📦</span> Containers</a></td></tr>
-            <tr><td><a href="#"><span>💾</span> Volumes</a></td></tr>
-            <tr><td><a href="#"><span>⚙</span> Compose</a></td></tr>
-            <tr><td><a href="#"><span>🌐</span> Swarm</a></td></tr>
-          </table>
-        </div>
-      </li>
-      <li class="menu-item">
-        <button class="mainlink">☸ Kubernetes</button>
-        <div class="dropdown">
-          <table>
-            <tr><td><a href="#"><span>📦</span> Pods</a></td></tr>
-            <tr><td><a href="#"><span>🔗</span> Services</a></td></tr>
-            <tr><td><a href="#"><span>🚀</span> Deployments</a></td></tr>
-            <tr><td><a href="#"><span>🗂</span> ConfigMaps</a></td></tr>
-            <tr><td><a href="#"><span>⛵</span> Helm</a></td></tr>
-          </table>
-        </div>
-      </li>
-      <li class="menu-item">
-        <button class="mainlink">🌍 Terraform</button>
-        <div class="dropdown">
-          <table>
-            <tr><td><a href="#"><span>📘</span> Basics</a></td></tr>
-            <tr><td><a href="#"><span>📂</span> Resources</a></td></tr>
-            <tr><td><a href="#"><span>📤</span> Outputs</a></td></tr>
-            <tr><td><a href="#"><span>🗃</span> State Mgmt</a></td></tr>
-            <tr><td><a href="#"><span>☁</span> Terraform Cloud</a></td></tr>
-          </table>
-        </div>
-      </li>
-      <li class="menu-item">
-        <button class="mainlink">☁ AWS</button>
-        <div class="dropdown">
-          <table>
-            <tr><td><a href="#"><span>💻</span> EC2</a></td></tr>
-            <tr><td><a href="#"><span>🗄</span> S3</a></td></tr>
-            <tr><td><a href="#"><span>🛢</span> RDS</a></td></tr>
-            <tr><td><a href="#"><span>🌐</span> VPC</a></td></tr>
-            <tr><td><a href="#"><span>🔑</span> IAM</a></td></tr>
-            <tr><td><a href="#"><span>⚡</span> Lambda</a></td></tr>
-          </table>
-        </div>
-      </li>
-      <li class="menu-item">
-        <button class="mainlink">⚙ Jenkins</button>
-        <div class="dropdown">
-          <table>
-            <tr><td><a href="#"><span>🔀</span> Pipelines</a></td></tr>
-            <tr><td><a href="#"><span>🤖</span> Agents</a></td></tr>
-            <tr><td><a href="#"><span>🔌</span> Plugins</a></td></tr>
-            <tr><td><a href="#"><span>📋</span> Jobs</a></td></tr>
-          </table>
-        </div>
-      </li>
-    </ul>
+  <h1>🚀 DevOps Topics</h1>
+  <div class="circle-container">
+    <!-- Docker -->
+    <a href="docker-basics.html" style="top:50%; left:90%;">Docker Basics</a>
+    <a href="docker-images.html" style="top:20%; left:75%;">Docker Images</a>
+    <a href="docker-containers.html" style="top:10%; left:50%;">Docker Containers</a>
+    <a href="docker-volumes.html" style="top:20%; left:25%;">Docker Volumes</a>
+    <a href="docker-compose.html" style="top:50%; left:5%;">Docker Compose</a>
+    <a href="docker-swarm.html" style="top:80%; left:25%;">Docker Swarm</a>
+
+    <!-- Kubernetes -->
+    <a href="k8s-pods.html" style="top:90%; left:50%;">K8s Pods</a>
+    <a href="k8s-services.html" style="top:80%; left:75%;">K8s Services</a>
+    <a href="k8s-deployments.html" style="top:65%; left:90%;">K8s Deployments</a>
+    <a href="k8s-configmaps.html" style="top:35%; left:90%;">K8s ConfigMaps</a>
+    <a href="k8s-helm.html" style="top:10%; left:75%;">K8s Helm</a>
+
+    <!-- Terraform -->
+    <a href="terraform-basics.html" style="top:10%; left:25%;">Terraform Basics</a>
+    <a href="terraform-resources.html" style="top:35%; left:10%;">Terraform Resources</a>
+    <a href="terraform-outputs.html" style="top:65%; left:10%;">Terraform Outputs</a>
+    <a href="terraform-state.html" style="top:90%; left:25%;">Terraform State</a>
+    <a href="terraform-cloud.html" style="top:80%; left:50%;">Terraform Cloud</a>
+
+    <!-- AWS -->
+    <a href="aws-ec2.html" style="top:35%; left:75%;">AWS EC2</a>
+    <a href="aws-s3.html" style="top:50%; left:70%;">AWS S3</a>
+    <a href="aws-rds.html" style="top:65%; left:75%;">AWS RDS</a>
+    <a href="aws-vpc.html" style="top:65%; left:25%;">AWS VPC</a>
+    <a href="aws-iam.html" style="top:50%; left:30%;">AWS IAM</a>
+    <a href="aws-lambda.html" style="top:35%; left:25%;">AWS Lambda</a>
+
+    <!-- Jenkins -->
+    <a href="jenkins-pipelines.html" style="top:45%; left:15%;">Jenkins Pipelines</a>
+    <a href="jenkins-agents.html" style="top:55%; left:15%;">Jenkins Agents</a>
+    <a href="jenkins-plugins.html" style="top:45%; left:85%;">Jenkins Plugins</a>
+    <a href="jenkins-jobs.html" style="top:55%; left:85%;">Jenkins Jobs</a>
   </div>
-  <p class="version-text">
-    Version: 1.8 - Dropdowns fully accessible by mouse, no scroll needed, smooth navbar pause
-  </p>
-  <p>Ye meri image hai:</p>
-  <img src="images/photo.jpg" alt="My Photo">
 </body>
 </html>
