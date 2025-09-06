@@ -16,31 +16,26 @@
       font-size: 48px;
       text-shadow: 2px 4px 12px #0ff;
     }
-    p {
-      font-size: 18px;
-      margin: 10px auto;
-      width: 80%;
-      line-height: 1.6;
+    h2 {
+      margin-top: 30px;
+      font-size: 32px;
+      color: #ff9800;
     }
-    .highlight {
-      font-size: 24px;         
-      color: #ffcc00;          
-      font-weight: bold;       
-      text-shadow: 1px 1px 6px #000;
-      margin-top: 25px;
+    p, pre {
+      font-size: 20px;
+      line-height: 1.6;
+      margin: 15px auto;
+      max-width: 800px;
+      text-align: left;
     }
     code {
-      background: #112240;
-      color: #ff9800;
-      padding: 6px 12px;
-      border-radius: 6px;
-      font-size: 18px;
-      display: inline-block;
-      margin-top: 10px;
+      background: rgba(100,255,218,0.15);
+      padding: 3px 6px;
+      border-radius: 4px;
     }
     a {
       display: inline-block;
-      margin-top: 30px;
+      margin-top: 20px;
       font-size: 22px;
       text-decoration: none;
       color: #49defc;
@@ -58,16 +53,30 @@
 <body>
   <h1>🐳 Docker - Basics</h1>
 
-  <p><strong>Docker Install karna:</strong>  
-     Docker ko install karne ke liye pehle aapko apne OS ke hisaab se installer download karna hota hai.  
-     Example (Ubuntu/Debian Linux):</p>
-  <code>sudo apt-get install docker.io</code>
+  <h2>1. Docker Install kaise kare?</h2>
+  <p>Ubuntu/Linux par Docker install karne ke liye:</p>
+  <pre><code>sudo apt update
+sudo apt install docker.io -y
+sudo systemctl start docker
+sudo systemctl enable docker
+docker --version
+</code></pre>
 
-  <p class="highlight">Image build karne ke liye command:</p>
-  <code>docker build -t mypython:1.0 .</code>
+  <p>Windows ya Mac par aap <a href="https://www.docker.com/products/docker-desktop/" target="_blank">Docker Desktop</a> install kar sakte ho.</p>
 
-  <p><strong>Docker container run karna:</strong></p>
-  <code>docker run -it mypython:1.0</code>
+  <h2>2. Docker Image kaise banate hai?</h2>
+  <p>Ek <code>Dockerfile</code> banaiye:</p>
+  <pre><code># Dockerfile
+FROM ubuntu:20.04
+RUN apt-get update && apt-get install -y python3
+CMD ["python3", "--version"]
+</code></pre>
+
+  <p>Image build karne ke liye command:</p>
+  <pre><code>docker build -t mypython:1.0 .</code></pre>
+
+  <p>Fir container run kijiye:</p>
+  <pre><code>docker run mypython:1.0</code></pre>
 
   <a href="index.html">⬅ Back to Home</a>
 </body>
