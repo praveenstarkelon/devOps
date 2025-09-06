@@ -12,23 +12,72 @@
       padding: 0;
     }
     h1 {
-      margin-top: 30px;
-      font-size: 46px;
+      margin-top: 50px;
+      font-size: 48px;
       text-shadow: 2px 4px 12px #0ff;
     }
-    a {
-      color: #64ffda;
-      text-decoration: none;
+    h2 {
+      margin-top: 30px;
+      font-size: 32px;
+      color: #ff9800;
+    }
+    p, pre {
       font-size: 20px;
+      line-height: 1.6;
+      margin: 15px auto;
+      max-width: 800px;
+      text-align: left;
+    }
+    code {
+      background: rgba(100,255,218,0.15);
+      padding: 3px 6px;
+      border-radius: 4px;
+    }
+    a {
+      display: inline-block;
+      margin-top: 20px;
+      font-size: 22px;
+      text-decoration: none;
+      color: #49defc;
+      padding: 10px 18px;
+      border: 1px solid #64ffda;
+      border-radius: 8px;
+      transition: 0.3s;
     }
     a:hover {
+      background: rgba(100,255,218,0.15);
       color: #ff9800;
     }
   </style>
 </head>
 <body>
   <h1>🐳 Docker - Basics</h1>
-  <p>Yahaan Docker Basics ke details likho.</p>
-  <p><a href="index.html">⬅ Back to Home</a></p>
+
+  <h2>1. Docker Install kaise kare?</h2>
+  <p>Ubuntu/Linux par Docker install karne ke liye:</p>
+  <pre><code>sudo apt update
+sudo apt install docker.io -y
+sudo systemctl start docker
+sudo systemctl enable docker
+docker --version
+</code></pre>
+
+  <p>Windows ya Mac par aap <a href="https://www.docker.com/products/docker-desktop/" target="_blank">Docker Desktop</a> install kar sakte ho.</p>
+
+  <h2>2. Docker Image kaise banate hai?</h2>
+  <p>Ek <code>Dockerfile</code> banaiye:</p>
+  <pre><code># Dockerfile
+FROM ubuntu:20.04
+RUN apt-get update && apt-get install -y python3
+CMD ["python3", "--version"]
+</code></pre>
+
+  <p>Image build karne ke liye command:</p>
+  <pre><code>docker build -t mypython:1.0 .</code></pre>
+
+  <p>Fir container run kijiye:</p>
+  <pre><code>docker run mypython:1.0</code></pre>
+
+  <a href="index.html">⬅ Back to Home</a>
 </body>
 </html>
