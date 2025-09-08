@@ -1,215 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Docker Basics - Matrix + Snow</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      color: #64ffda;
-      background: black;
-      overflow-x: hidden;
-    }
+// Replace any previous '#sidebar a' click handler with this
+document.querySelectorAll('#sidebar a').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (!target) return;
 
-    /* Matrix + Snow Canvas */
-    canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: -1;
-      pointer-events: none;
-    }
-
-    h1 {
-      margin-top: 50px;
-      font-size: 48px;
-      text-shadow: 2px 4px 12px #0ff;
-      text-align: center;
-    }
-
-    .content {
-      margin-left: 260px;
-      padding: 20px;
-    }
-
-    /* Sidebar Navigation */
-    #sidebar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 240px;
-      height: 100%;
-      background: rgba(10, 25, 47, 0.95);
-      padding: 20px;
-      box-shadow: 2px 0 10px rgba(0,0,0,0.5);
-    }
-
-    #sidebar h2 {
-      color: #00ff00;
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    #sidebar a {
-      display: block;
-      margin: 10px 0;
-      color: #49defc;
-      text-decoration: none;
-      font-size: 18px;
-      transition: 0.3s;
-    }
-
-    #sidebar a:hover {
-      color: #ff9800;
-    }
-
-    pre {
-      background: rgba(0,0,0,0.7);
-      padding: 12px;
-      border-radius: 8px;
-      color: #00ff00;
-      font-size: 16px;
-      overflow-x: auto;
-    }
-
-    /* Anchor fix: ensures section stays at top */
-    section {
-      scroll-margin-top: 20px;
-    }
-  </style>
-</head>
-<body>
-  <!-- Sidebar -->
-  <div id="sidebar">
-    <h2>Topics</h2>
-    <a href="#install">1. Docker Install kaise kare?</a>
-    <a href="#image">2. Docker Image kaise banaye?</a>
-  </div>
-
-  <!-- Content -->
-  <div class="content">
-    <h1>🐳 Docker - Basics</h1>
-
-    <section id="install">
-      <h2>1. Docker Install kaise kare?</h2>
-      <p>Ubuntu/Linux par Docker install karne ke liye:</p>
-      <pre>
-sudo apt update
-sudo apt install docker.io -y
-sudo systemctl start docker
-sudo systemctl enable docker
-docker --version
-      </pre>
-      <p>Windows ya Mac par aap <a href="https://www.docker.com/products/docker-desktop/" target="_blank">Docker Desktop</a> install kar sakte ho.</p>
-    </section>
-
-    <section id="image">
-      <h2>2. Docker Image kaise banate hai?</h2>
-      <p>Ek <code>Dockerfile</code> banaiye:</p>
-      <pre>
-# Dockerfile
-FROM ubuntu:20.04
-RUN apt-get update && apt-get install -y python3
-CMD ["python3", "--version"]
-      </pre>
-      <p>👉 Image build karne ke liye command:</p>
-      <pre>docker build -t mypython:1.0 .</pre>
-    </section>
-  </div>
-
-  <!-- Matrix Background Canvas -->
-  <canvas id="matrix"></canvas>
-  <!-- Snow Canvas -->
-  <canvas id="snow"></canvas>
-
-  <script>
-    // MATRIX BACKGROUND
-    const matrixCanvas = document.getElementById("matrix");
-    const ctx = matrixCanvas.getContext("2d");
-
-    matrixCanvas.height = window.innerHeight;
-    matrixCanvas.width = window.innerWidth;
-
-    const letters = "アァイィウヴエェオカガキギクケゲコサザシジスズセゼソABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    const lettersArr = letters.split("");
-
-    const fontSize = 16;
-    const columns = matrixCanvas.width / fontSize;
-    const drops = [];
-
-    for (let x = 0; x < columns; x++) drops[x] = 1;
-
-    function drawMatrix() {
-      ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
-      ctx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
-
-      ctx.fillStyle = "#0F0";
-      ctx.font = fontSize + "px monospace";
-
-      for (let i = 0; i < drops.length; i++) {
-        const text = lettersArr[Math.floor(Math.random() * lettersArr.length)];
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-        if (drops[i] * fontSize > matrixCanvas.height && Math.random() > 0.975) drops[i] = 0;
-        drops[i]++;
-      }
-    }
-
-    setInterval(drawMatrix, 33);
-
-    // SNOW BACKGROUND
-    const snowCanvas = document.getElementById("snow");
-    const snowCtx = snowCanvas.getContext("2d");
-
-    snowCanvas.height = window.innerHeight;
-    snowCanvas.width = window.innerWidth;
-
-    let snowflakes = [];
-
-    function createSnowflakes() {
-      const x = Math.random() * snowCanvas.width;
-      const y = 0;
-      const radius = Math.random() * 3 + 2;
-      const speed = Math.random() * 2 + 1;
-      snowflakes.push({ x, y, radius, speed });
-    }
-
-    function drawSnowflakes() {
-      snowCtx.clearRect(0, 0, snowCanvas.width, snowCanvas.height);
-      snowCtx.fillStyle = "white";
-      snowCtx.beginPath();
-      for (let flake of snowflakes) {
-        snowCtx.moveTo(flake.x, flake.y);
-        snowCtx.arc(flake.x, flake.y, flake.radius, 0, Math.PI * 2);
-      }
-      snowCtx.fill();
-      updateSnowflakes();
-    }
-
-    function updateSnowflakes() {
-      for (let flake of snowflakes) {
-        flake.y += flake.speed;
-        if (flake.y > snowCanvas.height) {
-          flake.y = 0;
-          flake.x = Math.random() * snowCanvas.width;
-        }
-      }
-    }
-
-    setInterval(createSnowflakes, 100);
-    setInterval(drawSnowflakes, 30);
-
-    // FIX ANCHOR CLICK TO SCROLL TO TOP
-    document.querySelectorAll('#sidebar a').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
+    // --- detect any fixed top element (header/nav) and use its height as offset ---
+    const fixedTop = Array.from(document.querySelectorAll('body *')).find(el => {
+      const cs = getComputedStyle(el);
+      // position fixed and attached to very top
+      return cs.position === 'fixed' && Math.round(el.getBoundingClientRect().top) === 0 && el.offsetWidth >= window.innerWidth * 0.5;
     });
+    const headerOffset = fixedTop ? fixedTop.offsetHeight : 20; // fallback offset if none found
 
-  </script>
-</body>
-</html>
+    // compute final scroll position so that the section appears just below the header
+    const targetY = target.getBoundingClientRect().top + window.pageYOffset - headerOffset - 8; // -8 for small breathing space
+
+    // smooth scroll
+    window.scrollTo({ top: targetY, behavior: 'smooth' });
+
+    // accessibility: focus the section without jumping
+    target.setAttribute('tabindex', '-1'); // ensure focusable
+    target.focus({ preventScroll: true });
+  });
+});
