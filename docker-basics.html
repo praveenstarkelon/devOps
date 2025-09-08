@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Docker Basics - Matrix Background</title>
+  <title>Docker Basics - Matrix + Snow</title>
   <style>
     body {
       margin: 0;
@@ -13,12 +13,13 @@
       overflow-x: hidden;
     }
 
-    /* Canvas (Matrix Background) */
+    /* Matrix + Snow Canvas */
     canvas {
       position: fixed;
       top: 0;
       left: 0;
       z-index: -1;
+      pointer-events: none;
     }
 
     h1 {
@@ -72,6 +73,11 @@
       font-size: 16px;
       overflow-x: auto;
     }
+
+    /* Anchor fix: ensures section stays at top */
+    section {
+      scroll-margin-top: 20px;
+    }
   </style>
 </head>
 <body>
@@ -115,42 +121,95 @@ CMD ["python3", "--version"]
 
   <!-- Matrix Background Canvas -->
   <canvas id="matrix"></canvas>
+  <!-- Snow Canvas -->
+  <canvas id="snow"></canvas>
 
   <script>
-    // MATRIX BACKGROUND SCRIPT
-    const canvas = document.getElementById("matrix");
-    const ctx = canvas.getContext("2d");
+    // MATRIX BACKGROUND
+    const matrixCanvas = document.getElementById("matrix");
+    const ctx = matrixCanvas.getContext("2d");
 
-    // full screen
-    canvas.height = window.innerHeight;
-    canvas.width = window.innerWidth;
+    matrixCanvas.height = window.innerHeight;
+    matrixCanvas.width = window.innerWidth;
 
-    const letters = "アァイィウヴエェオカガキギクケゲコサザシジスズセゼソタダチヂッツヅテデトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワンABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    const letters = "アァイィウヴエェオカガキギクケゲコサザシジスズセゼソABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     const lettersArr = letters.split("");
 
     const fontSize = 16;
-    const columns = canvas.width / fontSize; 
+    const columns = matrixCanvas.width / fontSize;
     const drops = [];
 
     for (let x = 0; x < columns; x++) drops[x] = 1;
 
-    function draw() {
+    function drawMatrix() {
       ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
 
-      ctx.fillStyle = "#0F0"; // green text
+      ctx.fillStyle = "#0F0";
       ctx.font = fontSize + "px monospace";
 
       for (let i = 0; i < drops.length; i++) {
         const text = lettersArr[Math.floor(Math.random() * lettersArr.length)];
         ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+        if (drops[i] * fontSize > matrixCanvas.height && Math.random() > 0.975) drops[i] = 0;
         drops[i]++;
       }
     }
 
-    setInterval(draw, 33);
+    setInterval(drawMatrix, 33);
+
+    // SNOW BACKGROUND
+    const snowCanvas = document.getElementById("snow");
+    const snowCtx = snowCanvas.getContext("2d");
+
+    snowCanvas.height = window.innerHeight;
+    snowCanvas.width = window.innerWidth;
+
+    let snowflakes = [];
+
+    function createSnowflakes() {
+      const x = Math.random() * snowCanvas.width;
+      const y = 0;
+      const radius = Math.random() * 3 + 2;
+      const speed = Math.random() * 2 + 1;
+      snowflakes.push({ x, y, radius, speed });
+    }
+
+    function drawSnowflakes() {
+      snowCtx.clearRect(0, 0, snowCanvas.width, snowCanvas.height);
+      snowCtx.fillStyle = "white";
+      snowCtx.beginPath();
+      for (let flake of snowflakes) {
+        snowCtx.moveTo(flake.x, flake.y);
+        snowCtx.arc(flake.x, flake.y, flake.radius, 0, Math.PI * 2);
+      }
+      snowCtx.fill();
+      updateSnowflakes();
+    }
+
+    function updateSnowflakes() {
+      for (let flake of snowflakes) {
+        flake.y += flake.speed;
+        if (flake.y > snowCanvas.height) {
+          flake.y = 0;
+          flake.x = Math.random() * snowCanvas.width;
+        }
+      }
+    }
+
+    setInterval(createSnowflakes, 100);
+    setInterval(drawSnowflakes, 30);
+
+    // FIX ANCHOR CLICK TO SCROLL TO TOP
+    document.querySelectorAll('#sidebar a').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
   </script>
 </body>
 </html>
