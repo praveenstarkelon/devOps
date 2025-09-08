@@ -11,6 +11,7 @@
       color: #64ffda;
       background: black;
       overflow-x: hidden;
+      scroll-behavior: smooth; /* smooth scroll enable */
     }
 
     /* Canvas (Matrix Background) */
@@ -72,6 +73,11 @@
       font-size: 16px;
       overflow-x: auto;
     }
+
+    /* Scroll fix - section top margin */
+    section {
+      scroll-margin-top: 80px; /* sidebar/header ke hisaab se adjust karo */
+    }
   </style>
 </head>
 <body>
@@ -96,7 +102,10 @@ sudo systemctl start docker
 sudo systemctl enable docker
 docker --version
       </pre>
-      <p>Windows ya Mac par aap <a href="https://www.docker.com/products/docker-desktop/" target="_blank">Docker Desktop</a> install kar sakte ho.</p>
+      <p>Windows ya Mac par aap 
+        <a href="https://www.docker.com/products/docker-desktop/" target="_blank">Docker Desktop</a> 
+        install kar sakte ho.
+      </p>
     </section>
 
     <section id="image">
@@ -110,6 +119,9 @@ CMD ["python3", "--version"]
       </pre>
       <p>👉 Image build karne ke liye command:</p>
       <pre>docker build -t mypython:1.0 .</pre>
+
+      <p>Fir container run kijiye:</p>
+      <pre>docker run mypython:1.0</pre>
     </section>
   </div>
 
@@ -151,6 +163,12 @@ CMD ["python3", "--version"]
     }
 
     setInterval(draw, 33);
+
+    // resize fix
+    window.addEventListener("resize", () => {
+      canvas.height = window.innerHeight;
+      canvas.width = window.innerWidth;
+    });
   </script>
 </body>
 </html>
