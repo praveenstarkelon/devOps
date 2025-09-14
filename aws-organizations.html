@@ -2,63 +2,158 @@
 <html lang="hi">
 <head>
   <meta charset="UTF-8">
-  <title>AWS Organizations Concepts & Benefits Summary</title>
+  <title>AWS Organizations Concepts & Benefits</title>
   <style>
-    body { font-family: Arial, sans-serif; background: #f9f9f9; margin: 0; padding: 24px; }
-    .container { max-width: 750px; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px #e0e0e0; margin: 0 auto; padding: 32px; }
-    h1, h2 { color: #2162af; }
-    ul { margin-bottom: 18px; }
-    .section { margin-bottom: 30px; }
-    .sub { font-size: 1.13em; color: #32764e; }
-    li { margin-bottom: 7px; }
-    .key { background: #eef6fb; border-left: 5px solid #2786d6; padding: 18px 20px 12px 20px; border-radius: 4px; }
+    body {
+      background-color: #0a192f;
+      color: #64ffda;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+    }
+    .sidebar {
+      width: 250px;
+      background: #112240;
+      padding: 20px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      overflow-y: auto;
+      transition: 0.3s;
+    }
+    .sidebar .note {
+      font-size: 16px;
+      color: #ff9800;
+      margin-bottom: 15px;
+      display: none;
+      text-align: center;
+    }
+    .sidebar:hover .note {
+      display: block;
+    }
+    .sidebar h2 {
+      font-size: 22px;
+      margin-bottom: 15px;
+      color: #64ffda;
+      text-align: center;
+    }
+    .sidebar a {
+      display: block;
+      color: #64ffda;
+      text-decoration: none;
+      padding: 10px;
+      margin: 5px 0;
+      border-radius: 6px;
+      font-size: 18px;
+    }
+    .sidebar a:hover {
+      background: rgba(100,255,218,0.15);
+      color: #ff9800;
+    }
+    .content {
+      margin-left: 270px;
+      padding: 30px;
+      max-width: 900px;
+    }
+    h1 {
+      font-size: 40px;
+      text-shadow: 2px 4px 12px #0ff;
+      text-align: center;
+    }
+    h2 {
+      margin-top: 40px;
+      font-size: 28px;
+      color: #ff9800;
+    }
+    p, li {
+      font-size: 18px;
+      line-height: 1.6;
+      margin: 15px 0;
+      text-align: left;
+    }
+    ul {
+      margin-bottom: 18px;
+    }
+    .key {
+      background: #223b56;
+      border-left: 5px solid #2786d6;
+      padding: 18px 20px 12px 20px;
+      border-radius: 4px;
+      margin-bottom: 30px;
+    }
+    a.back-home {
+      display: inline-block;
+      margin-top: 30px;
+      font-size: 20px;
+      text-decoration: none;
+      color: #49defc;
+      padding: 10px 18px;
+      border: 1px solid #64ffda;
+      border-radius: 8px;
+      transition: 0.3s;
+    }
+    a.back-home:hover {
+      background: rgba(100,255,218,0.15);
+      color: #ff9800;
+    }
+    @media (max-width: 700px) {
+      .sidebar { position: relative; width: 100%; height: auto; }
+      .content { margin-left: 0; }
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>AWS Organizations – Concepts & Benefits (Summary)</h1>
-    <p class="sub">इस वीडियो में AWS Organizations की concepts और उनके benefits समझाए गए हैं, खासकर enterprise level पर multiple AWS accounts manage करने के लिए।</p>
-    <div class="section">
-      <h2>मुख्य बिंदु:</h2>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="note">📑 Sidebar with Anchor Links</div>
+    <h2>Topics</h2>
+    <a href="#what">1. AWS Organizations क्या है</a>
+    <a href="#need">2. Need & Challenges</a>
+    <a href="#benefit">3. Benefits</a>
+    <a href="#concepts">4. Key Concepts</a>
+    <a href="#best">5. Best Practices</a>
+  </div>
+  <!-- Main Content -->
+  <div class="content">
+    <h1>🟢 AWS Organizations – Concepts & Benefits</h1>
+    <h2 id="what">1. AWS Organizations क्या है?</h2>
+    <p>ये एक centralized account management service है, जिससे आप अपनी company के कई AWS accounts एक साथ manage कर सकते हो – especially enterprise-level multi-account architecture के लिए।</p>
+    
+    <h2 id="need">2. Need & Challenges</h2>
+    <ul>
+      <li>हर account पर individually policy/configuration करना मुश्किल</li>
+      <li>हर account की billing अलग-अलग (No centralized bill)</li>
+      <li>Security/firewall settings inconsistent हो सकती हैं</li>
+    </ul>
+    
+    <h2 id="benefit">3. Benefits</h2>
+    <ul>
+      <li>Centralized policy enforcement (SCPs), security compliance</li>
+      <li>Centralized billing (single consolidated bill)</li>
+      <li>Multi-account management आसान (new/invite accounts quickly)</li>
+      <li>Automation possible – scripts से account/policy management</li>
+    </ul>
+    
+    <div class="key" id="concepts">
+      <h2>4. Key Concepts</h2>
       <ul>
-        <li><b>AWS Organizations क्या है:</b> ये एक centralized account management service है, जिससे आप अपनी company के कई AWS accounts एक साथ manage कर सकते हो।</li>
-        <li><b>Need for AWS Organizations:</b> बिना organizations के हर account पर individually policy और configuration करना मुश्किल हो जाता है, जिससे standardization, cost control और security risk बढ़ते हैं।</li>
+        <li><b>Root/Master (payer) account:</b> सिर्फ billing, compliance purpose के लिए। Workloads deploy न करें।</li>
+        <li><b>Organizational Units (OUs):</b> logical grouping – e.g., department/function-wise segregation</li>
+        <li><b>SCPs (Service Control Policies):</b> permissions boundaries, centrally control services/actions</li>
+        <li><b>Hierarchy:</b> OUs के अंदर sub-OU बना सकते हैं, policies inherit होती हैं</li>
       </ul>
     </div>
-    <div class="section">
-      <h2>Challenges बिना organization के:</h2>
-      <ul>
-        <li>एक जैसी policy सब accounts पर लगाना मुश्किल</li>
-        <li>Centralized billing नहीं, हर account की bill अलग-अलग</li>
-        <li>Security और Firewall settings अलग-अलग accounts पर inconsistent हो सकती हैं</li>
-      </ul>
-    </div>
-    <div class="section">
-      <h2>Organizations के benefits:</h2>
-      <ul>
-        <li>Centralized policy enforcement (Service Control Policies – SCPs) और security compliance</li>
-        <li>Centralized billing (एक ही consolidated bill, पूरे organization के लिए)</li>
-        <li>Multi-account management आसान – नए accounts बनाना और existing को invite करना simple</li>
-        <li>Automation possible – scripts से accounts create करना, policies assign करना इत्यादि</li>
-      </ul>
-    </div>
-    <div class="section key">
-      <h2>Key Concepts:</h2>
-      <ul>
-        <li><b>Root/Master (payer) account:</b> इस पर कोई workload रन नहीं करें, सिर्फ billing, compliance purpose के लिए रखें।</li>
-        <li><b>Organizational Units (OUs):</b> logical grouping है accounts का, जैसे department-wise या function-wise अलग-अलग OU बना सकते हैं।</li>
-        <li><b>Service Control Policies (SCPs):</b> organization level पर permission boundaries define करते हैं, जिससे centrally restrict कर सकते हैं कौन सी services/operations permitted हैं।</li>
-        <li><b>Hierarchical structure:</b> OU के अंदर sub-OU भी बना सकते हैं, policies inherit होती हैं।</li>
-      </ul>
-    </div>
-    <div class="section">
-      <h2>Best Practices:</h2>
-      <ul>
-        <li>Accounts logically segregate करें (e.g., shared services, workload, log archive, security accounts)</li>
-        <li>Root account पर production workload ना रखें</li>
-        <li>Policies हमेशा OU level या उससे नीचे apply करें</li>
-      </ul>
-    </div>
+    
+    <h2 id="best">5. Best Practices</h2>
+    <ul>
+      <li>Accounts logically segregate करें (e.g., shared, prod, archive, security, etc.)</li>
+      <li>Root account पर production workload ना रखें</li>
+      <li>Policies हमेशा OU या नीचे apply करें</li>
+    </ul>
+
+    <a class="back-home" href="index.html">⬅ Back to Home</a>
   </div>
 </body>
 </html>
