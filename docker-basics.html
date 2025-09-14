@@ -2,174 +2,138 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Docker Basics - Matrix Background with Mouse Glow</title>
+  <title>Dynamic Splash - Particle Color from Background</title>
   <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      color: #64ffda;
-      background: black;
-      overflow-x: hidden;
-      scroll-behavior: smooth;
+    html, body {
+      height: 100%;
+      margin: 0; padding: 0; 
+      overflow: hidden;
+      background: #071223;
     }
     canvas {
       position: fixed;
-      top: 0;
-      left: 0;
+      top: 0; left: 0;
       width: 100vw;
       height: 100vh;
-      z-index: -1; /* Always behind content */
       display: block;
-    }
-    #sidebar, .content {
-      position: relative;
       z-index: 1;
+      pointer-events: auto;
     }
-    h1 {
-      margin-top: 50px;
-      font-size: 48px;
-      text-shadow: 2px 4px 12px #0ff;
-      text-align: center;
-    }
-    .content {
-      margin-left: 260px;
-      padding: 20px;
-    }
-    #sidebar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 240px;
-      height: 100%;
-      background: rgba(10, 25, 47, 0.95);
-      padding: 20px;
-      box-shadow: 2px 0 10px rgba(0,0,0,0.5);
-    }
-    #sidebar h2 {
-      color: #00ff00;
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    #sidebar a {
-      display: block;
-      margin: 10px 0;
-      color: #49defc;
-      text-decoration: none;
-      font-size: 18px;
-      transition: 0.3s;
-    }
-    #sidebar a:hover {
-      color: #ff9800;
-    }
-    pre {
-      background: rgba(0,0,0,0.7);
-      padding: 12px;
+    .version-label {
+      position: absolute;
+      top: 16px; left: 50%; transform: translateX(-50%);
+      background: #112c41e6;
+      padding: 5px 18px;
+      color: #c7ffe8;
+      font-family: monospace;
       border-radius: 8px;
-      color: #00ff00;
-      font-size: 16px;
-      overflow-x: auto;
+      border: 1px solid #2fdabb80;
+      font-weight: bold;
+      letter-spacing: 2px;
+      font-size: 17px;
+      z-index: 4;
+      box-shadow: 0 4px 12px #22b68a44;
+      user-select: none;
     }
-    section {
-      scroll-margin-top: 80px;
+    .hint {
+      position: absolute;
+      left: 50%; top: 55px; transform: translateX(-50%);
+      background: #102023b3;
+      color: #bafee7;
+      font-family: monospace;
+      padding: 7px 18px;
+      border-radius: 8px;
+      font-size: 17px;
+      letter-spacing: 1px;
+      z-index: 3;
     }
   </style>
 </head>
 <body>
-  <!-- Sidebar -->
-  <div id="sidebar">
-    <h2>Topics</h2>
-    <a href="#install">1. Docker Install kaise kare?</a>
-    <a href="#image">2. Docker Image kaise banaye?</a>
+  <div class="version-label">
+    v2.0 - Dynamic Splash (Based on Background Color)
   </div>
-  <!-- Content -->
-  <div class="content">
-    <h1>🐳 Docker - Basics</h1>
-    <section id="install">
-      <h2>1. Docker Install kaise kare?</h2>
-      <p>Ubuntu/Linux par Docker install karne ke liye:</p>
-      <p>
-sudo apt update<br>
-sudo apt install docker.io -y<br>
-sudo systemctl start docker<br>
-sudo systemctl enable docker<br>
-docker --version
-      </p>
-      <p>Windows ya Mac par aap 
-        <a href="https://www.docker.com/products/docker-desktop/" target="_blank">Docker Desktop</a> 
-        install kar sakte ho.
-      </p>
-    </section>
-    <section id="image">
-      <h2>2. Docker Image kaise banate hai?</h2>
-      <p>Ek <code>Dockerfile</code> banaiye:</p>
-      <pre>
-# Dockerfile
-FROM ubuntu:20.04
-RUN apt-get update && apt-get install -y python3
-CMD ["python3", "--version"]
-      </pre>
-      <p>👉 Image build karne ke liye command:</p>
-      <pre>docker build -t mypython:1.0 .</pre>
-      <p>Fir container run kijiye:</p>
-      <pre>docker run mypython:1.0</pre>
-    </section>
+  <div class="hint">
+    Click anywhere to splash!<br>
+    (Particles match the background color)
   </div>
-  <!-- Matrix Background Canvas (always last in body) -->
-  <canvas id="matrix"></canvas>
+  <canvas id="splash"></canvas>
   <script>
-    // MATRIX BACKGROUND + MOUSE GLOW - with document events
-    const canvas = document.getElementById("matrix");
+    // ---- Setup ----
+    const canvas = document.getElementById("splash");
     const ctx = canvas.getContext("2d");
     function resize() {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
+      // Draw background: Gradient (change to image if you want)
+      let grad = ctx.createLinearGradient(0,0,canvas.width,canvas.height);
+      grad.addColorStop(0, "#071223");
+      grad.addColorStop(0.33, "#176876");
+      grad.addColorStop(0.66, "#14b88f");
+      grad.addColorStop(1, "#00ffc0");
+      ctx.fillStyle = grad;
+      ctx.fillRect(0,0,canvas.width,canvas.height);
     }
     resize();
     window.addEventListener("resize", resize);
 
-    const letters = "アァイィウヴエェオカガキギクケゲコサザシジスズセゼソタダチヂッツヅテデトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワンABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    const lettersArr = letters.split("");
-    const fontSize = 16;
-    const columns = Math.floor(canvas.width / fontSize); 
-    const drops = [];
-    for (let x = 0; x < columns; x++) drops[x] = 1;
-
-    // Mouse events on document (always triggers everywhere)
-    let mouseX = -100, mouseY = -100;
-    document.addEventListener("mousemove", (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    });
-    document.addEventListener("mouseleave", () => {
-      mouseX = -100;
-      mouseY = -100;
-    });
-
-    function draw() {
-      ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = "#0F0";
-      ctx.font = fontSize + "px monospace";
-      for (let i = 0; i < drops.length; i++) {
-        const text = lettersArr[Math.floor(Math.random() * lettersArr.length)];
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
-        drops[i]++;
-      }
-      // Mouse Glow
-      if (mouseX > 0 && mouseY > 0) {
-        ctx.beginPath();
-        ctx.arc(mouseX, mouseY, 50, 0, 2 * Math.PI);
-        ctx.fillStyle = "rgba(0,255,120,0.25)";
-        ctx.fill();
-        ctx.beginPath();
-        ctx.arc(mouseX, mouseY, 12, 0, 2 * Math.PI);
-        ctx.fillStyle = "rgba(0,255,0,0.75)";
-        ctx.fill();
+    // ---- Particle system ----
+    let particles = [];
+    function getPixelColor(x, y) {
+      const pixel = ctx.getImageData(x, y, 1, 1).data;
+      return `rgba(${pixel[0]},${pixel[1]},${pixel[2]},${(pixel[3]/255).toFixed(2)})`;
+    }
+    function splash(x, y) {
+      let clr = getPixelColor(x, y);
+      for(let i=0; i<80; i++) {
+        let angle = (Math.PI * 2) * Math.random();
+        let speed = 4 + Math.random()*2.5;
+        particles.push({
+          x: x + (Math.random() - 0.5)*12,
+          y: y + (Math.random() - 0.5)*12,
+          dx: Math.cos(angle) * speed,
+          dy: Math.sin(angle) * speed,
+          r: 5 + Math.random()*8,
+          alpha: 1,
+          color: clr
+        });
       }
     }
-    setInterval(draw, 33);
+    canvas.addEventListener("mousedown", e => splash(e.clientX, e.clientY));
+
+    function draw() {
+      // Redraw BG (draw your bg/image/gradient here)
+      let grad = ctx.createLinearGradient(0,0,canvas.width,canvas.height);
+      grad.addColorStop(0, "#071223");
+      grad.addColorStop(0.33, "#176876");
+      grad.addColorStop(0.66, "#14b88f");
+      grad.addColorStop(1, "#00ffc0");
+      ctx.fillStyle = grad;
+      ctx.fillRect(0,0,canvas.width,canvas.height);
+
+      // --- particles
+      for(let i=particles.length-1; i>=0; i--) {
+        let p=particles[i];
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, 2 * Math.PI);
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = p.alpha;
+        ctx.shadowColor = p.color;
+        ctx.shadowBlur = 18;
+        ctx.fill();
+        ctx.globalAlpha = 1;
+        ctx.shadowBlur = 0;
+        p.x += p.dx;
+        p.y += p.dy;
+        p.dx *= 0.93;
+        p.dy *= 0.93;
+        p.r *= 0.97;
+        p.alpha -= 0.012;
+        if(p.alpha <= 0.01 || p.r < 1) particles.splice(i, 1);
+      }
+      requestAnimationFrame(draw);
+    }
+    draw();
   </script>
 </body>
 </html>
