@@ -170,21 +170,48 @@
       <li>Root account पर production workload ना रखें</li>
       <li>Policies हमेशा OU या नीचे apply करें</li>
     </ul>
-
     <a class="back-home" href="index.html">⬅ Back to Home</a>
   </div>
   <!-- JQuery + Ripples Plugin JS (Required) -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.ripples/0.5.3/jquery.ripples.min.js"></script>
   <script>
+    // ==== Sidebar aur Content par Water Ripple Effect ====
     $(function(){
       $(".ripple-water").ripples({
-        resolution: 356,           // water detail level
-        dropRadius: 18,            // px, ripple size
-        perturbance: 0.06,         // water turbulence
-        interactive: true
+        resolution: 356,           // Detail level of water effect
+        dropRadius: 18,            // Ripple size in pixels
+        perturbance: 0.06,         // Water turbulence
+        interactive: true          // Mouse/cursor interaction allowed
       });
     });
   </script>
+
+  <!-- ==== Background Music Player (Hidden) ==== -->
+  <!-- 
+    - src: Apni audio file ka online direct link dalo (e.g. Github raw mp3)
+    - autoplay: Page load par music chalega
+    - loop: Repeat hota rahega
+  -->
+  <audio id="bgmusic" src="https://raw.githubusercontent.com/praveenstarkelon/devOps/main/alone-296348.mp3" autoplay loop></audio>
+
+  <!-- 
+    ==== JS se Music Volume Set Karna ====
+    - Volume: 0.4 means 40%
+    - window.onload: Page poora load hone ke baad ye chalega
+  -->
+  <script>
+    window.onload = function() {
+      var aud = document.getElementById("bgmusic");
+      aud.volume = 0.4; // 40% volume
+    }
+  </script>
+
+  <!-- 
+    ==== Notes ====
+    1. audio tag ka src url change karke apni file daal sakte ho
+    2. Volume range: 0 (mute) to 1 (full)
+    3. Mobile browsers par autoplay sometimes block hota hai user action tak
+  -->
 </body>
 </html>
