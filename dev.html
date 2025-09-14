@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <title>AWS Organizations – Modern Glass BG Demo</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+    body {
+      background: linear-gradient(120deg,#23272e 5%,#112240 70%,#55cfff 100%);
+      font-family: 'Segoe UI', Arial, sans-serif;
+      min-height: 100vh;
+      margin: 0; padding: 0;
+      position: relative;
+      color: #64ffda;
+      overflow-x: hidden;
+    }
+    .bg-glass {
+      position: fixed;
+      left: 0; top: 0;
+      width: 100vw; height: 100vh;
+      z-index: 0; pointer-events: none;
+    }
+    .glass-shape {
+      position: absolute;
+      border-radius: 24px;
+      box-shadow: 0 8px 60px 0 #005a7960;
+      /* Glass/frost effect */
+      background: rgba(37, 170, 250, 0.095);
+      backdrop-filter: blur(12px) brightness(1.10);
+      -webkit-backdrop-filter: blur(12px) brightness(1.10);
+      border: 2px solid rgba(92, 214, 255, 0.07);
+      opacity: 0.15;
+    }
+    .glass1 { width: 340px; height: 92px; top: 8%; left: 12%; animation: spin1 18s linear infinite;}
+    .glass2 { width: 210px; height: 62px; top: 68%; left: 66%; animation: spin2 27s linear infinite;}
+    .glass3 { width: 180px; height: 38px; top: 31%; left: 56%; animation: spin3 33s linear infinite;}
+    .glass4 { width: 120px; height: 120px; top: 66%; left: 22%; animation: spin4 25s linear infinite;}
+    .glass5 { width: 160px; height: 50px; top: 45%; left: 75%; animation: spin5 30s linear infinite;}
+    @keyframes spin1 {0%{transform:rotate(0deg);}100%{transform:rotate(357deg);}}
+    @keyframes spin2 {0%{transform:rotate(42deg);}100%{transform:rotate(360deg);}}
+    @keyframes spin3 {0%{transform:rotate(-27deg);}100%{transform:rotate(333deg);}}
+    @keyframes spin4 {0%{transform:rotate(16deg);}100%{transform:rotate(376deg);}}
+    @keyframes spin5 {0%{transform:rotate(-71deg);}100%{transform:rotate(289deg);}}
+    .main-content {
+      position: relative; z-index: 2;
+      max-width: 770px;
+      margin: 60px auto 0 auto;
+      padding: 42px 32px 34px 32px;
+      background: rgba(20, 30 , 55, 0.82);
+      border-radius: 18px;
+      box-shadow: 0 8px 44px #111b;
+      border: 1px solid rgba(255,255,255,0.09);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+    }
+    h1 {
+      text-align: center;
+      font-size: 34px;
+      letter-spacing: 1.7px;
+      margin-top: 2px;
+      text-shadow: 0 0 19px #42caff88, 0 2px 14px #002931, 0 0 2px #4afcff;
+      color: #dcf5ff;
+    }
+    h2 {
+      color: #fff980;
+      margin-top: 32px;
+      font-size: 24px;
+    }
+    ul {margin: 18px 0;}
+    li {font-size: 18px; margin-bottom: 8px;}
+    .key {
+      background:rgba(33,75,102,0.24);
+      padding:16px 24px;
+      border-left: 5px solid #49defc;
+      border-radius: 8px;
+      margin-bottom: 24px;
+    }
+    @media (max-width:900px){
+      .main-content { margin: 30px 4vw 10vw 4vw; padding: 20px; }
+      .glass-shape {display: none;} /* Hide bg on mobile (optional) */
+    }
+  </style>
+</head>
+<body>
+  <!-- Animated Glass BG Layer -->
+  <div class="bg-glass">
+    <div class="glass-shape glass1"></div>
+    <div class="glass-shape glass2"></div>
+    <div class="glass-shape glass3"></div>
+    <div class="glass-shape glass4"></div>
+    <div class="glass-shape glass5"></div>
+  </div>
+  <!-- Main Content Section -->
+  <div class="main-content">
+    <h1>🟢 AWS Organizations – Concepts & Benefits</h1>
+    <h2 id="what">1. AWS Organizations क्या है?</h2>
+    <p>ये एक <b>centralized account management service</b> है, जिससे आप अपनी company के कई AWS accounts एक साथ manage कर सकते हो – especially enterprise-level multi-account architecture के लिए।</p>
+
+    <h2 id="need">2. Need & Challenges</h2>
+    <ul>
+      <li>हर account पर individually policy/configuration करना मुश्किल</li>
+      <li>हर account की billing अलग-अलग (No centralized bill)</li>
+      <li>Security/firewall settings inconsistent हो सकती हैं</li>
+    </ul>
+
+    <h2 id="benefit">3. Benefits</h2>
+    <ul>
+      <li>Centralized policy enforcement (SCPs), security compliance</li>
+      <li>Centralized billing (single consolidated bill)</li>
+      <li>Multi-account management आसान (new/invite accounts quickly)</li>
+      <li>Automation possible – scripts से account/policy management</li>
+    </ul>
+
+    <div class="key" id="concepts">
+      <h2>4. Key Concepts</h2>
+      <ul>
+        <li><b>Root/Master (payer) account:</b> सिर्फ billing, compliance purpose के लिए। Workloads deploy न करें।</li>
+        <li><b>Organizational Units (OUs):</b> logical grouping – e.g., department/function-wise segregation</li>
+        <li><b>SCPs (Service Control Policies):</b> permissions boundaries, centrally control services/actions</li>
+        <li><b>Hierarchy:</b> OUs के अंदर sub-OU बना सकते हैं, policies inherit होती हैं</li>
+      </ul>
+    </div>
+
+    <h2 id="best">5. Best Practices</h2>
+    <ul>
+      <li>Accounts logically segregate करें (e.g., shared, prod, archive, security, etc.)</li>
+      <li>Root account पर production workload ना रखें</li>
+      <li>Policies हमेशा OU या नीचे apply करें</li>
+    </ul>
+    <div style="margin-top:38px;font-size:13px;text-align:right;color:#9fe9ff;">
+      <b>v1 Glass-Morphism Demo<br/>Inspired by developerab.com effect – by Comet Assistant</b>
+    </div>
+  </div>
+</body>
+</html>
