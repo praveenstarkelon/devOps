@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Docker Basics</title>
+  <style>
+    body {
+      background-color: #0a192f;
+      color: #64ffda;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex; /* Sidebar aur content ko side by side rakhne ke liye */
+    }
+
+    /* =============================
+       LEFT Sidebar Navigation CSS
+       ============================= */
+    .sidebar {
+      width: 250px;
+      background: #112240;
+      padding: 20px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      overflow-y: auto;
+      transition: 0.3s;
+    }
+
+    /* Sidebar ke upar ek NOTE jo normally hidden hai */
+    .sidebar .note {
+      font-size: 16px;
+      color: #ff9800;
+      margin-bottom: 15px;
+      display: none; /* by default hidden */
+      text-align: center;
+    }
+
+    /* Jab sidebar pe mouse jaye to NOTE visible ho jaye */
+    .sidebar:hover .note {
+      display: block;
+    }
+
+    .sidebar h2 {
+      font-size: 22px;
+      margin-bottom: 15px;
+      color: #64ffda;
+      text-align: center;
+    }
+
+    .sidebar a {
+      display: block;
+      color: #64ffda;
+      text-decoration: none;
+      padding: 10px;
+      margin: 5px 0;
+      border-radius: 6px;
+      font-size: 18px;
+    }
+    .sidebar a:hover {
+      background: rgba(100,255,218,0.15);
+      color: #ff9800;
+    }
+
+    /* =============================
+       MAIN Content Area CSS
+       ============================= */
+    .content {
+      margin-left: 270px; /* Sidebar ki jagah chhod ke content ko shift kiya */
+      padding: 30px;
+      max-width: 900px;
+    }
+
+    h1 {
+      font-size: 42px;
+      text-shadow: 2px 4px 12px #0ff;
+      text-align: center;
+    }
+    h2 {
+      margin-top: 40px;
+      font-size: 28px;
+      color: #ff9800;
+    }
+    p, pre {
+      font-size: 18px;
+      line-height: 1.6;
+      margin: 15px 0;
+      text-align: left;
+    }
+    code {
+      background: rgba(100,255,218,0.15);
+      padding: 3px 6px;
+      border-radius: 4px;
+    }
+    pre {
+      background: #112240;
+      padding: 12px;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+    a.back-home {
+      display: inline-block;
+      margin-top: 30px;
+      font-size: 20px;
+      text-decoration: none;
+      color: #49defc;
+      padding: 10px 18px;
+      border: 1px solid #64ffda;
+      border-radius: 8px;
+      transition: 0.3s;
+    }
+    a.back-home:hover {
+      background: rgba(100,255,218,0.15);
+      color: #ff9800;
+    }
+  </style>
+</head>
+<body>
+  <!-- =========================================
+       LEFT Sidebar Navigation
+       Ye sidebar topics ki list deta hai.
+       Har link ek #id par jata hai jo neeche
+       content section me diya hota hai.
+  ========================================== -->
+  <div class="sidebar">
+    <!-- Note: by default invisible hai, hover pe dikhega -->
+    <div class="note">📑 Sidebar with Anchor Links</div>
+
+    <h2>Topics</h2>
+    <a href="#install">1. Docker Install kaise kare?</a>
+    <a href="#image">2. Docker Image kaise banaiye?</a>
+  </div>
+
+  <!-- =========================================
+       MAIN Content Section
+       Ye area main information show karta hai.
+       Sidebar ke links yahin ke topics (id) pe le aayenge.
+  ========================================== -->
+  <div class="content">
+    <h1>🐳 Docker - Basics</h1>
+
+    <!-- Topic 1 -->
+    <h2 id="install">1. Docker Install kaise kare?</h2>
+    <p>Ubuntu/Linux par Docker install karne ke liye:</p>
+    <pre><code>sudo apt update
+sudo apt install docker.io -y
+sudo systemctl start docker
+sudo systemctl enable docker
+docker --version
+</code></pre>
+
+    <p>Windows ya Mac par aap 
+      <a href="https://www.docker.com/products/docker-desktop/" target="_blank">Docker Desktop</a> install kar sakte ho.
+    </p>
+
+    <!-- Topic 2 -->
+    <h2 id="image">2. Docker Image kaise banate hai?</h2>
+    <p>Ek <code>Dockerfile</code> banaiye:</p>
+    <pre><code># Dockerfile
+FROM ubuntu:20.04
+RUN apt-get update && apt-get install -y python3
+CMD ["python3", "--version"]
+</code></pre>
+
+    <p>👉 Image build karne ke liye command:</p>
+    <pre><code>docker build -t mypython:1.0 .</code></pre>
+
+    <p>Fir container run kijiye:</p>
+    <pre><code>docker run mypython:1.0</code></pre>
+
+    <!-- Back to Home Button -->
+    <a class="back-home" href="index.html">⬅ Back to Home</a>
+  </div>
+</body>
+</html>
