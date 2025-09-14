@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Dynamic Splash - Particle Color from Background</title>
+  <title>Dynamic Splash v2.1 (Content + Hover)</title>
   <style>
     html, body {
       height: 100%;
       margin: 0; padding: 0; 
-      overflow: hidden;
       background: #071223;
+      overflow: hidden;
     }
     canvas {
       position: fixed;
@@ -16,8 +16,8 @@
       width: 100vw;
       height: 100vh;
       display: block;
-      z-index: 1;
-      pointer-events: auto;
+      z-index: -1; /* BACKGROUND */
+      pointer-events: none; /* So mouse events go to content */
     }
     .version-label {
       position: absolute;
@@ -47,15 +47,49 @@
       letter-spacing: 1px;
       z-index: 3;
     }
+    .content-box {
+      position: relative;
+      z-index: 2;
+      max-width: 620px;
+      background: rgba(15, 30, 40, 0.9);
+      margin: 130px auto 0;
+      padding: 32px 30px 30px 30px;
+      border-radius: 20px;
+      color: #caffee;
+      font-family: Arial, sans-serif;
+      font-size: 21px;
+      box-shadow: 0 10px 30px #05231c50, 0 1px 8px #07363865;
+      text-align: center;
+    }
+    h1 {
+      margin-top: 0;
+      font-size: 36px;
+      color: #2fffd5;
+      letter-spacing: 2px;
+      text-shadow: 0 2px 12px #25fff9a4;
+    }
   </style>
 </head>
 <body>
   <div class="version-label">
-    v2.0 - Dynamic Splash (Based on Background Color)
+    v2.1 - Dynamic Splash (Content + Hover)
   </div>
   <div class="hint">
-    Click anywhere to splash!<br>
-    (Particles match the background color)
+    Move/click mouse to splash!<br>
+    Particles auto-match background color.<br>
+    (Your content always visible)
+  </div>
+  <div class="content-box">
+    <h1>✨ Animated Background Demo</h1>
+    <p>
+      Ye example aapke real content ke sath hai.<br>
+      Background me splash particle effect hai—<b>mouse move ya click</b> par instant show hota hai<br>
+      (aur yeh particles hamesha background color se match karte hain).
+    </p>
+    <p>
+      Apni site ka content, sidebar, headings, etc. sab yahi likho. Yeh box sirf demo ke liye hai.<br>
+      Background canvas hamesha z-index -1 pe rehega.
+    </p>
   </div>
   <canvas id="splash"></canvas>
   <script>
@@ -65,14 +99,6 @@
     function resize() {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-      // Draw background: Gradient (change to image if you want)
-      let grad = ctx.createLinearGradient(0,0,canvas.width,canvas.height);
-      grad.addColorStop(0, "#071223");
-      grad.addColorStop(0.33, "#176876");
-      grad.addColorStop(0.66, "#14b88f");
-      grad.addColorStop(1, "#00ffc0");
-      ctx.fillStyle = grad;
-      ctx.fillRect(0,0,canvas.width,canvas.height);
     }
     resize();
     window.addEventListener("resize", resize);
@@ -80,29 +106,39 @@
     // ---- Particle system ----
     let particles = [];
     function getPixelColor(x, y) {
+      // Need draw background first for correct color!
+      const grad = ctx.createLinearGradient(0,0,canvas.width,canvas.height);
+      grad.addColorStop(0, "#071223");
+      grad.addColorStop(0.33, "#176876");
+      grad.addColorStop(0.66, "#14b88f");
+      grad.addColorStop(1, "#00ffc0");
+      ctx.fillStyle = grad;
+      ctx.fillRect(0,0,canvas.width,canvas.height);
+      // THEN pick pixel:
       const pixel = ctx.getImageData(x, y, 1, 1).data;
       return `rgba(${pixel[0]},${pixel[1]},${pixel[2]},${(pixel[3]/255).toFixed(2)})`;
     }
     function splash(x, y) {
       let clr = getPixelColor(x, y);
-      for(let i=0; i<80; i++) {
+      for(let i=0; i<32; i++) { // lower = less density for hover smoothness
         let angle = (Math.PI * 2) * Math.random();
-        let speed = 4 + Math.random()*2.5;
+        let speed = 3 + Math.random()*1.7;
         particles.push({
           x: x + (Math.random() - 0.5)*12,
           y: y + (Math.random() - 0.5)*12,
           dx: Math.cos(angle) * speed,
           dy: Math.sin(angle) * speed,
-          r: 5 + Math.random()*8,
+          r: 4 + Math.random()*6,
           alpha: 1,
           color: clr
         });
       }
     }
-    canvas.addEventListener("mousedown", e => splash(e.clientX, e.clientY));
+    document.addEventListener("mousemove", e => splash(e.clientX, e.clientY));
+    document.addEventListener("mousedown", e => splash(e.clientX, e.clientY));
 
     function draw() {
-      // Redraw BG (draw your bg/image/gradient here)
+      // BG (each frame, because particles are semi-transparent)
       let grad = ctx.createLinearGradient(0,0,canvas.width,canvas.height);
       grad.addColorStop(0, "#071223");
       grad.addColorStop(0.33, "#176876");
@@ -110,8 +146,7 @@
       grad.addColorStop(1, "#00ffc0");
       ctx.fillStyle = grad;
       ctx.fillRect(0,0,canvas.width,canvas.height);
-
-      // --- particles
+      // particles
       for(let i=particles.length-1; i>=0; i--) {
         let p=particles[i];
         ctx.beginPath();
@@ -119,16 +154,16 @@
         ctx.fillStyle = p.color;
         ctx.globalAlpha = p.alpha;
         ctx.shadowColor = p.color;
-        ctx.shadowBlur = 18;
+        ctx.shadowBlur = 16;
         ctx.fill();
         ctx.globalAlpha = 1;
         ctx.shadowBlur = 0;
         p.x += p.dx;
         p.y += p.dy;
-        p.dx *= 0.93;
-        p.dy *= 0.93;
-        p.r *= 0.97;
-        p.alpha -= 0.012;
+        p.dx *= 0.91;
+        p.dy *= 0.91;
+        p.r *= 0.967;
+        p.alpha -= 0.037;
         if(p.alpha <= 0.01 || p.r < 1) particles.splice(i, 1);
       }
       requestAnimationFrame(draw);
