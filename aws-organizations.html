@@ -6,23 +6,17 @@
   <!-- Ripple Plugin CSS (Required) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.ripples/0.5.3/jquery.ripples.min.css" />
   <style>
-    /* ========== Ultra-smooth Animated Gradient Background ========== */
+    /* ========== Default Initial Gradient ========== */
     body.ripple-water {
       background: linear-gradient(120deg, #112240 0%, #327dac 50%, #49defc 100%);
       background-size: 400% 400%;
-      animation: gradientBG 16s ease infinite;
       color: #64ffda;
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
       display: flex;
       min-height: 100vh;
-      transition: background 3s ease;
-    }
-    @keyframes gradientBG {
-      0% {background-position:0% 50%;}
-      50%{background-position:100% 50%;}
-      100%{background-position:0% 50%;}
+      transition: background 2.7s;
     }
     .sidebar.ripple-water {
       width: 250px;
@@ -131,7 +125,6 @@
     }
   </style>
 </head>
-<!-- ==== Pro Water Ripple Effect everywhere ==== -->
 <body class="ripple-water">
   <!-- Sidebar (with ripple-water class) -->
   <div class="sidebar ripple-water">
@@ -148,14 +141,12 @@
     <h1>🟢 AWS Organizations – Concepts & Benefits</h1>
     <h2 id="what">1. AWS Organizations क्या है?</h2>
     <p>ये एक centralized account management service है, जिससे आप अपनी company के कई AWS accounts एक साथ manage कर सकते हो – especially enterprise-level multi-account architecture के लिए।</p>
-    
     <h2 id="need">2. Need & Challenges</h2>
     <ul>
       <li>हर account पर individually policy/configuration करना मुश्किल</li>
       <li>हर account की billing अलग-अलग (No centralized bill)</li>
       <li>Security/firewall settings inconsistent हो सकती हैं</li>
     </ul>
-    
     <h2 id="benefit">3. Benefits</h2>
     <ul>
       <li>Centralized policy enforcement (SCPs), security compliance</li>
@@ -163,7 +154,6 @@
       <li>Multi-account management आसान (new/invite accounts quickly)</li>
       <li>Automation possible – scripts से account/policy management</li>
     </ul>
-    
     <div class="key" id="concepts">
       <h2>4. Key Concepts</h2>
       <ul>
@@ -173,7 +163,6 @@
         <li><b>Hierarchy:</b> OUs के अंदर sub-OU बना सकते हैं, policies inherit होती हैं</li>
       </ul>
     </div>
-    
     <h2 id="best">5. Best Practices</h2>
     <ul>
       <li>Accounts logically segregate करें (e.g., shared, prod, archive, security, etc.)</li>
@@ -190,12 +179,11 @@
     // ==== Ultra Pro Water Ripple Effect everywhere ====
     $(function(){
       $(".ripple-water").ripples({
-        resolution: 512,           // Sharper water detail
-        dropRadius: 22,            // Ripple size
-        perturbance: 0.04,         // Smoother, glass-like
-        interactive: true          // Mouse/cursor interaction
+        resolution: 512,
+        dropRadius: 22,
+        perturbance: 0.04,
+        interactive: true
       });
-
       // ==== Auto random ripple! (visual life) ====
       setInterval(function() {
         var $el = $('.ripple-water');
@@ -206,23 +194,25 @@
       }, 1700);
     });
 
-    // ==== Bonus: Auto Gradient Morph Effect (optional) ====
-    // Uncomment below JS if you want periodic color morph with gradient!
-    /*
-    let gradients = [
+    // ==== Multi-color, multi-gradient morph ====
+    const gradients = [
       "linear-gradient(120deg, #112240 0%, #327dac 50%, #49defc 100%)",
-      "linear-gradient(120deg, #f794a4 0%, #fdd6bd 100%)",
+      "linear-gradient(120deg, #ff9800 0%, #64ffda 100%)",
       "linear-gradient(120deg, #43cea2 0%, #185a9d 100%)",
-      "linear-gradient(120deg, #43156d 0%, #ff367b 100%)",
-      "linear-gradient(133deg, #11e8bb 0%, #0f6260 100%)"
+      "linear-gradient(120deg, #e96443 0%, #904e95 100%)",
+      "linear-gradient(133deg, #f7971e 0%, #ffd200 100%)",
+      "linear-gradient(120deg, #6a11cb 0%, #2575fc 100%)",
+      "linear-gradient(120deg, #f794a4 0%, #fdd6bd 100%)",
+      "linear-gradient(133deg, #11e8bb 0%, #0f6260 100%)",
+      "linear-gradient(120deg, #fc6767 0%, #ec008c 100%)",
+      "linear-gradient(133deg, #00c6ff 0%, #0072ff 100%)"
     ];
     let j = 0;
     setInterval(function() {
-      document.body.style.transition = "background 3s ease";
+      document.body.style.transition = "background 2.7s ease";
       document.body.style.background = gradients[j];
       j = (j + 1) % gradients.length;
-    }, 12000);
-    */
+    }, 7000); // 7 sec ke interval se color morph hoga
   </script>
 </body>
 </html>
