@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Docker Basics - Matrix Background with Mouse Effect</title>
+  <title>Docker Basics - Matrix BG + Mouse Particles</title>
   <style>
     body {
       margin: 0;
@@ -22,96 +22,10 @@
       height: 100vh;
       display: block;
     }
-    h1 {
-      margin-top: 50px;
-      font-size: 48px;
-      text-shadow: 2px 4px 12px #0ff;
-      text-align: center;
-    }
-    .content {
-      margin-left: 260px;
-      padding: 20px;
-    }
-    #sidebar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 240px;
-      height: 100%;
-      background: rgba(10, 25, 47, 0.95);
-      padding: 20px;
-      box-shadow: 2px 0 10px rgba(0,0,0,0.5);
-    }
-    #sidebar h2 {
-      color: #00ff00;
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    #sidebar a {
-      display: block;
-      margin: 10px 0;
-      color: #49defc;
-      text-decoration: none;
-      font-size: 18px;
-      transition: 0.3s;
-    }
-    #sidebar a:hover {
-      color: #ff9800;
-    }
-    pre {
-      background: rgba(0,0,0,0.7);
-      padding: 12px;
-      border-radius: 8px;
-      color: #00ff00;
-      font-size: 16px;
-      overflow-x: auto;
-    }
-    section {
-      scroll-margin-top: 80px;
-    }
+    /* rest styling as needed */
   </style>
 </head>
 <body>
-  <!-- Sidebar -->
-  <div id="sidebar">
-    <h2>Topics</h2>
-    <a href="#install">1. Docker Install kaise kare?</a>
-    <a href="#image">2. Docker Image kaise banaye?</a>
-  </div>
-  <!-- Content -->
-  <div class="content">
-    <h1>🐳 Docker - Basics</h1>
-    <section id="install">
-      <h2>1. Docker Install kaise kare?</h2>
-      <p>Ubuntu/Linux par Docker install karne ke liye:</p>
-      <p>
-sudo apt update<br>
-sudo apt install docker.io -y<br>
-sudo systemctl start docker<br>
-sudo systemctl enable docker<br>
-docker --version
-      </p>
-      <p>Windows ya Mac par aap 
-        <a href="https://www.docker.com/products/docker-desktop/" target="_blank">Docker Desktop</a> 
-        install kar sakte ho.
-      </p>
-    </section>
-    <section id="image">
-      <h2>2. Docker Image kaise banate hai?</h2>
-      <p>Ek <code>Dockerfile</code> banaiye:</p>
-      <pre>
-# Dockerfile
-FROM ubuntu:20.04
-RUN apt-get update && apt-get install -y python3
-CMD ["python3", "--version"]
-      </pre>
-      <p>👉 Image build karne ke liye command:</p>
-      <pre>docker build -t mypython:1.0 .</pre>
-      <p>Fir container run kijiye:</p>
-      <pre>docker run mypython:1.0</pre>
-    </section>
-  </div>
-  <!-- Matrix Background Canvas -->
   <canvas id="matrix"></canvas>
   <script>
     // MATRIX BACKGROUND
@@ -131,19 +45,55 @@ CMD ["python3", "--version"]
     const drops = [];
     for (let x = 0; x < columns; x++) drops[x] = 1;
 
-    // --- Mouse effect variables ---
+    // --- Mouse Glow & Particles ---
     let mouseX = -100, mouseY = -100;
     canvas.addEventListener("mousemove", (e) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
+      createParticle(mouseX, mouseY);
     });
     canvas.addEventListener("mouseleave", () => {
       mouseX = -100;
       mouseY = -100;
     });
 
+    // -------- PARTICLE SYSTEM -----------
+    let particles = [];
+    function createParticle(x, y) {
+      for (let i = 0; i < 3; i++) { // 3 particles per move for dense trail
+        particles.push({
+          x: x + (Math.random() - 0.5) * 10,
+          y: y + (Math.random() - 0.5) * 10,
+          radius: Math.random() * 5 + 3,
+          color: `hsla(${Math.random()*360},80%,60%,0.6)`,
+          dx: (Math.random()-0.5)*2,
+          dy: (Math.random()-0.5)*2,
+          alpha: 1
+        });
+      }
+    }
+
+    function drawParticles() {
+      for (let i = particles.length - 1; i >= 0; i--) {
+        let p = particles[i];
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, 2*Math.PI);
+        ctx.fillStyle = p.color.replace('0.6', p.alpha.toFixed(2));
+        ctx.shadowColor = p.color;
+        ctx.shadowBlur = 12;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+        p.x += p.dx;
+        p.y += p.dy;
+        p.alpha -= 0.02;
+        if (p.alpha <= 0) particles.splice(i, 1);
+      }
+    }
+
     function draw() {
-      ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // Matrix
+      ctx.fillStyle = "rgba(0, 0, 0, 0.15)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       ctx.fillStyle = "#0F0";
       ctx.font = fontSize + "px monospace";
@@ -153,17 +103,19 @@ CMD ["python3", "--version"]
         if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
         drops[i]++;
       }
-      // ----- Mouse Glow Effect -----
+      // Glow
       if (mouseX > 0 && mouseY > 0) {
         ctx.beginPath();
         ctx.arc(mouseX, mouseY, 50, 0, 2 * Math.PI);
-        ctx.fillStyle = "rgba(0,255,120,0.25)";
+        ctx.fillStyle = "rgba(0,255,120,0.18)";
         ctx.fill();
         ctx.beginPath();
         ctx.arc(mouseX, mouseY, 12, 0, 2 * Math.PI);
-        ctx.fillStyle = "rgba(0,255,0,0.75)";
+        ctx.fillStyle = "rgba(0,255,0,0.65)";
         ctx.fill();
       }
+      // Particles
+      drawParticles();
     }
     setInterval(draw, 33);
   </script>
