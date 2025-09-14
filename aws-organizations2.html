@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <title>AWS Organizations Concepts & Benefits</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.ripples/0.5.3/jquery.ripples.min.css" />
+  <style>
+    body {
+      background: linear-gradient(120deg, #23272e 0%, #112240 60%, #49defc 100%);
+      color: #64ffda;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      position: relative;
+    }
+    /* Rotating Rectangles/Squares BG */
+    .bg-rectangles {
+      position: fixed;
+      left: 0; top: 0; width: 100vw; height: 100vh;
+      z-index: 0; pointer-events: none; overflow: hidden;
+    }
+    .rect {
+      position: absolute;
+      border-radius: 24px;
+      opacity: 0.16;
+      filter: blur(2.7px);
+      background: linear-gradient(120deg,#38b6ff88 60%,#12497eb4 100%);
+      width: 390px; height: 90px; top: 12%; left: 18%;
+      animation: rectSpin 18s linear infinite;
+    }
+    .r2 {
+      width: 220px; height: 54px; top: 67%; left: 60%;
+      background: linear-gradient(120deg,#ffab0088,#49defc99);
+      animation: rectSpin2 27s linear infinite;
+      opacity: 0.13;
+    }
+    .r3 {
+      width: 170px; height: 38px; top: 31%; left: 65%;
+      background: linear-gradient(120deg,#49defc99,#ffffff44);
+      animation: rectSpin3 39s linear infinite;
+      opacity: 0.09;
+    }
+    .r4 {
+      width: 90px; height: 120px; top: 70%; left: 35%;
+      background: linear-gradient(120deg,#0fb8ad88 0%,#1fc8db66 100%);
+      animation: rectSpin4 31s linear infinite;
+      opacity: 0.10;
+    }
+    @keyframes rectSpin {
+      0% { transform: rotate(0deg) scale(1.05);}
+      65% { transform: rotate(165deg) scale(0.92);}
+      100% { transform: rotate(360deg) scale(1.05);}
+    }
+    @keyframes rectSpin2 {
+      0% { transform: rotate(28deg) scale(1);}
+      50% { transform: rotate(-160deg) scale(1.04);}
+      100% { transform: rotate(340deg) scale(1);}
+    }
+    @keyframes rectSpin3 {
+      0% { transform: rotate(-60deg) scale(1);}
+      74% { transform: rotate(-260deg) scale(1.12);}
+      100% { transform: rotate(300deg) scale(0.95);}
+    }
+    @keyframes rectSpin4 {
+      0% { transform: rotate(14deg);}
+      97% { transform: rotate(-345deg);}
+      100% { transform: rotate(14deg);}
+    }
+    /* ---- Sidebar/Content/Badge/Rest ---- */
+    .sidebar-collapser {
+      position: absolute;
+      top: 20px; right: -20px;
+      background: #49defc;
+      color: #23272e;
+      border-radius: 50%;
+      width: 35px; height: 35px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+      border: 2px solid #fff;
+      box-shadow: 0 2px 10px #151f2a33;
+      cursor: pointer;
+      z-index: 11;
+      transition: background 0.25s, color 0.2s;
+    }
+    .sidebar-collapser:hover {
+      background: #23272e;
+      color: #64ffda;
+      border-color: #64ffda;
+    }
+    .sidebar.ripple-water {
+      width: 250px;
+      background: rgba(17,34,64,0.65);
+      box-shadow: 0 8px 32px 0 rgba(31,38,135,0.3);
+      backdrop-filter: blur(12px);-webkit-backdrop-filter: blur(12px);
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.13);
+      padding: 20px;
+      position: fixed;
+      top: 50px;
+      left: 20px;
+      height: 89vh;
+      overflow-y: auto;
+      transition: left 0.4s cubic-bezier(.46,1.62,0.58,1), box-shadow 0.18s;
+      z-index: 10;
+    }
+    .sidebar.collapsed { left: -248px; box-shadow: none; }
+    .sidebar .note { font-size: 16px;color: #ff9800;margin-bottom: 15px;display: none;text-align: center;}
+    .sidebar:hover .note { display: block; }
+    .sidebar h2 { font-size: 22px;margin-bottom: 15px;color: #64ffda;text-align: center;}
+    .sidebar a {display: block;color:#64ffda;text-decoration: none;padding: 10px;margin: 5px 0;border-radius: 6px;font-size: 18px;}
+    .sidebar a:hover {background:rgba(100,255,218,0.15);color:#ff9800;}
+    .content.ripple-water {
+      margin-left: 285px; padding: 34px; max-width: 900px;
+      background: rgba(24,45,69,0.28); box-shadow: 0 8px 32px 0 rgba(31,38,135,0.13);
+      backdrop-filter: blur(7px);border-radius: 24px; border: 1px solid rgba(255,255,255,0.1);
+      margin-top: 50px; z-index: 1; min-height: 89vh;
+      position: relative;
+      transition: margin-left 0.4s cubic-bezier(.46,1.62,0.58,1);
+    }
+    .content.sidebar-collapsed { margin-left: 60px !important; }
+    h1 { font-size: 40px; text-shadow: 2px 4px 12px #0ff; text-align: center; margin-top: 8px;}
+    h2 {margin-top: 40px; font-size: 28px; color: #ff9800;}
+    p, li {font-size: 18px;line-height: 1.6;margin: 15px 0;text-align: left;}
+    ul {margin-bottom: 18px;}
+    .key {background: #223b56ad; border-left: 5px solid #2786d6; padding: 18px 20px 12px 20px; border-radius: 4px; margin-bottom: 30px;}
+    a.back-home {display: inline-block;margin-top: 30px;font-size: 20px;text-decoration: none;color: #49defc;padding: 10px 18px;border: 1px solid #64ffda; border-radius: 8px;transition: 0.3s;}
+    a.back-home:hover {background:rgba(100,255,218,0.15);color:#ff9800;}
+    .site-version-footer {
+      width: 100vw; max-width: 100vw; background: none; color: #ffe;
+      font-size: 15px; text-align: right; padding: 0 44px 18px 0; letter-spacing: 1px;
+      position: fixed; bottom: 0; left: 0; z-index: 50;
+      pointer-events: none; text-shadow: 0 0 18px #111a, 0 2px 7px #000; font-weight: bold; font-family: monospace;
+    }
+    @media (max-width: 900px) {
+      .sidebar, .sidebar.collapsed { left: 5px;}
+      .content, .content.sidebar-collapsed { margin-left: 0 !important;}
+      .sidebar-collapser { right: -16px;}
+      .site-version-footer { font-size: 13px; padding-right: 12px;}
+    }
+    @media (max-width: 600px) {
+      .sidebar, .sidebar.collapsed { height: auto; top: 42px;}
+      .content, .content.sidebar-collapsed { margin-top: 100px;}
+      .site-version-footer { padding:0 3vw 4vw 0;font-size:11px;}
+    }
+  </style>
+</head>
+<body class="ripple-water">
+  <!-- BG rectangles (rotates/animates) -->
+  <div class="bg-rectangles">
+    <div class="rect r1"></div>
+    <div class="rect r2"></div>
+    <div class="rect r3"></div>
+    <div class="rect r4"></div>
+  </div>
+  <!-- Sidebar -->
+  <div class="sidebar ripple-water" id="mysidebar">
+    <div class="sidebar-collapser" id="sidebarToggle" title="Collapse sidebar">&#9776;</div>
+    <div class="note">📑 Sidebar with Water/Ripple Effect</div>
+    <h2>Topics</h2>
+    <a href="#what">1. AWS Organizations क्या है</a>
+    <a href="#need">2. Need & Challenges</a>
+    <a href="#benefit">3. Benefits</a>
+    <a href="#concepts">4. Key Concepts</a>
+    <a href="#best">5. Best Practices</a>
+  </div>
+  <div class="content ripple-water" id="maincontent">
+    <h1>🟢 AWS Organizations – Concepts & Benefits</h1>
+    <h2 id="what">1. AWS Organizations क्या है?</h2>
+    <p>ये एक centralized account management service है, जिससे आप अपनी company के कई AWS accounts एक साथ manage कर सकते हो – especially enterprise-level multi-account architecture के लिए।</p>
+    <h2 id="need">2. Need & Challenges</h2>
+    <ul>
+      <li>हर account पर individually policy/configuration करना मुश्किल</li>
+      <li>हर account की billing अलग-अलग (No centralized bill)</li>
+      <li>Security/firewall settings inconsistent हो सकती हैं</li>
+    </ul>
+    <h2 id="benefit">3. Benefits</h2>
+    <ul>
+      <li>Centralized policy enforcement (SCPs), security compliance</li>
+      <li>Centralized billing (single consolidated bill)</li>
+      <li>Multi-account management आसान (new/invite accounts quickly)</li>
+      <li>Automation possible – scripts से account/policy management</li>
+    </ul>
+    <div class="key" id="concepts">
+      <h2>4. Key Concepts</h2>
+      <ul>
+        <li><b>Root/Master (payer) account:</b> सिर्फ billing, compliance purpose के लिए। Workloads deploy न करें।</li>
+        <li><b>Organizational Units (OUs):</b> logical
