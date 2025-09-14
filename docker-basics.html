@@ -2,99 +2,124 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Dynamic Splash v2.2 (Mouse Effect Everywhere)</title>
+  <title>Docker Basics - Matrix Background with Mouse Effect</title>
   <style>
-    html, body {
-      height: 100%;
-      margin: 0; padding: 0; 
-      background: #071223;
-      overflow: hidden;
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      color: #64ffda;
+      background: black;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
     }
     canvas {
       position: fixed;
-      top: 0; left: 0;
+      top: 0;
+      left: 0;
       width: 100vw;
       height: 100vh;
+      z-index: -1; /* Always in the back */
       display: block;
-      z-index: -1; /* BACKGROUND */
-      pointer-events: none; /* So mouse events go to content! */
     }
-    .version-label {
-      position: absolute;
-      top: 16px; left: 50%; transform: translateX(-50%);
-      background: #112c41e6;
-      padding: 5px 18px;
-      color: #c7ffe8;
-      font-family: monospace;
-      border-radius: 8px;
-      border: 1px solid #2fdabb80;
-      font-weight: bold;
-      letter-spacing: 2px;
-      font-size: 17px;
-      z-index: 4;
-      box-shadow: 0 4px 12px #22b68a44;
-      user-select: none;
-    }
-    .hint {
-      position: absolute;
-      left: 50%; top: 55px; transform: translateX(-50%);
-      background: #102023b3;
-      color: #bafee7;
-      font-family: monospace;
-      padding: 7px 18px;
-      border-radius: 8px;
-      font-size: 17px;
-      letter-spacing: 1px;
-      z-index: 3;
-    }
-    .content-box {
-      position: relative;
-      z-index: 2;
-      max-width: 620px;
-      background: rgba(15, 30, 40, 0.9);
-      margin: 130px auto 0;
-      padding: 32px 30px 30px 30px;
-      border-radius: 20px;
-      color: #caffee;
-      font-family: Arial, sans-serif;
-      font-size: 21px;
-      box-shadow: 0 10px 30px #05231c50, 0 1px 8px #07363865;
-      text-align: center;
+    #sidebar, .content {
+      position: relative; /* Needed so they layer above canvas */
+      z-index: 1;
     }
     h1 {
-      margin-top: 0;
-      font-size: 36px;
-      color: #2fffd5;
-      letter-spacing: 2px;
-      text-shadow: 0 2px 12px #25fff9a4;
+      margin-top: 50px;
+      font-size: 48px;
+      text-shadow: 2px 4px 12px #0ff;
+      text-align: center;
+    }
+    .content {
+      margin-left: 260px;
+      padding: 20px;
+    }
+    #sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 240px;
+      height: 100%;
+      background: rgba(10, 25, 47, 0.95);
+      padding: 20px;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.5);
+    }
+    #sidebar h2 {
+      color: #00ff00;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    #sidebar a {
+      display: block;
+      margin: 10px 0;
+      color: #49defc;
+      text-decoration: none;
+      font-size: 18px;
+      transition: 0.3s;
+    }
+    #sidebar a:hover {
+      color: #ff9800;
+    }
+    pre {
+      background: rgba(0,0,0,0.7);
+      padding: 12px;
+      border-radius: 8px;
+      color: #00ff00;
+      font-size: 16px;
+      overflow-x: auto;
+    }
+    section {
+      scroll-margin-top: 80px;
     }
   </style>
 </head>
 <body>
-  <div class="version-label">
-    v2.2 - Dynamic Splash (Mouse Hover on All Content)
+  <!-- Sidebar -->
+  <div id="sidebar">
+    <h2>Topics</h2>
+    <a href="#install">1. Docker Install kaise kare?</a>
+    <a href="#image">2. Docker Image kaise banaye?</a>
   </div>
-  <div class="hint">
-    Move/click mouse to splash!<br>
-    Background particles follow any content.<br>
-    (Version always visible at top)
+  <!-- Content -->
+  <div class="content">
+    <h1>🐳 Docker - Basics</h1>
+    <section id="install">
+      <h2>1. Docker Install kaise kare?</h2>
+      <p>Ubuntu/Linux par Docker install karne ke liye:</p>
+      <p>
+sudo apt update<br>
+sudo apt install docker.io -y<br>
+sudo systemctl start docker<br>
+sudo systemctl enable docker<br>
+docker --version
+      </p>
+      <p>Windows ya Mac par aap 
+        <a href="https://www.docker.com/products/docker-desktop/" target="_blank">Docker Desktop</a> 
+        install kar sakte ho.
+      </p>
+    </section>
+    <section id="image">
+      <h2>2. Docker Image kaise banate hai?</h2>
+      <p>Ek <code>Dockerfile</code> banaiye:</p>
+      <pre>
+# Dockerfile
+FROM ubuntu:20.04
+RUN apt-get update && apt-get install -y python3
+CMD ["python3", "--version"]
+      </pre>
+      <p>👉 Image build karne ke liye command:</p>
+      <pre>docker build -t mypython:1.0 .</pre>
+      <p>Fir container run kijiye:</p>
+      <pre>docker run mypython:1.0</pre>
+    </section>
   </div>
-  <div class="content-box">
-    <h1>🌟 Your Site Content Here</h1>
-    <p>
-      Is background effect ki wajah se aapka poora real content dikhega.<br>
-      Mouse hover ya click se splash particles show honge—kahin bhi, chahe content, images, sidebar ya kuch bhi ho.<br>
-      (Particles apne background ke according auto color pick karte hain.)
-    </p>
-    <p>
-      Version label upar hamesha dikhayi dega. <br>
-      Apne hisaab se aur text/sections bhi add kar sakte hain.
-    </p>
-  </div>
-  <canvas id="splash"></canvas>
+  <!-- Matrix Background Canvas (always last in body) -->
+  <canvas id="matrix"></canvas>
   <script>
-    // ---- Setup ----
-    const canvas = document.getElementById("splash");
+    // MATRIX BACKGROUND + MOUSE GLOW
+    const canvas = document.getElementById("matrix");
     const ctx = canvas.getContext("2d");
     function resize() {
       canvas.width = window.innerWidth;
@@ -103,75 +128,47 @@
     resize();
     window.addEventListener("resize", resize);
 
-    // Particle system
-    let particles = [];
-    function getPixelColor(x, y) {
-      // Draw background to sample color:
-      let grad = ctx.createLinearGradient(0,0,canvas.width,canvas.height);
-      grad.addColorStop(0, "#071223");
-      grad.addColorStop(0.33, "#176876");
-      grad.addColorStop(0.66, "#14b88f");
-      grad.addColorStop(1, "#00ffc0");
-      ctx.fillStyle = grad;
-      ctx.fillRect(0,0,canvas.width,canvas.height);
+    const letters = "アァイィウヴエェオカガキギクケゲコサザシジスズセゼソタダチヂッツヅテデトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワンABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    const lettersArr = letters.split("");
+    const fontSize = 16;
+    const columns = Math.floor(canvas.width / fontSize); 
+    const drops = [];
+    for (let x = 0; x < columns; x++) drops[x] = 1;
 
-      // Read background color at splash point
-      const pixel = ctx.getImageData(x, y, 1, 1).data;
-      return `rgba(${pixel[0]},${pixel[1]},${pixel[2]},${(pixel[3]/255).toFixed(2)})`;
-    }
-    function splash(x, y) {
-      let clr = getPixelColor(x, y);
-      for(let i=0; i<28; i++) { // lowered for smoother continuous hover
-        let angle = (Math.PI * 2) * Math.random();
-        let speed = 3 + Math.random()*1.5;
-        particles.push({
-          x: x + (Math.random() - 0.5)*12,
-          y: y + (Math.random() - 0.5)*12,
-          dx: Math.cos(angle) * speed,
-          dy: Math.sin(angle) * speed,
-          r: 3 + Math.random()*6,
-          alpha: 1,
-          color: clr
-        });
-      }
-    }
-    // Use document so effect kaam kare chahe mouse kisi bhi content par ho:
-    document.addEventListener("mousemove", e => splash(e.clientX, e.clientY));
-    document.addEventListener("mousedown", e => splash(e.clientX, e.clientY));
+    let mouseX = -100, mouseY = -100;
+    canvas.addEventListener("mousemove", (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+    canvas.addEventListener("mouseleave", () => {
+      mouseX = -100;
+      mouseY = -100;
+    });
 
     function draw() {
-      // BG gradient redraw
-      let grad = ctx.createLinearGradient(0,0,canvas.width,canvas.height);
-      grad.addColorStop(0, "#071223");
-      grad.addColorStop(0.33, "#176876");
-      grad.addColorStop(0.66, "#14b88f");
-      grad.addColorStop(1, "#00ffc0");
-      ctx.fillStyle = grad;
-      ctx.fillRect(0,0,canvas.width,canvas.height);
-
-      // particles
-      for(let i=particles.length-1; i>=0; i--) {
-        let p=particles[i];
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, 2 * Math.PI);
-        ctx.fillStyle = p.color;
-        ctx.globalAlpha = p.alpha;
-        ctx.shadowColor = p.color;
-        ctx.shadowBlur = 15;
-        ctx.fill();
-        ctx.globalAlpha = 1;
-        ctx.shadowBlur = 0;
-        p.x += p.dx;
-        p.y += p.dy;
-        p.dx *= 0.91;
-        p.dy *= 0.91;
-        p.r *= 0.967;
-        p.alpha -= 0.035;
-        if(p.alpha <= 0.01 || p.r < 1) particles.splice(i, 1);
+      ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "#0F0";
+      ctx.font = fontSize + "px monospace";
+      for (let i = 0; i < drops.length; i++) {
+        const text = lettersArr[Math.floor(Math.random() * lettersArr.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+        drops[i]++;
       }
-      requestAnimationFrame(draw);
+      // Mouse Glow
+      if (mouseX > 0 && mouseY > 0) {
+        ctx.beginPath();
+        ctx.arc(mouseX, mouseY, 50, 0, 2 * Math.PI);
+        ctx.fillStyle = "rgba(0,255,120,0.25)";
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(mouseX, mouseY, 12, 0, 2 * Math.PI);
+        ctx.fillStyle = "rgba(0,255,0,0.75)";
+        ctx.fill();
+      }
     }
-    draw();
+    setInterval(draw, 33);
   </script>
 </body>
 </html>
