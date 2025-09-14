@@ -1,8 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Docker Basics - Matrix Background with Mouse Effect</title>
+  <title>Docker Basics - Matrix Background</title>
   <style>
     body {
       margin: 0;
@@ -11,31 +12,30 @@
       color: #64ffda;
       background: black;
       overflow-x: hidden;
-      scroll-behavior: smooth;
+      scroll-behavior: smooth; /* smooth scroll enable */
     }
+
+    /* Canvas (Matrix Background) */
     canvas {
       position: fixed;
       top: 0;
       left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: -1; /* Always in the back */
-      display: block;
+      z-index: -1;
     }
-    #sidebar, .content {
-      position: relative; /* Needed so they layer above canvas */
-      z-index: 1;
-    }
+
     h1 {
       margin-top: 50px;
       font-size: 48px;
       text-shadow: 2px 4px 12px #0ff;
       text-align: center;
     }
+
     .content {
       margin-left: 260px;
       padding: 20px;
     }
+
+    /* Sidebar Navigation */
     #sidebar {
       position: fixed;
       top: 0;
@@ -46,11 +46,13 @@
       padding: 20px;
       box-shadow: 2px 0 10px rgba(0,0,0,0.5);
     }
+
     #sidebar h2 {
       color: #00ff00;
       text-align: center;
       margin-bottom: 20px;
     }
+
     #sidebar a {
       display: block;
       margin: 10px 0;
@@ -59,9 +61,11 @@
       font-size: 18px;
       transition: 0.3s;
     }
+
     #sidebar a:hover {
       color: #ff9800;
     }
+
     pre {
       background: rgba(0,0,0,0.7);
       padding: 12px;
@@ -70,8 +74,10 @@
       font-size: 16px;
       overflow-x: auto;
     }
+
+    /* Scroll fix - section top margin */
     section {
-      scroll-margin-top: 80px;
+      scroll-margin-top: 80px; /* sidebar/header ke hisaab se adjust karo */
     }
   </style>
 </head>
@@ -82,24 +88,28 @@
     <a href="#install">1. Docker Install kaise kare?</a>
     <a href="#image">2. Docker Image kaise banaye?</a>
   </div>
+
   <!-- Content -->
   <div class="content">
     <h1>🐳 Docker - Basics</h1>
+
     <section id="install">
       <h2>1. Docker Install kaise kare?</h2>
       <p>Ubuntu/Linux par Docker install karne ke liye:</p>
-      <p>
+     <p>
 sudo apt update<br>
 sudo apt install docker.io -y<br>
 sudo systemctl start docker<br>
 sudo systemctl enable docker<br>
 docker --version
-      </p>
+</p>
+
       <p>Windows ya Mac par aap 
         <a href="https://www.docker.com/products/docker-desktop/" target="_blank">Docker Desktop</a> 
         install kar sakte ho.
       </p>
     </section>
+
     <section id="image">
       <h2>2. Docker Image kaise banate hai?</h2>
       <p>Ek <code>Dockerfile</code> banaiye:</p>
@@ -111,64 +121,56 @@ CMD ["python3", "--version"]
       </pre>
       <p>👉 Image build karne ke liye command:</p>
       <pre>docker build -t mypython:1.0 .</pre>
+
       <p>Fir container run kijiye:</p>
       <pre>docker run mypython:1.0</pre>
     </section>
   </div>
-  <!-- Matrix Background Canvas (always last in body) -->
+
+  <!-- Matrix Background Canvas -->
   <canvas id="matrix"></canvas>
+
   <script>
-    // MATRIX BACKGROUND + MOUSE GLOW
+    // MATRIX BACKGROUND SCRIPT
     const canvas = document.getElementById("matrix");
     const ctx = canvas.getContext("2d");
-    function resize() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    resize();
-    window.addEventListener("resize", resize);
+
+    // full screen
+    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
 
     const letters = "アァイィウヴエェオカガキギクケゲコサザシジスズセゼソタダチヂッツヅテデトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワンABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     const lettersArr = letters.split("");
-    const fontSize = 16;
-    const columns = Math.floor(canvas.width / fontSize); 
-    const drops = [];
-    for (let x = 0; x < columns; x++) drops[x] = 1;
 
-    let mouseX = -100, mouseY = -100;
-    canvas.addEventListener("mousemove", (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    });
-    canvas.addEventListener("mouseleave", () => {
-      mouseX = -100;
-      mouseY = -100;
-    });
+    const fontSize = 16;
+    const columns = canvas.width / fontSize; 
+    const drops = [];
+
+    for (let x = 0; x < columns; x++) drops[x] = 1;
 
     function draw() {
       ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = "#0F0";
+
+      ctx.fillStyle = "#0F0"; // green text
       ctx.font = fontSize + "px monospace";
+
       for (let i = 0; i < drops.length; i++) {
         const text = lettersArr[Math.floor(Math.random() * lettersArr.length)];
         ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
         if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
         drops[i]++;
       }
-      // Mouse Glow
-      if (mouseX > 0 && mouseY > 0) {
-        ctx.beginPath();
-        ctx.arc(mouseX, mouseY, 50, 0, 2 * Math.PI);
-        ctx.fillStyle = "rgba(0,255,120,0.25)";
-        ctx.fill();
-        ctx.beginPath();
-        ctx.arc(mouseX, mouseY, 12, 0, 2 * Math.PI);
-        ctx.fillStyle = "rgba(0,255,0,0.75)";
-        ctx.fill();
-      }
     }
+
     setInterval(draw, 33);
+
+    // resize fix
+    window.addEventListener("resize", () => {
+      canvas.height = window.innerHeight;
+      canvas.width = window.innerWidth;
+    });
   </script>
 </body>
 </html>
