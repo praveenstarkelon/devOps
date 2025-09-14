@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <title>AWS Organizations – All Pro Effects Demo</title>
+  <!-- Ripple Plugin CSS (Required) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.ripples/0.5.3/jquery.ripples.min.css" />
+  <!-- PixiJS for interactive particles -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/7.2.4/pixi.min.js"></script>
+  <style>
+    body.ripple-water {
+      background: linear-gradient(120deg, #112240 0%, #327dac 50%, #49defc 100%);
+      background-size: 400% 400%;
+      margin: 0; padding: 0; min-height:100vh; width:100vw;
+      color: #64ffda; font-family: Arial,sans-serif;
+      display: flex;
+      transition: background 2.7s;
+      overflow: hidden;
+    }
+    .sidebar.ripple-water {
+      width: 250px;
+      background: rgba(17,34,64,0.65);
+      box-shadow: 0 8px 32px 0 rgba(31,38,135,0.3);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.13);
+      padding: 20px;
+      position: fixed;
+      top: 16px; left: 12px;
+      height: 95vh; overflow-y: auto; transition: 0.3s; z-index: 9;
+    }
+    .sidebar .note { font-size:16px; color:#ff9800; margin-bottom:15px; display:none; text-align:center; }
+    .sidebar:hover .note { display:block; }
+    .sidebar h2 { font-size:22px;margin-bottom:15px;color:#64ffda;text-align:center;}
+    .sidebar a {display: block;color:#64ffda;text-decoration: none;padding:10px;margin:5px 0; border-radius:6px;font-size:18px;}
+    .sidebar a:hover {background:rgba(100,255,218,0.15); color:#ff9800;}
+    .content.ripple-water {
+      margin-left: 280px; padding:34px; max-width:900px;
+      background:rgba(24,45,69,0.28); box-shadow:0 8px 32px 0 rgba(31,38,135,0.14);
+      backdrop-filter: blur(7px); border-radius:24px; border:1px solid rgba(255,255,255,0.1);
+      margin-top:18px; z-index:1; min-height: 94vh;
+      position:relative;
+    }
+    h1.glow-heading {
+      font-size: 44px;
+      text-shadow:
+        0 0 14px #49defc, 0 0 60px #28d7ff88, 0 4px 32px #0ff,
+        2px 4px 22px #0ff, 0 0 2px #64ffda;
+      color: #fff;
+      letter-spacing: 2px;
+      text-align:center;
+      filter:brightness(1.15) blur(0.5px);
+    }
+    h2 {margin-top: 40px; font-size: 28px; color: #ff9800;}
+    p, li {font-size: 18px;line-height: 1.6;margin: 15px 0;text-align: left;}
+    ul {margin-bottom: 18px;}
+    .key {background: #223b56ad; border-left:5px solid #2786d6; padding:18px 20px 12px 20px; border-radius:4px; margin-bottom:30px;}
+    a.back-home {display:inline-block;margin-top:30px;font-size:20px;text-decoration:none;color:#49defc;padding:10px 18px;border:1px solid #64ffda;border-radius:8px;transition:0.3s;}
+    a.back-home:hover {background:rgba(100,255,218,0.15);color:#ff9800;}
+    @media (max-width: 700px) {
+      .sidebar { position:relative; width:100%; height:auto; }
+      .content { margin-left:0; }
+    }
+    /* PixiJS particle canvas styling */
+    #pixiparticles {
+      position: fixed; left: 0; top: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 3;
+      filter: blur(0.6px) brightness(1.2) saturate(1.4);
+      mix-blend-mode: lighten;
+    }
+    /* Three.js glowing bg canvas styling */
+    #glowbgcanvas {
+      position: fixed; left:0;top:0;width:100vw;height:100vh; z-index: 0;
+      filter: blur(2px) brightness(1.13) contrast(1.12) saturate(1.23);
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body class="ripple-water">
+
+  <!-- Glowing Particle Field (Three.js) -->
+  <canvas id="glowbgcanvas"></canvas>
+  <!-- PixiJS Interactive Particle Layer -->
+  <canvas id="pixiparticles"></canvas>
+  
+  <!-- Sidebar (with ripple-water class) -->
+  <div class="sidebar ripple-water">
+    <div class="note">📑 Sidebar with Water/Ripple Effect</div>
+    <h2>Topics</h2>
+    <a href="#what">1. AWS Organizations क्या है</a>
+    <a href="#need">2. Need & Challenges</a>
+    <a href="#benefit">3. Benefits</a>
+    <a href="#concepts">4. Key Concepts</a>
+    <a href="#best">5. Best Practices</a>
+  </div>
+  
+  <!-- Main Content (with ripple-water class) -->
+  <div class="content ripple-water">
+    <h1 class="glow-heading">🟢 AWS Organizations – Concepts & Benefits</h1>
+    <h2 id="what">1. AWS Organizations क्या है?</h2>
+    <p>ये एक centralized account management service है, जिससे आप अपनी company के कई AWS accounts एक साथ manage कर सकते हो – especially enterprise-level multi-account architecture के लिए।</p>
+    <h2 id="need">2. Need & Challenges</h2>
+    <ul>
+      <li>हर account पर individually policy/configuration करना मुश्किल</li>
+      <li>हर account की billing अलग-अलग (No centralized bill)</li>
+      <li>Security/firewall settings inconsistent हो सकती हैं</li>
+    </ul>
+    <h2 id="benefit">3. Benefits</h2>
+    <ul>
+      <li>Centralized policy enforcement (SCPs), security compliance</li>
+      <li>Centralized billing (single consolidated bill)</li>
+      <li>Multi-account management आसान (new/invite accounts quickly)</li>
+      <li>Automation possible – scripts से account/policy management</li>
+    </ul>
+    <div class="key" id="concepts">
+      <h2>4. Key Concepts</h2>
+      <ul>
+        <li><b>Root/Master (payer) account:</b> सिर्फ billing, compliance purpose के लिए। Workloads deploy न करें।</li>
+        <li><b>Organizational Units (OUs):</b> logical grouping – e.g., department/function-wise segregation</li>
+        <li><b>SCPs (Service Control Policies):</b> permissions boundaries, centrally control services/actions</li>
+        <li><b>Hierarchy:</b> OUs के अंदर sub-OU बना सकते हैं, policies inherit होती हैं</li>
+      </ul>
+    </div>
+    <h2 id="best">5. Best Practices</h2>
+    <ul>
+      <li>Accounts logically segregate करें (e.g., shared, prod, archive, security, etc.)</li>
+      <li>Root account पर production workload ना रखें</li>
+      <li>Policies हमेशा OU या नीचे apply करें</li>
+    </ul>
+    <a class="back-home" href="index.html">⬅ Back to Home</a>
+  </div>
+
+  <!-- JQuery + Ripples Plugin JS -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.ripples/0.5.3/jquery.ripples.min.js"></script>
+  <script>
+    // Water Ripple Effect All Over
+    $(function(){
+      $(".ripple-water").ripples({
+        resolution: 512,
+        dropRadius: 22,
+        perturbance: 0.04,
+        interactive: true
+      });
+      setInterval(function() {
+        var $el = $('.ripple-water');
+        var x = Math.random() * $el.outerWidth();
+        var y = Math.random() * $el.outerHeight();
+        var strength = (Math.random() * 0.08) + 0.05;
+        $el.ripples('drop', x, y, 25, strength);
+      }, 1700);
+    });
+
+    // Multi-gradient animated background morph
+    const gradients = [
+      "linear-gradient(120deg, #112240 0%, #327dac 50%, #49defc 100%)",
+      "linear-gradient(120deg, #ff9800 0%, #64ffda 100%)",
+      "linear-gradient(120deg, #43cea2 0%, #185a9d 100%)",
+      "linear-gradient(120deg, #e96443 0%, #904e95 100%)",
+      "linear-gradient(133deg, #f7971e 0%, #ffd200 100%)",
+      "linear-gradient(120deg, #6a11cb 0%, #2575fc 100%)",
+      "linear-gradient(120deg, #f794a4 0%, #fdd6bd 100%)",
+      "linear-gradient(133deg, #11e8bb 0%, #0f6260 100%)",
+      "linear-gradient(120deg, #fc6767 0%, #ec008c 100%)",
+      "linear-gradient(133deg, #00c6ff 0%, #0072ff 100%)"
+    ];
+    let j = 0;
+    setInterval(function() {
+      document.body.style.transition = "background 2.7s ease";
+      document.body.style.background = gradients[j];
+      j = (j + 1) % gradients.length;
+    }, 7000);
+  </script>
+
+  <!-- ==== 3D Glowing Particles (Three.js) ==== -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
+  <script>
+    const canvas = document.getElementById("glowbgcanvas");
+    const renderer = new THREE.WebGLRenderer({canvas:canvas, alpha:true, antialias:true});
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(80, window.innerWidth/window.innerHeight, 1, 5000);
+    camera.position.z = 420;
+    const geometry = new THREE.BufferGeometry();
+    const particles = 1100;
+    const positions = [], colors = [];
+    for(let i=0;i<particles;i++) {
+      positions.push((Math.random()-0.5)*1400, (Math.random()-0.5)*800, (Math.random()-0.5)*1100);
+      const color = new THREE.Color(); color.setHSL(Math.random(),0.9,0.7);
+      colors.push(color.r, color.g, color.b);
+    }
+    geometry.setAttribute("position", new THREE.Float32BufferAttribute(positions, 3));
+    geometry.setAttribute("color", new THREE.Float32BufferAttribute(colors, 3));
+    const material = new THREE.PointsMaterial({
+      size: 22, vertexColors: true, transparent:true, opacity:0.38,
+      blending: THREE.AdditiveBlending, depthWrite:false
+    });
+    const points = new THREE.Points(geometry, material); scene.add(points);
+    function animate() {
+      requestAnimationFrame(animate);
+      points.rotation.y += 0.0014;
+      points.rotation.x += 0.0009;
+      renderer.render(scene, camera);
+    } animate();
+    window.addEventListener("resize",()=>{
+      camera.aspect=window.innerWidth/window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth,window.innerHeight);
+    });
+  </script>
+  <!-- ==== Particle Light Burst (PixiJS) ==== -->
+  <script>
+    // PixiJS setup for interactive light bubbles
+    const pixiApp = new PIXI.Application({
+      width: window.innerWidth, height: window.innerHeight, backgroundAlpha:0, view: document.getElementById("pixiparticles")
+    });
+    const particlesArray = [];
+    function createParticle(x, y) {
+      const g = new PIXI.Graphics();
+      g.beginFill(PIXI.utils.rgb2hex([Math.random(), Math.random(), 1]), 0.16 + Math.random()*0.8);
+      g.drawCircle(0,0, Math.random()*14 + 12);
+      g.endFill();
+      g.x = x; g.y = y; g.vy = -0.45-Math.random(); g.vx = (Math.random()-0.5)*0.9;
+      pixiApp.stage.addChild(g);
+      particlesArray.push(g);
+    }
+    // Mouse move/Click = burst
+    window.addEventListener("mousemove", e=>{
+      if(Math.random()>0.94) createParticle(e.clientX, e.clientY);
+    });
+    window.addEventListener("click", e=>{
+      for(let i=0; i<7; i++)
+        createParticle(e.clientX + Math.random()*30-15, e.clientY + Math.random()*30-15);
+    });
+    // Animate particles
+    pixiApp.ticker.add(()=>{
+      for(let i=particlesArray.length-1; i>=0; i--) {
+        let p = particlesArray[i];
+        p.x += p.vx; p.y += p.vy;
+        p.alpha -= 0.006; p.scale.x -= 0.0018; p.scale.y -= 0.0018;
+        if(p.alpha<=0.02 || p.scale.x<=0.02) {
+          pixiApp.stage.removeChild(p); particlesArray.splice(i,1);
+        }
+      }
+    });
+    window.addEventListener("resize",()=>{
+      pixiApp.renderer.resize(window.innerWidth,window.innerHeight);
+    });
+  </script>
+</body>
+</html>
