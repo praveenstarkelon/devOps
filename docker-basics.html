@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Docker Basics - Matrix Background with Mouse Effect</title>
+  <title>Docker Basics - Matrix Background with Mouse Glow</title>
   <style>
     body {
       margin: 0;
@@ -19,11 +19,11 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      z-index: -1; /* Always in the back */
+      z-index: -1; /* Always behind content */
       display: block;
     }
     #sidebar, .content {
-      position: relative; /* Needed so they layer above canvas */
+      position: relative;
       z-index: 1;
     }
     h1 {
@@ -118,7 +118,7 @@ CMD ["python3", "--version"]
   <!-- Matrix Background Canvas (always last in body) -->
   <canvas id="matrix"></canvas>
   <script>
-    // MATRIX BACKGROUND + MOUSE GLOW
+    // MATRIX BACKGROUND + MOUSE GLOW - with document events
     const canvas = document.getElementById("matrix");
     const ctx = canvas.getContext("2d");
     function resize() {
@@ -135,12 +135,13 @@ CMD ["python3", "--version"]
     const drops = [];
     for (let x = 0; x < columns; x++) drops[x] = 1;
 
+    // Mouse events on document (always triggers everywhere)
     let mouseX = -100, mouseY = -100;
-    canvas.addEventListener("mousemove", (e) => {
+    document.addEventListener("mousemove", (e) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
     });
-    canvas.addEventListener("mouseleave", () => {
+    document.addEventListener("mouseleave", () => {
       mouseX = -100;
       mouseY = -100;
     });
