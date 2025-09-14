@@ -6,14 +6,23 @@
   <!-- Ripple Plugin CSS (Required) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.ripples/0.5.3/jquery.ripples.min.css" />
   <style>
-    body {
-      background: linear-gradient(135deg, #0a192f 70%, #49defc 100%);
+    /* ========== Ultra-smooth Animated Gradient Background ========== */
+    body.ripple-water {
+      background: linear-gradient(120deg, #112240 0%, #327dac 50%, #49defc 100%);
+      background-size: 400% 400%;
+      animation: gradientBG 16s ease infinite;
       color: #64ffda;
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
       display: flex;
       min-height: 100vh;
+      transition: background 3s ease;
+    }
+    @keyframes gradientBG {
+      0% {background-position:0% 50%;}
+      50%{background-position:100% 50%;}
+      100%{background-position:0% 50%;}
     }
     .sidebar.ripple-water {
       width: 250px;
@@ -122,7 +131,8 @@
     }
   </style>
 </head>
-<body>
+<!-- ==== Pro Water Ripple Effect everywhere ==== -->
+<body class="ripple-water">
   <!-- Sidebar (with ripple-water class) -->
   <div class="sidebar ripple-water">
     <div class="note">📑 Sidebar with Water/Ripple Effect</div>
@@ -172,46 +182,47 @@
     </ul>
     <a class="back-home" href="index.html">⬅ Back to Home</a>
   </div>
+
   <!-- JQuery + Ripples Plugin JS (Required) -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.ripples/0.5.3/jquery.ripples.min.js"></script>
   <script>
-    // ==== Sidebar aur Content par Water Ripple Effect ====
+    // ==== Ultra Pro Water Ripple Effect everywhere ====
     $(function(){
       $(".ripple-water").ripples({
-        resolution: 356,           // Detail level of water effect
-        dropRadius: 18,            // Ripple size in pixels
-        perturbance: 0.06,         // Water turbulence
-        interactive: true          // Mouse/cursor interaction allowed
+        resolution: 512,           // Sharper water detail
+        dropRadius: 22,            // Ripple size
+        perturbance: 0.04,         // Smoother, glass-like
+        interactive: true          // Mouse/cursor interaction
       });
+
+      // ==== Auto random ripple! (visual life) ====
+      setInterval(function() {
+        var $el = $('.ripple-water');
+        var x = Math.random() * $el.outerWidth();
+        var y = Math.random() * $el.outerHeight();
+        var strength = (Math.random() * 0.08) + 0.05;
+        $el.ripples('drop', x, y, 25, strength);
+      }, 1700);
     });
-  </script>
 
-  <!-- ==== Background Music Player (Hidden) ==== -->
-  <!-- 
-    - src: Apni audio file ka online direct link dalo (e.g. Github raw mp3)
-    - autoplay: Page load par music chalega
-    - loop: Repeat hota rahega
-  -->
- 
-  <audio id="bgmusic" src="YOUR-DIRECT-MP3-LINK" autoplay loop></audio>
-  <!-- 
-    ==== JS se Music Volume Set Karna ====
-    - Volume: 0.4 means 40%
-    - window.onload: Page poora load hone ke baad ye chalega
-  -->
-  <script>
-    window.onload = function() {
-      var aud = document.getElementById("bgmusic");
-      aud.volume = 0.4; // 40% volume
-    }
+    // ==== Bonus: Auto Gradient Morph Effect (optional) ====
+    // Uncomment below JS if you want periodic color morph with gradient!
+    /*
+    let gradients = [
+      "linear-gradient(120deg, #112240 0%, #327dac 50%, #49defc 100%)",
+      "linear-gradient(120deg, #f794a4 0%, #fdd6bd 100%)",
+      "linear-gradient(120deg, #43cea2 0%, #185a9d 100%)",
+      "linear-gradient(120deg, #43156d 0%, #ff367b 100%)",
+      "linear-gradient(133deg, #11e8bb 0%, #0f6260 100%)"
+    ];
+    let j = 0;
+    setInterval(function() {
+      document.body.style.transition = "background 3s ease";
+      document.body.style.background = gradients[j];
+      j = (j + 1) % gradients.length;
+    }, 12000);
+    */
   </script>
-
-  <!-- 
-    ==== Notes ====
-    1. audio tag ka src url change karke apni file daal sakte ho
-    2. Volume range: 0 (mute) to 1 (full)
-    3. Mobile browsers par autoplay sometimes block hota hai user action tak
-  -->
 </body>
 </html>
