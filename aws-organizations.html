@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <title>AWS Organizations Concepts & Benefits Summary</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f9f9f9; margin: 0; padding: 24px; }
+    .container { max-width: 750px; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px #e0e0e0; margin: 0 auto; padding: 32px; }
+    h1, h2 { color: #2162af; }
+    ul { margin-bottom: 18px; }
+    .section { margin-bottom: 30px; }
+    .sub { font-size: 1.13em; color: #32764e; }
+    li { margin-bottom: 7px; }
+    .key { background: #eef6fb; border-left: 5px solid #2786d6; padding: 18px 20px 12px 20px; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>AWS Organizations – Concepts & Benefits (Summary)</h1>
+    <p class="sub">इस वीडियो में AWS Organizations की concepts और उनके benefits समझाए गए हैं, खासकर enterprise level पर multiple AWS accounts manage करने के लिए।</p>
+    <div class="section">
+      <h2>मुख्य बिंदु:</h2>
+      <ul>
+        <li><b>AWS Organizations क्या है:</b> ये एक centralized account management service है, जिससे आप अपनी company के कई AWS accounts एक साथ manage कर सकते हो।</li>
+        <li><b>Need for AWS Organizations:</b> बिना organizations के हर account पर individually policy और configuration करना मुश्किल हो जाता है, जिससे standardization, cost control और security risk बढ़ते हैं।</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h2>Challenges बिना organization के:</h2>
+      <ul>
+        <li>एक जैसी policy सब accounts पर लगाना मुश्किल</li>
+        <li>Centralized billing नहीं, हर account की bill अलग-अलग</li>
+        <li>Security और Firewall settings अलग-अलग accounts पर inconsistent हो सकती हैं</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h2>Organizations के benefits:</h2>
+      <ul>
+        <li>Centralized policy enforcement (Service Control Policies – SCPs) और security compliance</li>
+        <li>Centralized billing (एक ही consolidated bill, पूरे organization के लिए)</li>
+        <li>Multi-account management आसान – नए accounts बनाना और existing को invite करना simple</li>
+        <li>Automation possible – scripts से accounts create करना, policies assign करना इत्यादि</li>
+      </ul>
+    </div>
+    <div class="section key">
+      <h2>Key Concepts:</h2>
+      <ul>
+        <li><b>Root/Master (payer) account:</b> इस पर कोई workload रन नहीं करें, सिर्फ billing, compliance purpose के लिए रखें।</li>
+        <li><b>Organizational Units (OUs):</b> logical grouping है accounts का, जैसे department-wise या function-wise अलग-अलग OU बना सकते हैं।</li>
+        <li><b>Service Control Policies (SCPs):</b> organization level पर permission boundaries define करते हैं, जिससे centrally restrict कर सकते हैं कौन सी services/operations permitted हैं।</li>
+        <li><b>Hierarchical structure:</b> OU के अंदर sub-OU भी बना सकते हैं, policies inherit होती हैं।</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h2>Best Practices:</h2>
+      <ul>
+        <li>Accounts logically segregate करें (e.g., shared services, workload, log archive, security accounts)</li>
+        <li>Root account पर production workload ना रखें</li>
+        <li>Policies हमेशा OU level या उससे नीचे apply करें</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>
