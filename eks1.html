@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>EKS Cluster + NodeGroup Infra (Animated) | AWS</title>
+  <link rel="stylesheet" href="eks.css">
+</head>
+<body>
+  <div id="sidebar">
+    <h2>Topics</h2>
+    <ul>
+      <li>EKS Cluster
+        <ul>
+          <li>Cluster Structure</li>
+          <li>Cluster Terraform Code</li>
+          <li>Best Practices</li>
+        </ul>
+      </li>
+      <li>Node Group
+        <ul>
+          <li>Node Group Structure</li>
+          <li>Node Group Terraform Code</li>
+          <li>Tips</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <main>
+    <h1>AWS EKS Cluster + NodeGroup Infra (Animated)</h1>
+    <section id="eks-structure">
+      <h2>1.1 EKS Cluster Logical Structure</h2>
+      <pre>
+[ resource "aws_eks_cluster" "my_cluster" ]
+  |
+  +--> [ name = "my-cluster" ]
+  |
+  +--> [ role_arn = "EKS Cluster IAM Role" ]
+    |    +--> Trust: eks.amazonaws.com
+    |    +--> Policy: AmazonEKSClusterPolicy
+  |
+  +--> [ version = "1.30" ]
+  +--> [ vpc_config ]
+        +--> subnet_ids = ["subnet-123", ...]
+        +--> security_group_ids = [...]
+      </pre>
+    </section>
+    <section id="eks-tf">
+      <h2>1.2 Cluster - Sample Terraform</h2>
+      <pre>
+resource "aws_eks_cluster" "my_cluster" {
+  ...
+}
+      </pre>
+    </section>
+    <section id="eks-best">
+      <h2>1.3 Best Practices</h2>
+      <ul>
+        <li>Cluster role से सिर्फ cluster manage करें, वहां production workloads ना रखें</li>
+        <li>VPC/subnets networking हमेशा private+public दोनों तरह की बनाएं</li>
+        <li>Policies की least privilege approach follow करें</li>
+      </ul>
+    </section>
+    <!-- NodeGroup Sections etc. -->
+    <button id="back-home">⬅ Back to Home</button>
+  </main>
+  <script src="eks.js"></script>
+</body>
+</html>
