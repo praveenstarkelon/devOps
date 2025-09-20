@@ -39,10 +39,9 @@
       position: relative;
       z-index: 10;
       justify-content: center;
-      /* By default: no animation */
     }
     .navbar.animate {
-      justify-content: flex-start; /* Move nav links to left when animating */
+      justify-content: flex-start;
       animation: scroll-navbar 18s linear infinite;
     }
     @keyframes scroll-navbar {
@@ -71,7 +70,8 @@
       z-index: 20;
     }
     .menu-item:hover .mainlink,
-    .menu-item:focus .mainlink {
+    .menu-item:focus .mainlink,
+    .menu-item.active .mainlink {
       color: #ff9800;
       background: rgba(100,255,218,0.10);
       transform: rotateY(360deg);
@@ -91,9 +91,11 @@
       text-align: left;
       white-space: normal;
       pointer-events: auto;
+      cursor: pointer;
     }
     .menu-item:hover .dropdown,
-    .menu-item:focus-within .dropdown {
+    .menu-item:focus-within .dropdown,
+    .menu-item.active .dropdown {
       display: block;
       opacity: 1;
       pointer-events: auto;
@@ -211,11 +213,30 @@
 
   <!-- =============== JS SECTION =============== -->
   <script>
-    // Animate scroll only after 2.5s, and move navbar from center to left
+    // Navbar scroll animation after delay
     window.onload = function() {
       setTimeout(function() {
         document.querySelector('.navbar').classList.add('animate');
-      }, 2500); // 2.5 sec delay, you can increase if needed
+      }, 2500);
+
+      // Dropdown accessibility: click to open/close (always works even during scroll)
+      document.querySelectorAll('.menu-item .mainlink').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+          // Remove active from all others
+          document.querySelectorAll('.menu-item').forEach(function(item){
+            if (item !== btn.parentElement) item.classList.remove('active');
+          });
+          // Toggle active class for clicked one
+          btn.parentElement.classList.toggle('active');
+          e.stopPropagation();
+        });
+      });
+      // Close all when clicking elsewhere
+      document.addEventListener('click', function(){
+        document.querySelectorAll('.menu-item').forEach(function(item){
+          item.classList.remove('active');
+        });
+      });
     };
   </script>
   <!-- =============== END JS SECTION =============== -->
