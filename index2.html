@@ -1,0 +1,220 @@
+<script id="vertexShader" type="x-shader/x-vertex">
+  uniform float uSize;
+  uniform float uTime;
+  uniform float uHoleSize;
+  attribute float aScale;
+  attribute vec3 aRandomness;
+  varying vec3 vColor;
+  void main() {
+    vec4 modelPosition = modelMatrix * vec4(position, 1.0);
+    
+    // Spin
+    float angle = atan(modelPosition.x, modelPosition.z);
+    float distanceToCenter = length(modelPosition.xz) + uHoleSize;
+    float uTimeOffset = uTime + (uHoleSize * 30.0);
+    float angleOffset = (1.0 / distanceToCenter) * uTimeOffset * 0.2;
+    angle += angleOffset;
+    
+    modelPosition.x = cos(angle) * distanceToCenter;
+    modelPosition.z = sin(angle) * distanceToCenter;
+    modelPosition.xyz += aRandomness;
+    vec4 viewPosition = viewMatrix * modelPosition;
+    vec4 projectedPosition = projectionMatrix * viewPosition;
+    gl_Position = projectedPosition;
+    float scale = uSize * aScale;
+    
+    gl_PointSize = scale;
+    gl_PointSize *= ( 1.0 / - viewPosition.z );
+    vColor = color;
+  }
+</script>
+
+<script id="fragmentShader" type="x-shader/x-fragment">
+  varying vec3 vColor;
+  varying vec2 vUv;
+  uniform sampler2D uTexture;
+  void main() {
+    gl_FragColor = vec4( vColor, 1.0 );
+    gl_FragColor = gl_FragColor * texture2D(uTexture, vec2( gl_PointCoord.x, gl_PointCoord.y ) );
+    gl_FragColor = gl_FragColor * vec4( vColor, 1.0 );
+  }
+</script>
+
+<!-- Top Navbar -->
+<nav class="top-navbar">
+  <div class="navbar-container">
+    <div class="navbar-brand">
+      <span class="brand-icon">⚡</span>
+      <span class="brand-text">DevOps Hub</span>
+    </div>
+    <ul class="navbar-menu">
+      <li class="navbar-item dropdown">
+        <a class="navbar-link" href="#">
+          <span class="nav-icon">🐳</span>
+          Docker
+          <span class="dropdown-arrow">▼</span>
+        </a>
+        <ul class="dropdown-menu">
+          <a href="docker-basics.html" target="_blank">Basics</a>
+          <a href="docker-images.html" target="_blank">Images</a>
+          <a href="docker-containers.html" target="_blank">Containers</a>
+          <a href="docker-volumes.html" target="_blank">Volumes</a>
+          <a href="docker-compose.html" target="_blank">Compose</a>
+          <a href="docker-swarm.html" target="_blank">Swarm</a>
+        </ul>
+      </li>
+      <li class="navbar-item dropdown">
+        <a class="navbar-link" href="#">
+          <span class="nav-icon">☸️</span>
+          Kubernetes
+          <span class="dropdown-arrow">▼</span>
+        </a>
+        <ul class="dropdown-menu">
+          <a href="kube-cluster.html" target="_blank">Cluster</a>
+          <a href="kube-pods.html" target="_blank">Pods</a>
+          <a href="kube-services.html" target="_blank">Services</a>
+          <a href="kube-ingress.html" target="_blank">Ingress</a>
+          <a href="kube-deployments.html" target="_blank">Deployments</a>
+        </ul>
+      </li>
+      <li class="navbar-item dropdown">
+        <a class="navbar-link" href="#">
+          <span class="nav-icon">🏗️</span>
+          Terraform
+          <span class="dropdown-arrow">▼</span>
+        </a>
+        <ul class="dropdown-menu">
+          <a href="terraform-providers.html" target="_blank">Providers</a>
+          <a href="terraform-resources.html" target="_blank">Resources</a>
+          <a href="terraform-modules.html" target="_blank">Modules</a>
+          <a href="terraform-state.html" target="_blank">State</a>
+        </ul>
+      </li>
+      <li class="navbar-item dropdown">
+        <a class="navbar-link" href="#">
+          <span class="nav-icon">☁️</span>
+          AWS
+          <span class="dropdown-arrow">▼</span>
+        </a>
+        <ul class="dropdown-menu">
+          <a href="aws-vpc.html" target="_blank">VPC</a>
+          <a href="aws-ec2.html" target="_blank">EC2</a>
+          <a href="aws-s3.html" target="_blank">S3</a>
+          <a href="aws-lambda.html" target="_blank">Lambda</a>
+          <a href="aws-rds.html" target="_blank">RDS</a>
+        </ul>
+      </li>
+      <li class="navbar-item dropdown">
+        <a class="navbar-link" href="#">
+          <span class="nav-icon">🔧</span>
+          Jenkins
+          <span class="dropdown-arrow">▼</span>
+        </a>
+        <ul class="dropdown-menu">
+          <a href="jenkins-pipeline.html" target="_blank">CI Pipeline</a>
+          <a href="jenkins-plugins.html" target="_blank">Plugins</a>
+          <a href="jenkins-jobs.html" target="_blank">Build Jobs</a>
+          <a href="jenkins-deployment.html" target="_blank">Deployment</a>
+        </ul>
+      </li>
+      <li class="navbar-item dropdown">
+        <a class="navbar-link" href="#">
+          <span class="nav-icon">📊</span>
+          Monitoring
+          <span class="dropdown-arrow">▼</span>
+        </a>
+        <ul class="dropdown-menu">
+          <a href="monitoring-prometheus.html" target="_blank">Prometheus</a>
+          <a href="monitoring-grafana.html" target="_blank">Grafana</a>
+          <a href="monitoring-elk.html" target="_blank">ELK Stack</a>
+          <a href="monitoring-metrics.html" target="_blank">Metrics</a>
+          <a href="monitoring-alerting.html" target="_blank">Alerting</a>
+        </ul>
+      </li>
+      <li class="navbar-item dropdown">
+        <a class="navbar-link" href="#">
+          <span class="nav-icon">🔒</span>
+          Security
+          <span class="dropdown-arrow">▼</span>
+        </a>
+        <ul class="dropdown-menu">
+          <a href="security-scanning.html" target="_blank">Vulnerability Scanning</a>
+          <a href="security-iam.html" target="_blank">IAM & Access Control</a>
+          <a href="security-secrets.html" target="_blank">Secrets Management</a>
+          <a href="security-compliance.html" target="_blank">Compliance</a>
+        </ul>
+      </li>
+      <li class="navbar-item dropdown">
+        <a class="navbar-link" href="#">
+          <span class="nav-icon">🌐</span>
+          Networking
+          <span class="dropdown-arrow">▼</span>
+        </a>
+        <ul class="dropdown-menu">
+          <a href="networking-loadbalancing.html" target="_blank">Load Balancing</a>
+          <a href="networking-dns.html" target="_blank">DNS Management</a>
+          <a href="networking-vpn.html" target="_blank">VPN Setup</a>
+          <a href="networking-firewall.html" target="_blank">Firewall Rules</a>
+          <a href="networking-cdn.html" target="_blank">CDN Configuration</a>
+        </ul>
+      </li>
+      <li class="navbar-item dropdown">
+        <a class="navbar-link" href="#">
+          <span class="nav-icon">💾</span>
+          Databases
+          <span class="dropdown-arrow">▼</span>
+        </a>
+        <ul class="dropdown-menu">
+          <a href="db-mysql.html" target="_blank">MySQL</a>
+          <a href="db-postgresql.html" target="_blank">PostgreSQL</a>
+          <a href="db-mongodb.html" target="_blank">MongoDB</a>
+          <a href="db-redis.html" target="_blank">Redis</a>
+          <a href="db-backup.html" target="_blank">Backup Strategies</a>
+        </ul>
+      </li>
+      <li class="navbar-item dropdown">
+        <a class="navbar-link" href="#">
+          <span class="nav-icon">📦</span>
+          Storage
+          <span class="dropdown-arrow">▼</span>
+        </a>
+        <ul class="dropdown-menu">
+          <a href="storage-block.html" target="_blank">Block Storage</a>
+          <a href="storage-object.html" target="_blank">Object Storage</a>
+          <a href="storage-nfs.html" target="_blank">Network File System</a>
+          <a href="storage-backup.html" target="_blank">Backup Solutions</a>
+        </ul>
+      </li>
+      <li class="navbar-item dropdown">
+        <a class="navbar-link" href="#">
+          <span class="nav-icon">🚀</span>
+          Deployment
+          <span class="dropdown-arrow">▼</span>
+        </a>
+        <ul class="dropdown-menu">
+          <a href="deployment-strategies.html" target="_blank">Deployment Strategies</a>
+          <a href="deployment-automation.html" target="_blank">Automation</a>
+          <a href="deployment-rollback.html" target="_blank">Rollback Procedures</a>
+          <a href="deployment-canary.html" target="_blank">Canary Releases</a>
+          <a href="deployment-bluegreen.html" target="_blank">Blue-Green Deployment</a>
+        </ul>
+      </li>
+      <li class="navbar-item dropdown">
+        <a class="navbar-link" href="#">
+          <span class="nav-icon">🛠️</span>
+          Tools
+          <span class="dropdown-arrow">▼</span>
+        </a>
+        <ul class="dropdown-menu">
+          <a href="tools-git.html" target="_blank">Git & Version Control</a>
+          <a href="tools-ansible.html" target="_blank">Ansible</a>
+          <a href="tools-vagrant.html" target="_blank">Vagrant</a>
+          <a href="tools-helm.html" target="_blank">Helm Charts</a>
+          <a href="tools-scripting.html" target="_blank">Scripting</a>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<canvas class="webgl"></canvas>
