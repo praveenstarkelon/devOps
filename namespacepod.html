@@ -6,55 +6,51 @@
     <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-
-<nav>
-    <h2>Contents</h2>
-    <a href="#namespaces-list">Namespaces list and creation</a>
-    <a href="#pods-namespace">Pods in Namespace</a>
-    <a href="#namespace-yaml">Namespace YAML Creation</a>
-</nav>
-
-<main>
-    <h2>Kubernetes Namespace Practical Guide</h2>
-
-    <div id="namespaces-list" class="section">
-        <h3>Namespaces list and creation</h3>
-        <div><span class="cmd"># kubectl get namespace</span> या <span class="cmd">kubectl get ns</span></div>
-        <pre>
+  <div id="app">
+    <nav>
+        <h2>Contents</h2>
+        <a href="#namespaces-list">Namespaces list and creation</a>
+        <a href="#pods-namespace">Pods in Namespace</a>
+        <a href="#namespace-yaml">Namespace YAML Creation</a>
+    </nav>
+    <main>
+        <h2>Kubernetes Namespace Practical Guide</h2>
+        <div id="namespaces-list" class="section">
+            <h3>Namespaces list and creation</h3>
+            <div><span class="cmd"># kubectl get namespace</span> या <span class="cmd">kubectl get ns</span></div>
+            <pre>
 NAME                   STATUS   AGE
 default                Active   18m
 kube-node-lease        Active   18m
 kube-public            Active   18m
 kube-system            Active   18m
 local-path-storage     Active   17m
-        </pre>
-        <span class="note">यह सभी namespace दिखाता है।</span>
-        <div><span class="cmd"># kubectl create ns nginx</span> ― नया namespace "nginx" बनाएँ।</div>
-        <div><span class="cmd"># kubectl del ns &lt;name&gt;</span> ― किसी namespace को delete करें।</div>
-        <img src="image.jpg" alt="Namespaces illustration"/>
-        <span class="note">nginx नाम का namespace बन चुका है, अब इसमें चीज़ें बना सकते हैं।</span>
-    </div>
-
-    <div id="pods-namespace" class="section">
-        <h3>Pods in Namespace</h3>
-        <div><span class="cmd"># kubectl get pod -n nginx</span> ― सभी pods देखें इस namespace में।</div>
-        <div><span class="cmd"># kubectl del pod nginx --n nginx</span> ― pod delete करना सीखें।</div>
-        <div><span class="cmd"># kubectl run nginx --image nginx -n nginx </span> pod banane k liye </div>
-    </div>
-
-    <div id="namespace-yaml" class="section">
-        <h3>Namespace YAML से बनाना</h3>
-        <p><span class="note">YAML file: <b>nginx_namespace.yml</b></span></p>
-        <pre class="yaml">
+            </pre>
+            <span class="note">यह सभी namespace दिखाता है।</span>
+            <div><span class="cmd"># kubectl create ns nginx</span> ― नया namespace "nginx" बनाएँ।</div>
+            <div><span class="cmd"># kubectl del ns &lt;name&gt;</span> ― किसी namespace को delete करें।</div>
+            <img src="image.jpg" alt="Namespaces illustration"/>
+            <span class="note">nginx नाम का namespace बन चुका है, अब इसमें चीज़ें बना सकते हैं।</span>
+        </div>
+        <div id="pods-namespace" class="section">
+            <h3>Pods in Namespace</h3>
+            <div><span class="cmd"># kubectl get pod -n nginx</span> ― सभी pods देखें इस namespace में।</div>
+            <div><span class="cmd"># kubectl del pod nginx --n nginx</span> ― pod delete करना सीखें।</div>
+            <div><span class="cmd"># kubectl run nginx --image nginx -n nginx </span> pod banane k liye </div>
+        </div>
+        <div id="namespace-yaml" class="section">
+            <h3>Namespace YAML से बनाना</h3>
+            <p><span class="note">YAML file: <b>nginx_namespace.yml</b></span></p>
+            <pre class="yaml">
 kind: Namespace
 apiVersion: v1
 metadata:
   name: nginx
-        </pre>
-        <div><span class="cmd"># kubectl apply -f nginx_namespace.yml</span> -- YAML से namespace बनाएं।</div>
-    </div>
-</main>
-
-<script src="scripts.js"></script>
+            </pre>
+            <div><span class="cmd"># kubectl apply -f nginx_namespace.yml</span> -- YAML से namespace बनाएं।</div>
+        </div>
+    </main>
+  </div>
+  <script src="scripts.js"></script>
 </body>
 </html>
