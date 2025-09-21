@@ -3,13 +3,13 @@ body {
     background: #0a1929;
     margin: 0;
     display: flex;
-    color: #e0e8f4; /* overall light font */
+    color: #e0e8f4;
 }
 
 /* Sidebar style */
 nav {
     width: 220px;
-    background: #0f1e36; /* deep navy */
+    background: #0f1e36;
     color: #e0e8f4;
     height: 100vh;
     position: fixed;
@@ -22,23 +22,23 @@ nav {
 nav h2 {
     font-size: 20px;
     margin-bottom: 15px;
-    border-bottom: 1px solid #2563eb; /* bright blue accent */
+    border-bottom: 1px solid #facc15; /* yellow accent underline */
     padding-bottom: 8px;
-    color: #2563eb;
+    color: #facc15; /* yellow heading */
 }
 nav a {
     display: block;
-    color: #9ca3af;
+    color: #cbd5e1;
     text-decoration: none;
     margin: 11px 0;
     padding: 8px 12px;
     border-radius: 6px;
-    transition: background-color 0.2s;
+    transition: background-color 0.2s, color 0.2s;
     font-size: 15px;
 }
 nav a:hover {
-    background-color: #2563eb;
-    color: white;
+    background-color: #facc15;
+    color: #2d2d2d;
 }
 
 /* Main content style */
@@ -46,50 +46,50 @@ main {
     margin-left: 240px;
     padding: 40px 40px 40px 40px;
     max-width: 900px;
-    background: #112240; /* subtle navy */
+    background: #112240;
     border-radius: 12px;
-    box-shadow: 0 0 20px rgba(37, 99, 235, 0.3);
+    box-shadow: 0 0 20px rgba(234, 179, 8, 0.18); /* subtle yellow shade */
 }
 h2, h3 {
-    color: #22c55e; /* green accent for headings */
+    color: #facc15; /* yellow accent headings */
 }
 .section {
     margin-bottom: 36px;
     background: #1e293b;
     padding: 15px 25px 15px 15px;
     border-radius: 9px;
-    box-shadow: 0 2px 15px rgba(10, 25, 41, 0.7);
-    border-left: 5px solid #2563eb;
+    box-shadow: 0 2px 15px rgba(250, 204, 21, 0.1); /* very light yellow glow */
+    /* border-left: 5px solid #2563eb;  <-- removed vertical blue bar */
 }
 pre, code {
-    background: #182337;
-    color: #22d3ee;
+    background: #23272e;
+    color: #ffe066;
     border-radius: 4px;
     padding: 12px;
     font-size: 1em;
     overflow-x: auto;
     display: block;
     font-family: 'Source Code Pro', monospace;
-    box-shadow: inset 0 0 15px #22d3eeaa;
+    box-shadow: 0 0 14px #ffe06640;
 }
 img {
     max-width: 90%;
     border-radius: 8px;
     margin: 15px 0;
     display: block;
-    box-shadow: 0 0 15px #10b981bb;
+    box-shadow: 0 0 10px #ffe06655; /* subtle yellow glow */
 }
 .note {
-    color: #10b981;
+    color: #facc15;
     margin-left: 7px;
     font-size: 1em;
 }
 .cmd {
-    color: #2563eb;
+    color: #eab308; /* yellow command line */
     font-weight: bold;
     font-family: monospace;
 }
 .yaml {
-    color: #22d3ee;
+    color: #ffe066;
     font-weight: 600;
 }
