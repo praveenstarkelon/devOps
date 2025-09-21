@@ -7,9 +7,9 @@ document.addEventListener("DOMContentLoaded", () => {
   canvas.height = window.innerHeight;
 
   let tick = 0;
-  let speed = 3; // speed of star movement
+  let speed = 1.5; // speed of star movement
 
-  const numStars = 50000;
+  const numStars = 1000;
   const stars = [];
 
   // Generate stars randomly
