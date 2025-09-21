@@ -1,56 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <title>Kubernetes Namespace Practical Notes with Sidebar</title>
-    <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Modern DevOps Documentation</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div id="app">
     <nav>
-        <h2>Contents</h2>
-        <a href="#namespaces-list">Namespaces list and creation</a>
-        <a href="#pods-namespace">Pods in Namespace</a>
-        <a href="#namespace-yaml">Namespace YAML Creation</a>
+      <h1>Navigation</h1>
+      <ul>
+        <li><a href="#intro" class="active">Introduction</a></li>
+        <li><a href="#architecture">Architecture</a></li>
+        <li><a href="#deployment">Deployment</a></li>
+        <li><a href="#security">Security</a></li>
+        <li><a href="#best-practices">Best Practices</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
     </nav>
+
     <main>
-        <h2>Kubernetes Namespace Practical Guide</h2>
-        <div id="namespaces-list" class="section">
-            <h3>Namespaces list and creation</h3>
-            <div><span class="cmd"># kubectl get namespace</span> या <span class="cmd">kubectl get ns</span></div>
-            <pre>
-NAME                   STATUS   AGE
-default                Active   18m
-kube-node-lease        Active   18m
-kube-public            Active   18m
-kube-system            Active   18m
-local-path-storage     Active   17m
-            </pre>
-            <span class="note">यह सभी namespace दिखाता है।</span>
-            <div><span class="cmd"># kubectl create ns nginx</span> ― नया namespace "nginx" बनाएँ।</div>
-            <div><span class="cmd"># kubectl del ns &lt;name&gt;</span> ― किसी namespace को delete करें।</div>
-            <img src="image.jpg" alt="Namespaces illustration"/>
-            <span class="note">nginx नाम का namespace बन चुका है, अब इसमें चीज़ें बना सकते हैं।</span>
-        </div>
-        <div id="pods-namespace" class="section">
-            <h3>Pods in Namespace</h3>
-            <div><span class="cmd"># kubectl get pod -n nginx</span> ― सभी pods देखें इस namespace में।</div>
-            <div><span class="cmd"># kubectl del pod nginx --n nginx</span> ― pod delete करना सीखें।</div>
-            <div><span class="cmd"># kubectl run nginx --image nginx -n nginx </span> pod banane k liye </div>
-        </div>
-        <div id="namespace-yaml" class="section">
-            <h3>Namespace YAML से बनाना</h3>
-            <p><span class="note">YAML file: <b>nginx_namespace.yml</b></span></p>
-            <pre class="yaml">
-kind: Namespace
-apiVersion: v1
-metadata:
-  name: nginx
-            </pre>
-            <div><span class="cmd"># kubectl apply -f nginx_namespace.yml</span> -- YAML से namespace बनाएं।</div>
-        </div>
+      <section id="intro">
+        <h2>Introduction</h2>
+        <p>Welcome to the modern DevOps documentation portal. This website is designed with cutting-edge UX and visual appeal that impresses HR and CTO alike.</p>
+      </section>
+
+      <section id="architecture">
+        <h2>Architecture</h2>
+        <p>Understand the logical cluster designs, including microservices, cloud native principles, & more.</p>
+      </section>
+
+      <section id="deployment">
+        <h2>Deployment</h2>
+        <p>Learn how to deploy your containers with zero downtime and rolling updates.</p>
+      </section>
+
+      <section id="security">
+        <h2>Security</h2>
+        <p>Explore security best practices for DevOps pipelines and infrastructure.</p>
+      </section>
+
+      <section id="best-practices">
+        <h2>Best Practices</h2>
+        <p>Industry-standard guidelines and methodologies that keeps your team productive.</p>
+      </section>
+
+      <section id="faq">
+        <h2>FAQ</h2>
+        <p>Answers to frequently asked questions about DevOps and related technologies.</p>
+      </section>
     </main>
   </div>
+
   <script src="scripts.js"></script>
 </body>
 </html>
