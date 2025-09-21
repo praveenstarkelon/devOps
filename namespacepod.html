@@ -1,20 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <title>Kubernetes Namespace Practical Notes with Sidebar</title>
-    <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kubernetes Notes with Starfield</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <!-- Starfield Background -->
+  <canvas id="stars"></canvas>
 
-<nav>
+  <!-- Sidebar -->
+  <nav>
     <h2>Contents</h2>
     <a href="#namespaces-list">Namespaces list and creation</a>
     <a href="#pods-namespace">Pods in Namespace</a>
     <a href="#namespace-yaml">Namespace YAML Creation</a>
-</nav>
+  </nav>
 
-<main>
+  <!-- Main Content -->
+  <main>
     <h2>Kubernetes Namespace Practical Guide</h2>
 
     <div id="namespaces-list" class="section">
@@ -52,8 +57,9 @@ metadata:
         </pre>
         <div><span class="cmd"># kubectl apply -f nginx_namespace.yml</span> -- YAML से namespace बनाएं।</div>
     </div>
-</main>
+  </main>
 
-<script src="scripts.js"></script>
+  <!-- Script -->
+  <script src="scripts.js"></script>
 </body>
 </html>
