@@ -3,29 +3,48 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Kubectl Installation Guide</title>
+  <title>Kubernetes Notes with Starfield</title>
   <link rel="stylesheet" href="styles.css">
   <style>
-    body {margin:0; font-family:Segoe UI, sans-serif; background:#0c0c1d; color:#ddd; line-height:1.6;}
-    /* Starfield canvas */
-    #stars {position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; background:black;}
-    /* Sidebar */
-    nav {
-      position:fixed; top:0; left:0; width:220px; height:100vh;
-      background:#111; padding:20px; overflow:auto;
+    body {
+      margin:0;
+      font-family:Segoe UI, sans-serif;
+      background:#0c0c1d;
+      color:#ddd;
     }
-    nav h2 {color:#4CAF50; font-size:18px; margin-bottom:12px;}
-    nav a {display:block; color:#ccc; margin:8px 0; text-decoration:none;}
-    nav a:hover {color:#4CAF50;}
-    /* Main */
-    main {margin-left:240px; padding:30px; max-width:800px;}
-    main h2 {color:#4CAF50;}
-    .section {margin-bottom:50px;}
-    .section h3 {color:#fff; border-left:4px solid #4CAF50; padding-left:10px;}
-    .cmd {background:#222; color:#4CAF50; padding:2px 6px; border-radius:4px; font-family:monospace;}
-    pre {background:#1a1a2b; color:#f8f8f2; padding:12px; border-radius:6px; overflow-x:auto;}
-    .note {color:#aaa; display:block; margin:5px 0;}
-    img {max-width:100%; margin:10px 0; border-radius:6px;}
+    #stars {
+      position:fixed;
+      top:0; left:0;
+      width:100%; height:100%;
+      z-index:-1;
+      background:black;
+    }
+    nav {
+      position:fixed;
+      top:0; left:0;
+      width:220px; height:100vh;
+      background:#111;
+      padding:20px;
+      overflow:auto;
+    }
+    nav h2 { color:#4CAF50; font-size:18px; }
+    nav a {
+      display:block;
+      color:#ccc;
+      margin:8px 0;
+      text-decoration:none;
+    }
+    nav a:hover { color:#4CAF50; }
+    main {
+      margin-left:240px;
+      padding:30px;
+      max-width:800px;
+    }
+    main h2 { color:#4CAF50; }
+    .section { margin-bottom:50px; }
+    .section h3 { color:#fff; border-left:4px solid #4CAF50; padding-left:10px; }
+    a { color: inherit; text-decoration:none; }
+    a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
@@ -35,101 +54,171 @@
   <!-- Sidebar -->
   <nav>
     <h2>Contents</h2>
-    <a href="#step1">Step 1: Download</a>
-    <a href="#step2">Step 2: Move to Folder</a>
-    <a href="#step3">Step 3: Add to PATH</a>
-    <a href="#step4">Step 4: Verify Installation</a>
-    <a href="#step5">Step 5: Verify Hash</a>
-    <a href="#step6">Step 6: Ready to Use</a>
+    <a href="#section1"><h3>Prerequisite</h3></a>
+    <a href="#section2"><span style="color:Deepskyblue;">1.On Window</span></a>
+    <a href="#section3"><h3>On Linux</h3> </a>
   </nav>
 
   <!-- Main Content -->
   <main>
-    <h2>Kubectl Installation Guide (Windows)</h2>
+    <h2><span style="color:deepskyblue;">Kubectl Installation</span> <br>
+       
+      
+    </h2>
 
-    <div id="step1" class="section">
-      <h3>Step 1: Download kubectl.exe</h3>
-      <div><span class="cmd">curl.exe -LO "https://dl.k8s.io/release/v1.34.0/bin/windows/amd64/kubectl.exe"</span></div>
-      <span class="note">तुम चाहे तो Kubernetes release page se manually bhi download kar sakte ho.</span>
+    <div id="section1" class="section">
+      <h3>Prerequisite</h3>
+      <p>1. Make sure that kubectl version is same of <b> <i> <span style="color: red;">eks cluster</span></i> </b></br> 
+      <pre>&lt;span style=&quot;color:red;&quot;&gt;eks cluster&lt;/span&gt;</pre>
+      Eks ka version , Aws console par check kar sakte.</br></p>
+      <p>&nbsp; 1 . Cluster ka version check karne k 3 tarike hai .</p>
+<p>&nbsp; &nbsp; &nbsp;1. Aws conslole&nbsp; 2. Aws cli&nbsp; 3.kubectl command se.</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;2.&nbsp; By aws cli (assuming aws cli is install and configured )&nbsp;</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;#aws eks describe-cluster --name &lt;aapka-cluster-name&gt; --region &lt;region-name&gt; --query "cluster.version"</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3.&nbsp;&nbsp;#kubectl version ( Best command as it show both client and server version , Run on &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;local server or where kubectl is installed and connected to eks)</p>
+  <p>&nbsp; &nbsp;&nbsp;</p>
+  
+      
+   
     </div>
+🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟
+    <div id="section2" class="On Window">
+      <h3>Kubectl installation</h3>
+      <h3 data-start="258" data-end="309">🔹 Method 1: Direct Binary Download (Recommended)</h3>
+<p data-start="310" data-end="369">Isme hum kubectl.exe ko download karke PATH me add karenge.</p>
+<h3 data-start="371" data-end="410">Step 1: Latest Version Check Kare</h3>
+<p data-start="411" data-end="535">Kubernetes ka latest stable version check karne ke liye browser me ye URL khole:<br data-start="491" data-end="494" /><a class="decorated-link cursor-pointer" target="_new" rel="noopener" data-start="497" data-end="533">https://dl.k8s.io/release/stable.txt</a></p>
+<p data-start="537" data-end="555">Example: <code data-start="546" data-end="555">v1.34.0</code></p>
+<hr data-start="557" data-end="560" />
+<h3 data-start="562" data-end="601">Step 2: kubectl.exe Download Kare</h3>
+<p data-start="602" data-end="661"><strong data-start="602" data-end="640">Command Prompt (cmd) ya PowerShell</strong> open karke run kare:</p>
+<div class="contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary">
+<div class="sticky top-9">&nbsp;</div>
+<div class="overflow-y-auto p-4" dir="ltr"><code class="whitespace-pre! language-powershell">curl.exe -LO "https://dl.k8s.io/release/v1.34.0/bin/windows/amd64/kubectl.exe" </code></div>
+</div>
+<p data-start="761" data-end="896">&nbsp;Agar aapke system me <code data-start="785" data-end="791">curl</code> nahi hai, to browser se manually download kare aur <code data-start="843" data-end="856">kubectl.exe</code> ko save kare <code data-start="870" data-end="883">C:\kubectl\</code> folder me.</p>
+      <h3 data-start="903" data-end="942">Step 3: PATH Variable me Add Kare</h3>
+<ol data-start="944" data-end="1277">
+<li data-start="944" data-end="1000">
+<p data-start="947" data-end="1000"><strong data-start="947" data-end="958">Win + R</strong> dabaye &rarr; <code data-start="968" data-end="979">sysdm.cpl</code> type kare &rarr; Enter.</p>
+</li>
+<li data-start="1001" data-end="1049">
+<p data-start="1004" data-end="1049"><code data-start="1004" data-end="1014">Advanced</code> tab &rarr; <strong data-start="1021" data-end="1046">Environment Variables</strong>.</p>
+</li>
+<li data-start="1050" data-end="1115">
+<p data-start="1053" data-end="1115">"System variables" section me <code data-start="1083" data-end="1089">Path</code> select kare &rarr; <strong data-start="1104" data-end="1112">Edit</strong>.</p>
+</li>
+<li data-start="1116" data-end="1231">
+<p data-start="1119" data-end="1203"><strong data-start="1119" data-end="1126">New</strong> dabaye aur jaha aapne <code data-start="1149" data-end="1162">kubectl.exe</code> rakha hai uska path add kare. Example:</p>
+<div class="contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary">
+<div class="sticky top-9">&nbsp;</div>
+<div class="overflow-y-auto p-4" dir="ltr"><code class="whitespace-pre!"><span class="hljs-section">C:\kubectl</span> </code></div>
+</div>
+</li>
+<li data-start="1232" data-end="1277">
+<p data-start="1235" data-end="1277"><strong data-start="1235" data-end="1251">OK &rarr; OK &rarr; OK</strong> dabakar sab close kare.</p>
+</li>
+</ol>
+<hr data-start="1279" data-end="1282" />
+<h3 data-start="1284" data-end="1322">Step 4: Installation Verify Kare</h3>
+<p data-start="1324" data-end="1368">New <strong data-start="1328" data-end="1346">cmd/PowerShell</strong> khole aur run kare:</p>
+<div class="contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary">
+<div class="sticky top-9">&nbsp;</div>
+<div class="overflow-y-auto p-4" dir="ltr"><code class="whitespace-pre! language-powershell">kubectl version --client </code></div>
+</div>
+<p data-start="1414" data-end="1491">Output me <code data-start="1424" data-end="1449">Client Version: v1.34.0</code> (ya jo bhi version hai) aana chahiye. ✅</p>
+      <h3>Delete karne k liye binary delete kar do , and path remove kar do </h3>
+      
+      
+    </div>
+🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟
+    <div id="section3" class="On Linux">
+      
+      <h2>Prerequiste ,before kubectl installation in Linux </h2>
+      
+      <p>Run this command:</p>
+<p>uname -m</p>
+<p><br />Possible outputs:</p>
+<p>x86_64 &rarr; matlab amd64 use karo ✅</p>
+<p>aarch64 &rarr; matlab arm64 use karo ✅</p>
+<p>armv7l &rarr; matlab purana 32-bit ARM hai (uske liye arm build chahiye).</p>
+      
+      <p>Run this command:</p>
+<p>uname -m</p>
+<p><br />Possible outputs:</p>
+<p>x86_64 &rarr; matlab amd64 use karo ✅</p>
+<p>aarch64 &rarr; matlab arm64 use karo ✅</p>
+<p>armv7l &rarr; matlab purana 32-bit ARM hai (uske liye arm build chahiye).</p>
+<table style="height: 12px; width: 679.013px; border-color: Green;">
+<tbody>
+<tr style="height: 267.2px;">
+<td style="width: 248px; height: 267.2px;">
+<h3>🔹 Method 1: Direct Binary Download (Official Kubernetes Way)</h3>
+<p><br />Step 1: Latest Stable Version Check Kare<br />curl -L -s https://dl.k8s.io/release/stable.txt</p>
+<p><br />Example output: v1.34.0</p>
+<p>Step 2: Kubectl Binary Download Kare<br />curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"</p>
+<p><br />👉 Agar aap ARM machine (Raspberry Pi ya Mac M1 Linux VM) pe ho to URL me amd64 ki jagah arm64 likhna hoga.</p>
+<p>Step 3: Binary Ko Executable Bana Do<br />chmod +x kubectl</p>
+<p>Step 4: Move to PATH<br />sudo mv kubectl /usr/local/bin/</p>
+<p>Step 5: Verify Installation<br />kubectl version --client</p>
+<p><br />✅ Output me Client Version: v1.34.0 aana chahiye.</p>
+</td>
+<td style="width: 361.013px; height: 267.2px;">
+<h3 data-start="1161" data-end="1205">🔹 Method 2: Install via Package Manager</h3>
+<h4 data-start="1207" data-end="1231">Ubuntu / Debian (apt)</h4>
+<div class="contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary">
+<div class="sticky top-9">&nbsp;</div>
+<div class="overflow-y-auto p-4" dir="ltr"><code class="whitespace-pre! language-bash">sudo apt-get update&nbsp;</code></div>
+<div class="overflow-y-auto p-4" dir="ltr">&nbsp;</div>
+<div class="overflow-y-auto p-4" dir="ltr"><code class="whitespace-pre! language-bash">sudo apt-get install -y apt-transport-https ca-certificates curl </code></div>
+<div class="overflow-y-auto p-4" dir="ltr">&nbsp;</div>
+<div class="overflow-y-auto p-4" dir="ltr"><code class="whitespace-pre! language-bash">sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://dl.k8s.io/apt/doc/apt-key.gpg </code></div>
+<div class="overflow-y-auto p-4" dir="ltr">&nbsp;</div>
+<div class="overflow-y-auto p-4" dir="ltr"><code class="whitespace-pre! language-bash"><span class="hljs-built_in">echo</span> <span class="hljs-string">"deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main"</span> | sudo <span class="hljs-built_in">tee</span> /etc/apt/sources.list.d/kubernetes.list </code></div>
+<div class="overflow-y-auto p-4" dir="ltr">&nbsp;</div>
+<div class="overflow-y-auto p-4" dir="ltr">sudo apt-get update</div>
+<div class="overflow-y-auto p-4" dir="ltr">&nbsp;</div>
+<div class="overflow-y-auto p-4" dir="ltr"><code class="whitespace-pre! language-bash">sudo apt-get install -y kubectl</code></div>
+<div class="overflow-y-auto p-4" dir="ltr">&nbsp;</div>
+<div class="overflow-y-auto p-4" dir="ltr">&nbsp;</div>
+<div class="overflow-y-auto p-4" dir="ltr">&nbsp;</div>
+<div class="overflow-y-auto p-4" dir="ltr">&nbsp;</div>
+<div class="overflow-y-auto p-4" dir="ltr"><code class="whitespace-pre! language-bash">&nbsp;</code></div>
+<div class="overflow-y-auto p-4" dir="ltr">&nbsp;</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+      
+      <p data-start="2434" data-end="2459"><strong data-start="2434" data-end="2456">Remove (Uninstall)</strong>:</p>
+<ul data-start="2462" data-end="2634">
+<li data-start="2462" data-end="2513">
+<p data-start="2464" data-end="2513">Manual binary: <code data-start="2479" data-end="2511">sudo rm /usr/local/bin/kubectl</code></p>
+</li>
+<li data-start="2516" data-end="2554">
+<p data-start="2518" data-end="2554">Apt: <code data-start="2523" data-end="2552">sudo apt-get remove kubectl</code></p>
+</li>
+</ul>
+      
+    </div>
+🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟
 
-    <div id="step2" class="section">
-      <h3>Step 2: Move to Folder</h3>
-      <ul>
-        <li>Create folder: <span class="cmd">C:\kubectl</span></li>
-        <li><span class="cmd">kubectl.exe</span> ko is folder me paste karo.</li>
-      </ul>
-    </div>
 
-    <div id="step3" class="section">
-      <h3>Step 3: Add Folder to PATH</h3>
-      <ol>
-        <li>Windows Search → <b>Environment Variables</b></li>
-        <li><b>Edit the system environment variables</b> kholna hai</li>
-        <li><b>Environment Variables…</b> pe click karo</li>
-        <li>User Variables → Path → Edit → New</li>
-        <li>Naya path add karo: <span class="cmd">C:\kubectl</span></li>
-        <li>OK → OK → Close se exit</li>
-      </ol>
-    </div>
-
-    <div id="step4" class="section">
-      <h3>Step 4: Verify Installation</h3>
-      <p>Restart Command Prompt ya PowerShell, aur run karo:</p>
-      <pre>kubectl version --client</pre>
-      <span class="note">Agar sahi install hua toh kubectl ka version aa jayega 🎉</span>
-    </div>
-
-    <div id="step5" class="section">
-      <h3>Step 5: (Optional) Verify SHA256 Hash</h3>
-      <div><span class="cmd">curl.exe -LO "https://dl.k8s.io/release/v1.34.0/bin/windows/amd64/kubectl.exe.sha256"</span></div>
-      <div><span class="cmd">CertUtil -hashfile kubectl.exe SHA256</span></div>
-      <span class="note">Hash value ko <span class="cmd">kubectl.exe.sha256</span> file ke content se match kar lo.</span>
-    </div>
-
-    <div id="step6" class="section">
-      <h3>Step 6: Ready to Use</h3>
-      <p>Ab tum kisi bhi directory se <span class="cmd">kubectl</span> command chala sakte ho 🚀</p>
-    </div>
   </main>
 
-  <!-- Script: Starfield animation example -->
-  <script>
-    // Basic simple starfield
-    const canvas = document.getElementById('stars');
-    const ctx = canvas.getContext('2d');
-    let stars = [];
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      stars = [];
-      for (let i = 0; i < 200; i++) {
-        stars.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          size: Math.random() * 2,
-          dx: (Math.random() - 0.5) * 0.2,
-          dy: (Math.random() - 0.5) * 0.2
-        });
-      }
-    }
-    function drawStars() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = "white";
-      stars.forEach(s => {
-        ctx.beginPath();
-        ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
-        ctx.fill();
-        s.x += s.dx;
-        s.y += s.dy;
-        if (s.x < 0 || s.x > canvas.width) s.dx *= -1;
-        if (s.y < 0 || s.y > canvas.height) s.dy *= -1;
-      });
-      requestAnimationFrame(drawStars);
-    }
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-    drawStars();
-  </script>
+  <style>
+a {
+  color: inherit;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline; /* optional */
+}
+</style>
+
+  <!-- Script -->
+  <script src="scripts.js"></script>
 </body>
 </html>
