@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kubernetes Notes with Starfield</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      margin:0;
+      font-family:Segoe UI, sans-serif;
+      background:#0c0c1d;
+      color:#ddd;
+    }
+    #stars {
+      position:fixed;
+      top:0; left:0;
+      width:100%; height:100%;
+      z-index:-1;
+      background:black;
+    }
+    nav {
+      position:fixed;
+      top:0; left:0;
+      width:220px; height:100vh;
+      background:#111;
+      padding:20px;
+      overflow:auto;
+    }
+    nav h2 { color:#4CAF50; font-size:18px; }
+    nav a {
+      display:block;
+      color:#ccc;
+      margin:8px 0;
+      text-decoration:none;
+    }
+    nav a:hover { color:#4CAF50; }
+    main {
+      margin-left:240px;
+      padding:30px;
+      max-width:800px;
+    }
+    main h2 { color:#4CAF50; }
+    .section { margin-bottom:50px; }
+    .section h3 { color:#fff; border-left:4px solid #4CAF50; padding-left:10px; }
+    a { color: inherit; text-decoration:none; }
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <!-- Starfield Background -->
+  <canvas id="stars"></canvas>
+
+  <!-- Sidebar -->
+  <nav>
+    <h2>Contents</h2>
+    <a href="#section1">Section 1</a>
+    <a href="#section2">Section 2</a>
+    <a href="#section3">Section 3</a>
+  </nav>
+
+  <!-- Main Content -->
+  <main>
+    <h2>Kubernetes Notes <br>
+      <small>Prerequisite: kubectl installed 
+      <a href="kubectl.html" target="_blank">Kubectl Guide</a></small>
+    </h2>
+
+    <div id="section1" class="section">
+      <h3>Section 1 Title</h3>
+      <p>…content here…</p>
+    </div>
+
+    <div id="section2" class="section">
+      <h3>Section 2 Title</h3>
+      <p>…content here…</p>
+    </div>
+
+    <div id="section3" class="section">
+      <h3>Section 3 Title</h3>
+      <p>…content here…</p>
+    </div>
+  </main>
+
+  <!-- Starfield Script (basic) -->
+  <script>
+    const canvas = document.getElementById('stars');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+    function resizeCanvas(){
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      stars=[];
+      for(let i=0;i<200;i++){
+        stars.push({
+          x:Math.random()*canvas.width,
+          y:Math.random()*canvas.height,
+          size:Math.random()*2,
+          dx:(Math.random()-0.5)*0.2,
+          dy:(Math.random()-0.5)*0.2
+        });
+      }
+    }
+    function drawStars(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      ctx.fillStyle="white";
+      stars.forEach(s=>{
+        ctx.beginPath();
+        ctx.arc(s.x,s.y,s.size,0,Math.PI*2);
+        ctx.fill();
+        s.x+=s.dx; s.y+=s.dy;
+        if(s.x<0||s.x>canvas.width) s.dx*=-1;
+        if(s.y<0||s.y>canvas.height) s.dy*=-1;
+      });
+      requestAnimationFrame(drawStars);
+    }
+    window.addEventListener('resize',resizeCanvas);
+    resizeCanvas(); drawStars();
+  </script>
+</body>
+</html>
