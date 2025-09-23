@@ -95,3 +95,19 @@ img {
 .yaml {
   color: #fef08a;
 }
+/* Add this to your CSS file or inside a <style> tag in your HTML's head */
+.sticky-home {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 1000;
+  background: #222;
+  padding: 10px 20px;
+  border-radius: 30px;
+}
+.sticky-home a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
