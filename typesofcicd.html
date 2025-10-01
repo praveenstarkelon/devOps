@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kubernetes Notes with Starfield</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: black;
+      color: white;
+      text-align: center;
+    }
+    #stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+    }
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 220px;
+      height: 100vh;
+      background: rgba(0,0,0,0.6);
+      padding: 20px;
+      overflow: auto;
+      border-right: 1px solid #4CAF50;
+      transition: transform 0.3s ease;
+      border-radius: 10px;
+    }
+    nav h2 {
+      color: #4CAF50;
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+    nav a {
+      display: block;
+      color: cyan;
+      margin: 10px 0;
+      padding: 12px 18px;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    nav a:hover {
+      background: rgba(0,255,255,0.15);
+      color: #fff;
+      box-shadow: 
+        0 0 10px #0ff,
+        0 0 20px #0ff,
+        0 0 30px #0ff,
+        0 0 50px #0ff,
+        0 0 80px #0ff;
+      filter: hue-rotate(0deg);
+      animation: hueCycle 3s infinite linear;
+    }
+    @keyframes hueCycle {
+      0% { filter: hue-rotate(0deg); }
+      100% { filter: hue-rotate(360deg); }
+    }
+    .divider {
+      text-align: center;
+      color: #4CAF50;
+      margin: 20px 0;
+      font-size: 14px;
+    }
+    main {
+      margin-left: 260px;
+      padding: 40px;
+      max-width: 900px;
+    }
+    main h2 {
+      color: #4CAF50;
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+    main small {
+      color: #aaa;
+      font-size: 14px;
+    }
+    .section {
+      margin-bottom: 60px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.6s ease forwards;
+    }
+    .section h3 {
+      color: #fff;
+      border-left: 4px solid #4CAF50;
+      padding-left: 15px;
+      font-size: 24px;
+      margin-bottom: 15px;
+    }
+    .section p {
+      line-height: 1.6;
+      font-size: 16px;
+    }
+    .section ul {
+      list-style-type: none;
+      padding-left: 20px;
+    }
+    .section ul li {
+      margin: 10px 0;
+      position: relative;
+    }
+    .section ul li::before {
+      content: '★';
+      color: #4CAF50;
+      position: absolute;
+      left: -20px;
+      font-size: 12px;
+    }
+    a {
+      color: #4CAF50;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @media (max-width: 768px) {
+      nav {
+        width: 100%;
+        height: auto;
+        position: relative;
+      }
+      main {
+        margin-left: 0;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Starfield Background -->
+  <canvas id="stars"></canvas>
+
+  <!-- Sidebar -->
+  <nav>
+    <h2>Contents</h2>
+    <div class="divider">🌟🌟🌟🌟</div>
+    <a href="#ci-cd">1. CI/CD Tools</a>
+    <div class="divider">🌟🌟🌟🌟</div>
+    <a href="#config-management">2. Configuration Management Tools</a>
+    <div class="divider">🌟🌟🌟🌟</div>
+    <a href="#container-orchestration">3. Container Orchestration Tools</a>
+    <div class="divider">🌟🌟🌟🌟</div>
+    <a href="#cloud-native">4. Cloud-Native Deployment Tools</a>
+    <div class="divider">🌟🌟🌟🌟</div>
+    <a href="#serverless">5. Serverless Deployment Tools</a>
+    <div class="divider">🌟🌟🌟🌟</div>
+    <a href="#ara">6. Application Release Automation (ARA) Tools</a>
+    <div class="divider">🌟🌟🌟🌟</div>
+    <a href="#package-managers">7. Package Managers and Artifact Repositories</a>
+    <div class="divider">🌟🌟🌟🌟</div>
+    <a href="#iac">8. Infrastructure as Code (IaC) Tools</a>
+    <div class="divider">🌟🌟🌟🌟</div>
+  </nav>
+
+  <!-- Main Content -->
+  <main>
+    <h2>Kubernetes Notes<br>
+      <small>Prerequisite: kubectl installed 
+      <a href="kubectl.html" target="_blank">Kubectl Guide</a></small>
+    </h2>
+    <div class="divider">🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟</div>
+    
+    <div id="ci-cd" class="section">
+      <h3>Continuous Integration/Continuous Deployment (CI/CD) Tools</h3>
+      <p>Automate building, testing, and deploying code.</p>
+      <ul>
+        <li><strong>Examples:</strong> Jenkins, GitLab CI/CD, CircleCI, Travis CI, GitHub Actions</li>
+        <li><strong>Use:</strong> Streamline development pipelines, integrating code changes and deploying to servers.</li>
+      </ul>
+    </div>
+    <div class="divider">🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟</div>
+    
+    <div id="config-management" class="section">
+      <h3>Configuration Management Tools</h3>
+      <p>Manage and automate server setup and configuration.</p>
+      <ul>
+        <li><strong>Examples:</strong> Ansible, Puppet, Chef, SaltStack</li>
+        <li><strong>Use:</strong> Ensure consistent environments by defining infrastructure as code.</li>
+      </ul>
+    </div>
+    <div class="divider">🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟</div>
+    
+    <div id="container-orchestration" class="section">
+      <h3>Container Orchestration Tools</h3>
+      <p>Manage and scale containerized applications.</p>
+      <ul>
+        <li><strong>Examples:</strong> Kubernetes, Docker Swarm, Nomad</li>
+        <li><strong>Use:</strong> Deploy and manage containers across clusters.</li>
+      </ul>
+    </div>
+    <div class="divider">🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟</div>
+    
+    <div id="cloud-native" class="section">
+      <h3>Cloud-Native Deployment Tools</h3>
+      <p>Facilitate deployment on cloud platforms.</p>
+      <ul>
+        <li><strong>Examples:</strong> AWS CodeDeploy, Google Cloud Build, Azure DevOps, Terraform</li>
+        <li><strong>Use:</strong> Deploy applications to cloud environments with platform-specific integrations.</li>
+      </ul>
+    </div>
+    <div class="divider">🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟</div>
+    
+    <div id="serverless" class="section">
+      <h3>Serverless Deployment Tools</h3>
+      <p>Handle deployment for serverless architectures.</p>
+      <ul>
+        <li><strong>Examples:</strong> AWS SAM, Serverless Framework, Vercel, Netlify</li>
+        <li><strong>Use:</strong> Deploy functions or applications without managing servers.</li>
+      </ul>
+    </div>
+    <div class="divider">🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟</div>
+    
+    <div id="ara" class="section">
+      <h3>Application Release Automation (ARA) Tools</h3>
+      <p>Focus on coordinating and automating application releases.</p>
+      <ul>
+        <li><strong>Examples:</strong> XL Release, Spinnaker, Harness</li>
+        <li><strong>Use:</strong> Manage complex release pipelines across multiple environments.</li>
+      </ul>
+    </div>
+    <div class="divider">🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟</div>
+    
+    <div id="package-managers" class="section">
+      <h3>Package Managers and Artifact Repositories</h3>
+      <p>Store and distribute application packages or binaries.</p>
+      <ul>
+        <li><strong>Examples:</strong> Nexus, Artifactory, Docker Hub, npm</li>
+        <li><strong>Use:</strong> Manage dependencies and deploy artifacts to environments.</li>
+      </ul>
+    </div>
+    <div class="divider">🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟</div>
+    
+    <div id="iac" class="section">
+      <h3>Infrastructure as Code (IaC) Tools</h3>
+      <p>Define and deploy infrastructure using code.</p>
+      <ul>
+        <li><strong>Examples:</strong> Terraform, Pulumi, AWS CloudFormation</li>
+        <li><strong>Use:</strong> Automate provisioning of cloud or on-premises infrastructure.</li>
+      </ul>
+    </div>
+    <div class="divider">🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟</div>
+  </main>
+
+  <!-- Scripts -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const canvas = document.getElementById("stars");
+      const ctx = canvas.getContext("2d");
+
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      let tick = 0;
+      const numStars = 500;
+      const stars = [];
+
+      for (let i = 0; i < numStars; i++) {
+        stars.push({
+          x: (Math.random() - 0.5) * canvas.width,
+          y: (Math.random() - 0.5) * canvas.height,
+          z: Math.random() * canvas.width,
+        });
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        let hue = tick % 360;
+
+        for (let s of stars) {
+          s.z -= 1.2;
+          if (s.z <= 0) {
+            s.x = (Math.random() - 0.5) * canvas.width;
+            s.y = (Math.random() - 0.5) * canvas.height;
+            s.z = canvas.width;
+          }
+          let scale = 300 / s.z;
+          let x = s.x * scale + canvas.width / 2;
+          let y = s.y * scale + canvas.height / 2;
+          let radius = Math.max(0.5, 2 * (1 - s.z / canvas.width));
+
+          let gradient = ctx.createRadialGradient(x, y, 0, x, y, radius * 4);
+          gradient.addColorStop(0, `hsla(${hue}, 100%, 80%, 1)`);
+          gradient.addColorStop(1, `hsla(${(hue + 60) % 360}, 100%, 20%, 0)`);
+
+          ctx.beginPath();
+          ctx.arc(x, y, radius, 0, Math.PI * 2);
+          ctx.fillStyle = gradient;
+          ctx.fill();
+        }
+
+        tick++;
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+
+      window.addEventListener("resize", () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      });
+
+      // Smooth scrolling for nav links
+      document.querySelectorAll('nav a').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href').substring(1);
+          const targetElement = document.getElementById(targetId);
+          targetElement.scrollIntoView({ behavior: 'smooth' });
+        });
+      });
+    });
+  </script>
+</body>
+</html>
